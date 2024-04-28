@@ -5,16 +5,16 @@ public class Main {
     public static void main(String[] args) {
 
         Theme theme1 = new Theme();
-        theme1.setThemeName("Английский");
+        theme1.setName("Английский");
         Theme theme2 = new Theme();
-        theme2.setThemeName("Обществознание");
+        theme2.setName("Обществознание");
 
         CardsPacket cardsPacket1 = new CardsPacket();
-        cardsPacket1.setPacketName("Животные");
+        cardsPacket1.setName("Животные");
         CardsPacket cardsPacket2 = new CardsPacket();
-        cardsPacket2.setPacketName("Профессии");
+        cardsPacket2.setName("Профессии");
         CardsPacket cardsPacket3 = new CardsPacket();
-        cardsPacket3.setPacketName("Право");
+        cardsPacket3.setName("Право");
 
         Card card1 = new Card();
         card1.setFrontText("cat");
@@ -69,12 +69,12 @@ public class Main {
         themes.add(theme1);
         themes.add(theme2);
 
-        String[] names = themes.stream().map(t -> t.getThemeName()).toArray(String[]::new);
+        String[] names = themes.stream().map(t -> t.getName()).toArray(String[]::new);
         TextPanel panel = new TextPanel("Темы", names, false);
         int choice = panel.getChoice();
 
-        String[] packeges = themes.get(choice - 1).getCardsPackets().stream().map(p -> p.getPacketName()).toArray(String[]::new);
-        TextPanel panel1 = new TextPanel("Пакеты::" + themes.get(choice - 1).getThemeName(), packeges, false);
+        String[] packages = themes.get(choice - 1).getCardsPackets().stream().map(p -> p.getName()).toArray(String[]::new);
+        TextPanel panel1 = new TextPanel("Пакеты::" + themes.get(choice - 1).getName(), packages, false);
         int choice1 = panel1.getChoice();
 
 

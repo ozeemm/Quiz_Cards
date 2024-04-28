@@ -1,14 +1,21 @@
 import java.util.ArrayList;
 
 public class CardsPacket {
-    private String packetName;
+    private int id;
+    private String name;
     private ArrayList<Card> cards = new ArrayList<>();
 
-    public String getPacketName() {
-        return packetName;
+    public int getId() {
+        return id;
     }
-    public void setPacketName(String packetName) {
-        this.packetName = packetName;
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     public ArrayList<Card> getCards() {
         return cards;
@@ -16,5 +23,4 @@ public class CardsPacket {
     public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
     }
-
 }

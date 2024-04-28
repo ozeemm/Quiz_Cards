@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 
 public class Theme {
-    private String themeName;
+    private int id;
+    private String name;
     private ArrayList<CardsPacket> cardsPackets = new ArrayList<>();
 
-    public String getThemeName() {
-        return themeName;
+    public String getName() {
+        return name;
     }
-    public void setThemeName(String themeName) {
-        this.themeName = themeName;
+    public void setName(String name) {
+        this.name = name;
     }
     public ArrayList<CardsPacket> getCardsPackets() {
         return cardsPackets;
