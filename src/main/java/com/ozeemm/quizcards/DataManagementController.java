@@ -3,43 +3,15 @@ package com.ozeemm.quizcards;
 import Model.Card;
 import Model.CardsPacket;
 import Model.Theme;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AdminController {
-    private DBWorker dbWorker = new DBWorker();
-    @GetMapping("Themes")
-    public ArrayList<Theme> getThemes(){
-        return dbWorker.getThemes();
-    }
-    @GetMapping("Packets")
-    public ArrayList<CardsPacket> getPackets(@RequestBody String themeJson) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(themeJson, Theme.class);
-            return dbWorker.getPackets(theme);
-        } catch(JsonProcessingException e){ e.printStackTrace(); }
-        return null;
-    }
-    @GetMapping("Cards")
-    public ArrayList<Card> getCards(@RequestBody String packetJson){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            CardsPacket packet = objectMapper.readValue(packetJson, CardsPacket.class);
-            return dbWorker.getCards(packet);
-        } catch(JsonProcessingException e){ e.printStackTrace(); }
-        return null;
-    }
+@RequestMapping("/api/data-management")
+public class DataManagementController {
+    DBWorker dbWorker = new DBWorker();
 
-    @PostMapping("CreateTheme")
+    @PostMapping("theme")
     public void createTheme(@RequestBody String themeJson){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -48,7 +20,7 @@ public class AdminController {
             dbWorker.createTheme(theme);
         } catch(Exception e) { e.printStackTrace(); }
     }
-    @PostMapping("UpdateTheme")
+    @PutMapping("theme")
     public void updateTheme(@RequestBody String themeJson){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -57,7 +29,7 @@ public class AdminController {
             dbWorker.updateTheme(theme);
         } catch(Exception e) { e.printStackTrace(); }
     }
-    @PostMapping("DeleteTheme")
+    @DeleteMapping("theme")
     public void deleteTheme(@RequestBody String themeJson){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -67,7 +39,7 @@ public class AdminController {
         } catch(Exception e) { e.printStackTrace(); }
     }
 
-    @PostMapping("CreatePacket")
+    @PostMapping("packet")
     public void createPacket(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -79,7 +51,7 @@ public class AdminController {
             dbWorker.createPacket(theme, packet);
         } catch(Exception e){ e.printStackTrace(); }
     }
-    @PostMapping("UpdatePacket")
+    @PutMapping("packet")
     public void updatePacket(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -88,7 +60,7 @@ public class AdminController {
             dbWorker.updatePacket(packet);
         } catch(Exception e){ e.printStackTrace(); }
     }
-    @PostMapping("DeletePacket")
+    @DeleteMapping("packet")
     public void deletePacket(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -98,7 +70,7 @@ public class AdminController {
         } catch(Exception e){ e.printStackTrace(); }
     }
 
-    @PostMapping("CreateCard")
+    @PostMapping("card")
     public void createCard(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -110,7 +82,7 @@ public class AdminController {
             dbWorker.createCard(packet, card);
         } catch(Exception e){ e.printStackTrace(); }
     }
-    @PostMapping("UpdateCard")
+    @PutMapping("card")
     public void updateCard(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -119,7 +91,7 @@ public class AdminController {
             dbWorker.updateCard(card);
         } catch(Exception e){ e.printStackTrace(); }
     }
-    @PostMapping("DeleteCard")
+    @DeleteMapping("card")
     public void deleteCard(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();

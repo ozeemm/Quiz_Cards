@@ -58,13 +58,13 @@ public class DBWorker {
         } catch (SQLException e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<CardsPacket> getPackets(Theme theme){
+    public ArrayList<CardsPacket> getPackets(int theme_id){
         try{
             ArrayList<CardsPacket> packets = new ArrayList<CardsPacket>();
 
             String query = "select * from card_packets where id in (select packet_id from packets_themes_rel where theme_id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, theme.getId());
+            statement.setInt(1, theme_id);
 
             ResultSet table = statement.executeQuery();
 
@@ -83,13 +83,13 @@ public class DBWorker {
         } catch (SQLException e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<Card> getCards(CardsPacket packet){
+    public ArrayList<Card> getCards(int card_id){
         try{
             ArrayList<Card> cards = new ArrayList<Card>();
 
             String query = "select * from cards where id in (select card_id from cards_packets_rel where packet_id = ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, packet.getId());
+            statement.setInt(1, card_id);
 
             ResultSet table = statement.executeQuery();
 
