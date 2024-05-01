@@ -7,5 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class QuizcardsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(QuizcardsApplication.class, args);
+		System.out.println("Server started!");
 	}
 }
