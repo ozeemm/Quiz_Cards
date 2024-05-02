@@ -1,10 +1,9 @@
-package com.ozeemm.quizcards;
+package quiz.cards.backend.Controllers;
 
 import Model.Card;
 import Model.CardsPacket;
 import Model.Theme;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import quiz.cards.backend.Data.DBWorker;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

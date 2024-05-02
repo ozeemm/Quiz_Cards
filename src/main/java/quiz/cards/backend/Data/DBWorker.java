@@ -1,4 +1,4 @@
-package com.ozeemm.quizcards;
+package quiz.cards.backend.Data;
 
 import Model.Card;
 import Model.CardsPacket;
