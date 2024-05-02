@@ -1,9 +1,10 @@
-package Model;
+package quiz.cards.backend.Model;
 
-public class CardsPacket {
+public class Theme {
     private int id;
     private String name;
     private String description;
+
     public int getId() {
         return id;
     }

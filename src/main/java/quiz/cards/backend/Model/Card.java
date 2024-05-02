@@ -1,4 +1,4 @@
-package Model;
+package quiz.cards.backend.Model;
 
 public class Card {
     private int id;

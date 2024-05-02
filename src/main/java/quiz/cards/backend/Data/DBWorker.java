@@ -1,8 +1,8 @@
 package quiz.cards.backend.Data;
 
-import Model.Card;
-import Model.CardsPacket;
-import Model.Theme;
+import quiz.cards.backend.Model.Card;
+import quiz.cards.backend.Model.CardsPacket;
+import quiz.cards.backend.Model.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -131,8 +131,21 @@ public class DBWorker {
     }
     public void deleteTheme(Theme theme){
         try{
-            String query = "DELETE FROM themes WHERE id=?";
+            // Clear cards
+            String query = "DELETE FROM cards WHERE id in (SELECT card_id FROM cards_packets_rel WHERE packet_id in (SELECT packet_id FROM packets_themes_rel WHERE theme_id=?))";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, theme.getId());
+            statement.execute();
+
+            // Clear packets
+            query = "DELETE FROM card_packets WHERE id in (SELECT packet_id FROM packets_themes_rel WHERE theme_id=?)";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, theme.getId());
+            statement.execute();
+
+            // Clear themes
+            query = "DELETE FROM themes WHERE id=?";
+            statement = connection.prepareStatement(query);
             statement.setInt(1, theme.getId());
             statement.execute();
             statement.close();
@@ -172,8 +185,15 @@ public class DBWorker {
     }
     public void deletePacket(CardsPacket packet){
         try{
-            String query = "DELETE FROM card_packets WHERE id=?";
+            // Clear cards
+            String query = "DELETE FROM cards WHERE id in (SELECT card_id FROM cards_packets_rel WHERE packet_id=?)";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, packet.getId());
+            statement.execute();
+
+            // Clear packets
+            query = "DELETE FROM card_packets WHERE id=?";
+            statement = connection.prepareStatement(query);
             statement.setInt(1, packet.getId());
             statement.execute();
             statement.close();

@@ -1,8 +1,8 @@
 package quiz.cards.backend.Controllers;
 
-import Model.Card;
-import Model.CardsPacket;
-import Model.Theme;
+import quiz.cards.backend.Model.Card;
+import quiz.cards.backend.Model.CardsPacket;
+import quiz.cards.backend.Model.Theme;
 import quiz.cards.backend.Data.DBWorker;
 import org.springframework.web.bind.annotation.*;
 

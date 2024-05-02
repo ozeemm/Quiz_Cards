@@ -1,8 +1,8 @@
 package quiz.cards.backend.Controllers;
 
-import Model.Card;
-import Model.CardsPacket;
-import Model.Theme;
+import quiz.cards.backend.Model.Card;
+import quiz.cards.backend.Model.CardsPacket;
+import quiz.cards.backend.Model.Theme;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import quiz.cards.backend.Data.DBWorker;
 import org.springframework.web.bind.annotation.*;
@@ -13,28 +13,28 @@ public class DataManagementController {
     DBWorker dbWorker = new DBWorker();
 
     @PostMapping("theme")
-    public void createTheme(@RequestBody String themeJson){
+    public void createTheme(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(themeJson, Theme.class);
+            Theme theme = objectMapper.readValue(json, Theme.class);
 
             dbWorker.createTheme(theme);
         } catch(Exception e) { e.printStackTrace(); }
     }
     @PutMapping("theme")
-    public void updateTheme(@RequestBody String themeJson){
+    public void updateTheme(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(themeJson, Theme.class);
+            Theme theme = objectMapper.readValue(json, Theme.class);
 
             dbWorker.updateTheme(theme);
         } catch(Exception e) { e.printStackTrace(); }
     }
     @DeleteMapping("theme")
-    public void deleteTheme(@RequestBody String themeJson){
+    public void deleteTheme(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(themeJson, Theme.class);
+            Theme theme = objectMapper.readValue(json, Theme.class);
 
             dbWorker.deleteTheme(theme);
         } catch(Exception e) { e.printStackTrace(); }
