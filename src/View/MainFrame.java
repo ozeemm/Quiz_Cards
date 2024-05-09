@@ -3,15 +3,14 @@ package View;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    private ThemesPanel themesPanel;
-    private PacketsPanel packetsPanel;
-    private CardsPanel cardsPanel;
+    private GroupPanel themesPanel;
+    private GroupPanel packetsPanel;
+    private GroupPanel cardsPanel;
     private JPanel currentPanel = null;
 
-    public ThemesPanel getThemesPanel(){ return themesPanel; }
-    public PacketsPanel getPacketsPanel(){ return packetsPanel; }
-    public CardsPanel getCardsPanel(){ return cardsPanel; }
-
+    public GroupPanel getThemesPanel(){ return themesPanel; }
+    public GroupPanel getPacketsPanel(){ return packetsPanel; }
+    public GroupPanel getCardsPanel(){ return cardsPanel; }
     public MainFrame(){
         super("Quiz Cards Admin"); // Окно с названием
         setSize(950, 750); // Размер окна
@@ -22,9 +21,14 @@ public class MainFrame extends JFrame {
         //ImageIcon icon = new ImageIcon("./img/icon2.png");
         //this.setIconImage(icon.getImage()); // Иконка окна
 
-        themesPanel = new ThemesPanel();
-        packetsPanel = new PacketsPanel();
-        cardsPanel = new CardsPanel();
+        themesPanel = new GroupPanel();
+        themesPanel.setHeaderText("Темы");
+
+        packetsPanel = new GroupPanel();
+        packetsPanel.setHeaderText("Пакеты");
+
+        cardsPanel = new GroupPanel();
+        cardsPanel.setHeaderText("Карточки");
     }
 
     public void OpenPanel(JPanel panel){

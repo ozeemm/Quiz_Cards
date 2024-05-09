@@ -12,8 +12,8 @@ public class Repository {
     private ArrayList<CardsPacket> packets;
     private ArrayList<Card> cards;
 
-    private int currentTheme = -1; // id из БД
-    private int currentPacket = -1; // id из БД
+    private int currentTheme = -1; // id из локального списка
+    private int currentPacket = -1; // id из локального списка
 
     public Repository(){
         serverDataWorker = new ServerDataWorker();
@@ -27,24 +27,20 @@ public class Repository {
     }
 
     public ArrayList<CardsPacket> getPackets(int themeArrIndex){
-        int themeId = themes.get(themeArrIndex).getId();
-
-        if(currentTheme != themeId) {
+        if(currentTheme != themeArrIndex) {
+            currentTheme = themeArrIndex;
+            int themeId = themes.get(themeArrIndex).getId();
             packets = serverDataWorker.getPackets(themeId);
-            currentTheme = themeId;
         }
-
         return packets;
     }
 
     public ArrayList<Card> getCards(int packetArrIndex){
-        int packetId = packets.get(packetArrIndex).getId();
-
-        if(currentPacket != packetId) {
+        if(currentPacket != packetArrIndex) {
+            currentPacket = packetArrIndex;
+            int packetId = packets.get(packetArrIndex).getId();
             cards = serverDataWorker.getCards(packetId);
-            currentPacket = packetId;
         }
-
         return cards;
     }
 

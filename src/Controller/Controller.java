@@ -4,46 +4,60 @@ import Data.Repository;
 import View.*;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class Controller {
     private Repository repository;
     private MainFrame mainFrame;
-    public void Start(){
+    public void start(){
         repository = new Repository();
 
         mainFrame = new MainFrame();
-        mainFrame.getThemesPanel().setThemes(repository.getThemeNames());
+        mainFrame.getThemesPanel().setElements(repository.getThemeNames());
         mainFrame.OpenPanel(mainFrame.getThemesPanel());
 
-        UpdateThemeButtons();
+        mainFrame.getPacketsPanel().getBackButton().addActionListener(e -> {
+            mainFrame.OpenPanel(mainFrame.getThemesPanel());
+        });
+        mainFrame.getCardsPanel().getBackButton().addActionListener(e -> {
+            mainFrame.OpenPanel(mainFrame.getPacketsPanel());
+        });
 
-        //EditCardFrame editFrame = new EditCardFrame();
+        updateThemeButtons();
     }
 
-    private void UpdateThemeButtons(){
-        for(JButton button : mainFrame.getThemesPanel().getThemeButtons()){
+    private void updateThemeButtons(){
+        for(JButton button : mainFrame.getThemesPanel().getElementButtons()){
             button.addActionListener(e -> {
                 JButton b = (JButton) e.getSource();
-                int index = mainFrame.getThemesPanel().getThemeButtons().indexOf(b);
-                mainFrame.getPacketsPanel().setPackets(repository.getPacketNames(index));
+                int index = mainFrame.getThemesPanel().getElementButtons().indexOf(b);
+                mainFrame.getPacketsPanel().setElements(repository.getPacketNames(index));
                 mainFrame.OpenPanel(mainFrame.getPacketsPanel());
-                UpdatePacketButtons();
+                updatePacketButtons();
             });
         }
     }
 
-    private void UpdatePacketButtons(){
-        for(JButton button : mainFrame.getPacketsPanel().getPacketButtons()){
+    private void updatePacketButtons(){
+        for(JButton button : mainFrame.getPacketsPanel().getElementButtons()){
             button.addActionListener(e -> {
                 JButton b = (JButton) e.getSource();
-                int index = mainFrame.getPacketsPanel().getPacketButtons().indexOf(b);
-                mainFrame.getCardsPanel().setCards(repository.getCardNames(index));
+                int index = mainFrame.getPacketsPanel().getElementButtons().indexOf(b);
+                mainFrame.getCardsPanel().setElements(repository.getCardNames(index));
                 mainFrame.OpenPanel(mainFrame.getCardsPanel());
             });
         }
     }
 
-    private void UpdateCardButtons(){
+    private void updateCardButtons(){
 
     }
+
+    /*
+    private void removeButtonListeners(JButton button){
+        for(ActionListener al : button.getActionListeners()){
+            button.removeActionListener(al);
+        }
+    }
+    */
 }
