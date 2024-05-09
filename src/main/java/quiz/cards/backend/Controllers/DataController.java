@@ -15,14 +15,17 @@ public class DataController {
 
     @GetMapping("themes")
     public ArrayList<Theme> getThemes(){
+        System.out.println("Got all themes");
         return dbWorker.getThemes();
     }
     @GetMapping("packets")
     public ArrayList<CardsPacket> getPackets(@RequestParam(value = "theme") int theme_id) {
+        System.out.println("Got packets from theme " + theme_id);
         return dbWorker.getPackets(theme_id);
     }
     @GetMapping("cards")
-    public ArrayList<Card> getCards(@RequestParam(value = "packet") int card_id){
-        return dbWorker.getCards(card_id);
+    public ArrayList<Card> getCards(@RequestParam(value = "packet") int packet_id){
+        System.out.println("Got cards from packet " + packet_id);
+        return dbWorker.getCards(packet_id);
     }
 }
