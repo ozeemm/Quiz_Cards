@@ -25,7 +25,6 @@ public class Repository {
             themes = serverDataWorker.getThemes();
         return themes;
     }
-
     public ArrayList<CardsPacket> getPackets(int themeArrIndex){
         if(currentTheme != themeArrIndex) {
             currentTheme = themeArrIndex;
@@ -34,7 +33,6 @@ public class Repository {
         }
         return packets;
     }
-
     public ArrayList<Card> getCards(int packetArrIndex){
         if(currentPacket != packetArrIndex) {
             currentPacket = packetArrIndex;
@@ -53,4 +51,8 @@ public class Repository {
     public String[] getCardNames(int packetArrInd){
         return getCards(packetArrInd).stream().map(c -> c.getFrontText() + " : " + c.getBackText()).toArray(String[]::new);
     }
+
+    public Theme getTheme(int index){ return themes.get(index); }
+    public CardsPacket getPacket(int index){ return packets.get(index); }
+    public Card getCard(int index){ return cards.get(index); }
 }

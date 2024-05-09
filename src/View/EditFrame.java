@@ -1,6 +1,7 @@
 package View;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class EditFrame extends JFrame {
     private JPanel mainPanel;
@@ -8,7 +9,8 @@ public class EditFrame extends JFrame {
     private JLabel paramLabel1;
     private JLabel paramLabel2;
     private JTextField paramInput1;
-    private JTextField paramInput2;
+    private JTextArea paramInput2;
+    private JScrollPane scrollPane; // Скрол для второго параметра
     private JButton saveButton;
     private JButton backButton;
 
@@ -16,11 +18,11 @@ public class EditFrame extends JFrame {
 
     public EditFrame(){
         super();
-        setSize(316, 375);
+        setSize(250, 250);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setVisible(false);
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -30,10 +32,15 @@ public class EditFrame extends JFrame {
         paramLabel1 = new JLabel("param1");
 
         paramInput1 = new JTextField();
+        paramInput1.setMaximumSize(new Dimension(300, 50));
 
         paramLabel2 = new JLabel("param2");
 
-        paramInput2 = new JTextField();
+        paramInput2 = new JTextArea();
+        paramInput2.setLineWrap(true);
+        paramInput2.setWrapStyleWord(true);
+
+        scrollPane = new JScrollPane(paramInput2);
 
         saveButton = new JButton("Сохранить");
         backButton = new JButton("Назад");
@@ -42,7 +49,7 @@ public class EditFrame extends JFrame {
         mainPanel.add(paramLabel1);
         mainPanel.add(paramInput1);
         mainPanel.add(paramLabel2);
-        mainPanel.add(paramInput2);
+        mainPanel.add(scrollPane);
         mainPanel.add(saveButton);
         mainPanel.add(backButton);
         this.add(mainPanel);
@@ -72,6 +79,10 @@ public class EditFrame extends JFrame {
     public void ClearInputs() {
         paramInput1.setText("");
         paramInput2.setText("");
+    }
+    public void Show(){
+        update();
+        this.setVisible(true);
     }
     private void update(){
         this.revalidate();

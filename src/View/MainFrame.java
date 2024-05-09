@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public GroupPanel getCardsPanel(){ return cardsPanel; }
     public MainFrame(){
         super("Quiz Cards Admin"); // Окно с названием
-        setSize(950, 750); // Размер окна
+        setSize(950 * 2 / 3, 750 * 2 / 3); // Размер окна
         setResizable(false); // Запрещаем растяжение окна
         setLocationRelativeTo(null); // Чтобы окно открылось в центре экрана
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Завершение программы при закрытии окна
