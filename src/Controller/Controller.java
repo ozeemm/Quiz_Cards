@@ -4,7 +4,6 @@ import Data.Repository;
 import View.*;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class Controller {
     private Repository repository;
@@ -13,17 +12,23 @@ public class Controller {
         repository = new Repository();
 
         mainFrame = new MainFrame();
+
         mainFrame.getThemesPanel().setElements(repository.getThemeNames());
         mainFrame.OpenPanel(mainFrame.getThemesPanel());
+        updateThemeButtons();
 
+        new EditFrame();
+
+        // Back buttons
+        mainFrame.getThemesPanel().getBackButton().addActionListener(e -> {
+            System.exit(0);
+        });
         mainFrame.getPacketsPanel().getBackButton().addActionListener(e -> {
             mainFrame.OpenPanel(mainFrame.getThemesPanel());
         });
         mainFrame.getCardsPanel().getBackButton().addActionListener(e -> {
             mainFrame.OpenPanel(mainFrame.getPacketsPanel());
         });
-
-        updateThemeButtons();
     }
 
     private void updateThemeButtons(){

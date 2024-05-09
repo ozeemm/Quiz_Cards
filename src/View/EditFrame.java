@@ -15,12 +15,12 @@ public class EditFrame extends JFrame {
     protected JPanel getMainPanel(){ return mainPanel; }
 
     public EditFrame(){
-        super("Edit"); // Окно с названием
-        setSize(316, 375); // Размер окна
-        setResizable(false); // Запрещаем растяжение окна
-        setLocationRelativeTo(null); // Чтобы окно открылось в центре экрана
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Завершение программы при закрытии окна
-        setVisible(true); // Включаем окно
+        super();
+        setSize(316, 375);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setVisible(true);
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -46,9 +46,34 @@ public class EditFrame extends JFrame {
         mainPanel.add(saveButton);
         mainPanel.add(backButton);
         this.add(mainPanel);
+
+        update();
     }
 
-    public void Update(){
+    public JButton getSaveButton(){ return saveButton; }
+    public JButton getBackButton(){ return backButton; }
+
+    public void setFrameTitle(String text){
+        this.setTitle(text);
+    }
+    public void setHeaderText(String text){
+        header.setText(text);
+    }
+    public void setParam1Text(String text){
+        paramLabel1.setText(text);
+    }
+    public void setParam2Text(String text){
+        paramLabel2.setText(text);
+    }
+    public String getParam1Value(){ return paramInput1.getText(); }
+    public void setParam1Value(String text){ paramInput1.setText(text); }
+    public String getParam2Value(){ return paramInput2.getText(); }
+    public void setParam2Value(String text){ paramInput2.setText(text);  }
+    public void ClearInputs() {
+        paramInput1.setText("");
+        paramInput2.setText("");
+    }
+    private void update(){
         this.revalidate();
         this.repaint();
     }
