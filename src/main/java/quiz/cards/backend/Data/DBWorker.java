@@ -73,7 +73,8 @@ public class DBWorker {
                 packet.setId(table.getInt("id"));
                 packet.setName(table.getString("name"));
                 packet.setDescription(table.getString("description"));
-
+                packet.setThemeId(table.getInt("theme_id"));
+                System.out.println(packet.getThemeId());
                 packets.add(packet);
             }
             table.close();
@@ -98,6 +99,7 @@ public class DBWorker {
                 card.setId(table.getInt("id"));
                 card.setFrontText(table.getString("front_text"));
                 card.setBackText(table.getString("back_text"));
+                card.setPacketId(table.getInt("packet_id"));
                 cards.add(card);
             }
             table.close();
