@@ -74,7 +74,6 @@ public class DBWorker {
                 packet.setName(table.getString("name"));
                 packet.setDescription(table.getString("description"));
                 packet.setThemeId(table.getInt("theme_id"));
-                System.out.println(packet.getThemeId());
                 packets.add(packet);
             }
             table.close();
