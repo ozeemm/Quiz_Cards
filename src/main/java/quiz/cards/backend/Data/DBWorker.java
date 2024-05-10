@@ -147,6 +147,7 @@ public class DBWorker {
             statement.setString(1, packet.getName());
             statement.setString(2, packet.getDescription());
             statement.setInt(3, theme.getId());
+            statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
     }
@@ -178,6 +179,7 @@ public class DBWorker {
             statement.setString(1, card.getFrontText());
             statement.setString(2, card.getFrontText());
             statement.setInt(3, packet.getId());
+            statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
     }
