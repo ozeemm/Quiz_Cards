@@ -41,7 +41,7 @@ public class DBWorker {
             ArrayList<Theme> themes = new ArrayList<Theme>();
 
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM themes";
+            String query = "SELECT * FROM themes ORDER BY name";
             ResultSet table = statement.executeQuery(query);
 
             while(table.next()){
@@ -62,7 +62,7 @@ public class DBWorker {
         try{
             ArrayList<CardsPacket> packets = new ArrayList<CardsPacket>();
 
-            String query = "SELECT * FROM card_packets where theme_id=?";
+            String query = "SELECT * FROM card_packets WHERE theme_id=? ORDER BY name";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, theme_id);
 
@@ -87,7 +87,7 @@ public class DBWorker {
         try{
             ArrayList<Card> cards = new ArrayList<Card>();
 
-            String query = "SELECT * FROM cards WHERE packet_id=?";
+            String query = "SELECT * FROM cards WHERE packet_id=? ORDER BY front_text";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, card_id);
 
