@@ -44,15 +44,13 @@ public class ServerDataManagementWorker extends ServerWorker {
         } catch (Exception e){ e.printStackTrace(); }
     }
 
-    public void createPacket(Theme theme, CardsPacket packet){
+    public void createPacket(CardsPacket packet){
         try{
-            JsonArray requestBody = new JsonArray();
-            requestBody.add(new Gson().toJson(theme));
-            requestBody.add(new Gson().toJson(packet));
+            String requestBody = new Gson().toJson(packet);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/packet"))
-                    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+                    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch(Exception e){ e.printStackTrace(); }
@@ -78,15 +76,13 @@ public class ServerDataManagementWorker extends ServerWorker {
         } catch (Exception e){ e.printStackTrace(); }
     }
 
-    public void createCard(CardsPacket packet, Card card){
+    public void createCard(Card card){
         try{
-            JsonArray requestBody = new JsonArray();
-            requestBody.add(new Gson().toJson(packet));
-            requestBody.add(new Gson().toJson(card));
+            String requestBody = new Gson().toJson(card);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/card"))
-                    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+                    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch(Exception e){ e.printStackTrace(); }

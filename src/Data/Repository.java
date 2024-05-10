@@ -80,14 +80,14 @@ public class Repository {
         packet.setName(name);
         packet.setDescription(description);
         packet.setThemeId(currentTheme.getId());
-        serverDataManagementWorker.createPacket(currentTheme, packet);
+        serverDataManagementWorker.createPacket(packet);
     }
     public void createCard(String frontText, String backText){
         Card card = new Card();
         card.setFrontText(frontText);
         card.setBackText(backText);
         card.setPacketId(currentPacket.getId());
-        serverDataManagementWorker.createCard(currentPacket, card);
+        serverDataManagementWorker.createCard(card);
     }
 
     public void updateTheme(int arrIndex, String name, String description){
