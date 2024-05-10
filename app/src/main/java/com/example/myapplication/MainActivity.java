@@ -1,44 +1,114 @@
 package com.example.myapplication;
 
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.myapplication.Model.Card;
+import com.example.myapplication.Model.ViewingCards;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
+
+    ViewingCards viewingCards = new ViewingCards();
+    Card currCard = new Card();
+    TextView textView;
+    TextView textViewCount;
+    TextView textViewStudy;
+    TextView textViewKnow;
+
+    Button buttonKnow;
+    Button buttonStudy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Card card1 = new Card();
+        card1.setFrontText("cat");
+        card1.setBackText("кошка");
 
-            TextView textView = findViewById(R.id.textView);
-            textView.setText("Hello Kitty!");
+        Card card2 = new Card();
+        card2.setFrontText("dog");
+        card2.setBackText("собака");
 
-            TextView textViewStudy = findViewById(R.id.textViewStudy);
-            TextView textViewKnow = findViewById(R.id.textViewKnow);
+        Card card3 = new Card();
+        card3.setFrontText("rabbit");
+        card3.setBackText("кролик");
 
-            Button buttonKnow = findViewById(R.id.buttonKnow);
-            Button buttonLearn = findViewById(R.id.buttonStudy);
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
 
-            buttonKnow.setOnClickListener(v -> {
-                textView.setText("I know Hello Kitty!");
-                Integer knowCount = Integer.parseInt((String) textViewKnow.getText())+1;
-                String knowCountString = knowCount.toString();
-                textViewKnow.setText(knowCountString);
-            });
+        viewingCards.setCards(cards);
+        currCard = viewingCards.getNextCard();
 
-            buttonLearn.setOnClickListener(v -> {
-                textView.setText("I study with Hello Kitty!");
-                Integer studyCount = Integer.parseInt((String) textViewStudy.getText())+1;
-                String studyCountString = studyCount.toString();
-                textViewStudy.setText(studyCountString);
-            });
+        iniComponents();
 
+        textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
+
+        textView.setText(currCard.getFrontText());
+
+        textView.setOnClickListener(v -> {
+            if (textView.getText().equals(currCard.getFrontText()))
+                textView.setText(currCard.getBackText());
+            else
+                textView.setText(currCard.getFrontText());
+
+        });
+
+        buttonKnow.setOnClickListener(v -> {
+            addKnowOrNot(true);
+            showNextCard();
+        });
+
+        buttonStudy.setOnClickListener(v -> {
+            addKnowOrNot(false);
+            showNextCard();
+        });
+    }
+
+    private void viewingFinished(){
+        textView.setText("Карточки закончены");
+        textView.setEnabled(false);
+        buttonKnow.setEnabled(false);
+        buttonStudy.setEnabled(false);
+    }
+
+    private void iniComponents(){
+        textView= findViewById(R.id.textView);
+        textViewCount  = findViewById(R.id.textViewCount);
+        textViewStudy = findViewById(R.id.textViewStudy);
+        textViewKnow = findViewById(R.id.textViewKnow);
+        buttonKnow = findViewById(R.id.buttonKnow);
+        buttonStudy = findViewById(R.id.buttonStudy);
+    }
+
+    private void addKnowOrNot(boolean know){
+        if (know){
+            viewingCards.addKnowCardsCount();
+            textViewKnow.setText(""+viewingCards.getKnowCardsCount());
         }
+        else {
+            viewingCards.addStudyCardsCount();
+            textViewStudy.setText(""+viewingCards.getStudyCardsCount());
+        }
+    }
 
+    public void showNextCard(){
+        currCard = viewingCards.getNextCard();
+        textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
+        if (currCard != null){
+            textView.setText(currCard.getFrontText());
+        }
+        else{
+            viewingFinished();
+        }
+    }
 
 
 }
