@@ -62,7 +62,7 @@ public class DBWorker {
         try{
             ArrayList<CardsPacket> packets = new ArrayList<CardsPacket>();
 
-            String query = "select * from card_packets where id in (select packet_id from packets_themes_rel where theme_id = ?)";
+            String query = "SELECT * FROM card_packets where theme_id=?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, theme_id);
 
@@ -87,7 +87,7 @@ public class DBWorker {
         try{
             ArrayList<Card> cards = new ArrayList<Card>();
 
-            String query = "select * from cards where id in (select card_id from cards_packets_rel where packet_id = ?)";
+            String query = "SELECT * FROM cards WHERE packet_id=?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, card_id);
 
@@ -131,21 +131,8 @@ public class DBWorker {
     }
     public void deleteTheme(Theme theme){
         try{
-            // Clear cards
-            String query = "DELETE FROM cards WHERE id in (SELECT card_id FROM cards_packets_rel WHERE packet_id in (SELECT packet_id FROM packets_themes_rel WHERE theme_id=?))";
+            String query = "DELETE FROM themes WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, theme.getId());
-            statement.execute();
-
-            // Clear packets
-            query = "DELETE FROM card_packets WHERE id in (SELECT packet_id FROM packets_themes_rel WHERE theme_id=?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, theme.getId());
-            statement.execute();
-
-            // Clear themes
-            query = "DELETE FROM themes WHERE id=?";
-            statement = connection.prepareStatement(query);
             statement.setInt(1, theme.getId());
             statement.execute();
             statement.close();
@@ -154,21 +141,11 @@ public class DBWorker {
 
     public void createPacket(Theme theme, CardsPacket packet){
         try{
-            String query = "INSERT INTO card_packets(name, description) values(?, ?) RETURNING id";
+            String query = "INSERT INTO card_packets(name, description, theme_id) values(?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, packet.getName());
             statement.setString(2, packet.getDescription());
-            ResultSet table = statement.executeQuery();
-            table.next();
-            int packetId = table.getInt("id");
-            table.close();
-
-            query = "INSERT INTO packets_themes_rel(theme_id, packet_id) VALUES(?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, theme.getId());
-            statement.setInt(2, packetId);
-            statement.execute();
-
+            statement.setInt(3, theme.getId());
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
     }
@@ -185,15 +162,8 @@ public class DBWorker {
     }
     public void deletePacket(CardsPacket packet){
         try{
-            // Clear cards
-            String query = "DELETE FROM cards WHERE id in (SELECT card_id FROM cards_packets_rel WHERE packet_id=?)";
+            String query = "DELETE FROM card_packets WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, packet.getId());
-            statement.execute();
-
-            // Clear packets
-            query = "DELETE FROM card_packets WHERE id=?";
-            statement = connection.prepareStatement(query);
             statement.setInt(1, packet.getId());
             statement.execute();
             statement.close();
@@ -202,21 +172,11 @@ public class DBWorker {
 
     public void createCard(CardsPacket packet, Card card){
         try{
-            String query = "INSERT INTO cards(front_text, back_text) values(?, ?) RETURNING id";
+            String query = "INSERT INTO cards(front_text, back_text, packet_id) values(?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, card.getFrontText());
             statement.setString(2, card.getFrontText());
-            ResultSet table = statement.executeQuery();
-            table.next();
-            int cardId = table.getInt("id");
-            table.close();
-
-            query = "INSERT INTO cards_packets_rel(packet_id, card_id) VALUES(?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, packet.getId());
-            statement.setInt(2, cardId);
-            statement.execute();
-
+            statement.setInt(3, packet.getId());
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
     }
