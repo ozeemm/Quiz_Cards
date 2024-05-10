@@ -44,7 +44,10 @@ public class EditFrame extends JFrame {
         scrollPane = new JScrollPane(paramInput2);
 
         saveButton = new JButton("Сохранить");
+        saveButton.addActionListener(e -> { this.setVisible(false); });
+
         backButton = new JButton("Назад");
+        backButton.addActionListener(e -> { this.setVisible(false); });
 
         mainPanel.add(header);
         mainPanel.add(paramLabel1);
@@ -84,7 +87,7 @@ public class EditFrame extends JFrame {
     public void setParam1Value(String text){ paramInput1.setText(text); }
     public String getParam2Value(){ return paramInput2.getText(); }
     public void setParam2Value(String text){ paramInput2.setText(text);  }
-    public void ClearInputs() {
+    public void clearInputs() {
         paramInput1.setText("");
         paramInput2.setText("");
     }
@@ -95,5 +98,42 @@ public class EditFrame extends JFrame {
     private void update(){
         this.revalidate();
         this.repaint();
+    }
+
+    public void createThemeTitles(){
+        setFrameTitle("Тема");
+        setHeaderText("Создание темы");
+        setParam1Text("Название");
+        setParam2Text("Описание");
+    }
+    public void editThemeTitles(){
+        setFrameTitle("Тема");
+        setHeaderText("Изменение темы");
+        setParam1Text("Название");
+        setParam2Text("Описание");
+    }
+    public void createPacketTitles(){
+        setFrameTitle("Пакет");
+        setHeaderText("Создание пакета");
+        setParam1Text("Название");
+        setParam2Text("Описание");
+    }
+    public void editPacketTitles(){
+        setFrameTitle("Пакет");
+        setHeaderText("Изменение пакета");
+        setParam1Text("Название");
+        setParam2Text("Описание");
+    }
+    public void createCardTitles(){
+        setFrameTitle("Карточка");
+        setHeaderText("Создание карточки");
+        setParam1Text("Термин");
+        setParam2Text("Определение");
+    }
+    public void editCardTitles(){
+        setFrameTitle("Карточка");
+        setHeaderText("Изменение карточки");
+        setParam1Text("Термин");
+        setParam2Text("Определение");
     }
 }

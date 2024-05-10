@@ -19,12 +19,6 @@ public class Controller {
 
         // Окно изменения темы
         editThemeFrame = new EditFrame();
-        editThemeFrame.setFrameTitle("Изменение темы");
-        editThemeFrame.setTitle("Изменение темы");
-        editThemeFrame.setParam1Text("Название");
-        editThemeFrame.setParam2Text("Описание");
-        editThemeFrame.getSaveButton().addActionListener(e -> { editThemeFrame.setVisible(false); });
-        editThemeFrame.getBackButton().addActionListener(e -> { editThemeFrame.setVisible(false); });
         editThemeFrame.getSaveButton().addActionListener(e -> {
             // Проверка на пустые строки
             if(editThemeFrame.getParam1Value().isEmpty() || editThemeFrame.getParam1Value().isEmpty())
@@ -32,6 +26,10 @@ public class Controller {
 
             if(editThemeFrame.getEditingElementId() == -1){
                 // Создание
+                repository.createTheme(editThemeFrame.getParam1Value(),
+                                        editThemeFrame.getParam2Value());
+                mainFrame.getThemesPanel().setElements(repository.getThemeNames());
+                updateThemeButtons();
             }
             else {
                 // Изменение
@@ -45,12 +43,6 @@ public class Controller {
 
         // Окно изменения пакета
         editPacketFrame = new EditFrame();
-        editPacketFrame.setFrameTitle("Изменение пакета");
-        editPacketFrame.setTitle("Изменение пакета");
-        editPacketFrame.setParam1Text("Название");
-        editPacketFrame.setParam2Text("Описание");
-        editPacketFrame.getSaveButton().addActionListener(e -> { editPacketFrame.setVisible(false); });
-        editPacketFrame.getBackButton().addActionListener(e -> { editPacketFrame.setVisible(false); });
         editPacketFrame.getSaveButton().addActionListener(e ->{
             // Проверка на пустые строки
             if(editPacketFrame.getParam1Value().isEmpty() || editPacketFrame.getParam1Value().isEmpty())
@@ -58,6 +50,10 @@ public class Controller {
 
             if(editPacketFrame.getEditingElementId() == -1){
                 // Создание
+                repository.createPacket(editPacketFrame.getParam1Value(),
+                        editPacketFrame.getParam2Value());
+                mainFrame.getPacketsPanel().setElements(repository.getPacketNames());
+                updatePacketButtons();
             }
             else {
                 // Изменение
@@ -71,12 +67,6 @@ public class Controller {
 
         // Окно изменения карточки
         editCardFrame = new EditFrame();
-        editCardFrame.setFrameTitle("Изменение карточки");
-        editCardFrame.setTitle("Изменение карточки");
-        editCardFrame.setParam1Text("Термин");
-        editCardFrame.setParam2Text("Определение");
-        editCardFrame.getSaveButton().addActionListener(e -> { editCardFrame.setVisible(false); });
-        editCardFrame.getBackButton().addActionListener(e -> { editCardFrame.setVisible(false); });
         editCardFrame.getSaveButton().addActionListener(e -> {
             // Проверка на пустые строки
             if(editCardFrame.getParam1Value().isEmpty() || editCardFrame.getParam1Value().isEmpty())
@@ -84,6 +74,10 @@ public class Controller {
 
             if(editCardFrame.getEditingElementId() == -1){
                 // Создание
+                repository.createCard(editCardFrame.getParam1Value(),
+                                        editCardFrame.getParam2Value());
+                mainFrame.getCardsPanel().setElements(repository.getCardNames());
+                updateCardButtons();
             }
             else {
                 // Изменение
@@ -110,6 +104,26 @@ public class Controller {
         mainFrame.getCardsPanel().getBackButton().addActionListener(e -> {
             mainFrame.OpenPanel(mainFrame.getPacketsPanel());
         });
+
+        // Кнопки "Создать"
+        mainFrame.getThemesPanel().getAddButton().addActionListener(e ->{
+            editThemeFrame.createThemeTitles();
+            editThemeFrame.setEditingElementId(-1);
+            editThemeFrame.clearInputs();
+            editThemeFrame.Show();
+        });
+        mainFrame.getPacketsPanel().getAddButton().addActionListener(e -> {
+            editPacketFrame.createPacketTitles();
+            editPacketFrame.setEditingElementId(-1);
+            editPacketFrame.clearInputs();
+            editPacketFrame.Show();
+        });
+        mainFrame.getCardsPanel().getAddButton().addActionListener(e ->{
+            editCardFrame.createCardTitles();
+            editCardFrame.setEditingElementId(-1);
+            editCardFrame.clearInputs();
+            editCardFrame.Show();
+        });
     }
 
     private void updateThemeButtons(){
@@ -130,6 +144,7 @@ public class Controller {
                 JButton b = (JButton) e.getSource();
                 int index = mainFrame.getThemesPanel().getEditButtons().indexOf(b);
 
+                editThemeFrame.editThemeTitles();
                 editThemeFrame.setParam1Value(repository.getTheme(index).getName());
                 editThemeFrame.setParam2Value(repository.getTheme(index).getDescription());
                 editThemeFrame.setEditingElementId(index);
@@ -138,6 +153,16 @@ public class Controller {
         }
 
         // Кнопки "Удалить"
+        for(JButton button : mainFrame.getThemesPanel().getDeleteButtons()){
+            button.addActionListener(e ->{
+                JButton b = (JButton) e.getSource();
+                int index = mainFrame.getThemesPanel().getDeleteButtons().indexOf(b);
+
+                repository.deleteTheme(index);
+                mainFrame.getThemesPanel().setElements(repository.getThemeNames());
+                updateThemeButtons();
+            });
+        }
     }
     private void updatePacketButtons(){
         // Кнопки открытия пакетов
@@ -157,6 +182,7 @@ public class Controller {
                 JButton b = (JButton) e.getSource();
                 int index = mainFrame.getPacketsPanel().getEditButtons().indexOf(b);
 
+                editPacketFrame.editPacketTitles();
                 editPacketFrame.setParam1Value(repository.getPacket(index).getName());
                 editPacketFrame.setParam2Value(repository.getPacket(index).getDescription());
                 editPacketFrame.setEditingElementId(index);
@@ -165,6 +191,16 @@ public class Controller {
         }
 
         // Кнопки "Удалить"
+        for(JButton button : mainFrame.getPacketsPanel().getDeleteButtons()){
+            button.addActionListener(e ->{
+                JButton b = (JButton) e.getSource();
+                int index = mainFrame.getPacketsPanel().getDeleteButtons().indexOf(b);
+
+                repository.deletePacket(index);
+                mainFrame.getPacketsPanel().setElements(repository.getPacketNames());
+                updatePacketButtons();
+            });
+        }
     }
     private void updateCardButtons(){
         // Кнопки "Изменить"
@@ -173,6 +209,7 @@ public class Controller {
                 JButton b = (JButton) e.getSource();
                 int index = mainFrame.getCardsPanel().getEditButtons().indexOf(b);
 
+                editCardFrame.editCardTitles();
                 editCardFrame.setParam1Value(repository.getCard(index).getFrontText());
                 editCardFrame.setParam2Value(repository.getCard(index).getBackText());
                 editCardFrame.setEditingElementId(index);
@@ -181,5 +218,15 @@ public class Controller {
         }
 
         // Кнопки "Удалить"
+        for(JButton button : mainFrame.getCardsPanel().getDeleteButtons()){
+            button.addActionListener(e ->{
+                JButton b = (JButton) e.getSource();
+                int index = mainFrame.getCardsPanel().getDeleteButtons().indexOf(b);
+
+                repository.deleteCard(index);
+                mainFrame.getCardsPanel().setElements(repository.getCardNames());
+                updateCardButtons();
+            });
+        }
     }
 }

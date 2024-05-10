@@ -45,6 +45,7 @@ public class GroupPanel extends JPanel {
         clearAllButtons();
 
         for(String name : names){
+            //this.add(Box.createVerticalStrut(20));
             JButton button = new JButton(name);
             elementButtons.add(button);
             this.add(button);

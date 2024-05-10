@@ -69,13 +69,25 @@ public class Repository {
     public Card getCard(int index){ return cards.get(index); }
 
     public void createTheme(String name, String description){
-
+        Theme theme = new Theme();
+        theme.setName(name);
+        theme.setDescription(description);
+        serverDataManagementWorker.createTheme(theme);
+        themes = null;
     }
     public void createPacket(String name, String description){
-
+        CardsPacket packet = new CardsPacket();
+        packet.setName(name);
+        packet.setDescription(description);
+        packet.setThemeId(currentTheme.getId());
+        serverDataManagementWorker.createPacket(currentTheme, packet);
     }
     public void createCard(String frontText, String backText){
-
+        Card card = new Card();
+        card.setFrontText(frontText);
+        card.setBackText(backText);
+        card.setPacketId(currentPacket.getId());
+        serverDataManagementWorker.createCard(currentPacket, card);
     }
 
     public void updateTheme(int arrIndex, String name, String description){
@@ -90,23 +102,25 @@ public class Repository {
         packet.setName(name);
         packet.setDescription(description);
         serverDataManagementWorker.updatePacket(packet);
-        //packets = serverDataWorker.getPackets(themes.get(currentTheme).getId());
     }
     public void updateCard(int arrIndex, String frontText, String backText){
         Card card = cards.get(arrIndex);
         card.setFrontText(frontText);
         card.setBackText(backText);
         serverDataManagementWorker.updateCard(card);
-        //cards = serverDataWorker.getCards(currentPacket);
     }
 
     public void deleteTheme(int arrIndex){
-
+        Theme theme = themes.get(arrIndex);
+        serverDataManagementWorker.deleteTheme(theme);
+        themes = null;
     }
     public void deletePacket(int arrIndex){
-
+        CardsPacket packet = packets.get(arrIndex);
+        serverDataManagementWorker.deletePacket(packet);
     }
     public void deleteCard(int arrIndex){
-
+        Card card = cards.get(arrIndex);
+        serverDataManagementWorker.deleteCard(card);
     }
 }
