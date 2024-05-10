@@ -140,13 +140,13 @@ public class DBWorker {
         } catch(SQLException e){ e.printStackTrace(); }
     }
 
-    public void createPacket(Theme theme, CardsPacket packet){
+    public void createPacket(CardsPacket packet){
         try{
             String query = "INSERT INTO card_packets(name, description, theme_id) values(?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, packet.getName());
             statement.setString(2, packet.getDescription());
-            statement.setInt(3, theme.getId());
+            statement.setInt(3, packet.getThemeId());
             statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
@@ -172,13 +172,13 @@ public class DBWorker {
         } catch(SQLException e){ e.printStackTrace(); }
     }
 
-    public void createCard(CardsPacket packet, Card card){
+    public void createCard(Card card){
         try{
             String query = "INSERT INTO cards(front_text, back_text, packet_id) values(?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, card.getFrontText());
-            statement.setString(2, card.getFrontText());
-            statement.setInt(3, packet.getId());
+            statement.setString(2, card.getBackText());
+            statement.setInt(3, card.getPacketId());
             statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }

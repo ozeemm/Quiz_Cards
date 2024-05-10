@@ -47,13 +47,10 @@ public class DataManagementController {
     public void createPacket(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            String[] dataList = objectMapper.readValue(json, String[].class);
+            CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
 
-            Theme theme = objectMapper.readValue(dataList[0], Theme.class);
-            CardsPacket packet = objectMapper.readValue(dataList[1], CardsPacket.class);
-
-            dbWorker.createPacket(theme, packet);
-            System.out.println("Created packet " + packet.getName() + " in theme " + theme.getName());
+            dbWorker.createPacket(packet);
+            System.out.println("Created packet " + packet.getName() + " in theme " + packet.getThemeId());
         } catch(Exception e){ e.printStackTrace(); }
     }
     @PutMapping("packet")
@@ -81,13 +78,10 @@ public class DataManagementController {
     public void createCard(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            String[] dataList = objectMapper.readValue(json, String[].class);
+            Card card = objectMapper.readValue(json, Card.class);
 
-            CardsPacket packet = objectMapper.readValue(dataList[0], CardsPacket.class);
-            Card card = objectMapper.readValue(dataList[1], Card.class);
-
-            dbWorker.createCard(packet, card);
-            System.out.println("Created card " + card.getFrontText() + " in packet " + packet.getName());
+            dbWorker.createCard(card);
+            System.out.println("Created card " + card.getFrontText() + " in packet " + card.getPacketId());
         } catch(Exception e){ e.printStackTrace(); }
     }
     @PutMapping("card")
