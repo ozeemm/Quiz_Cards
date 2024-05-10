@@ -13,6 +13,7 @@ public class EditFrame extends JFrame {
     private JScrollPane scrollPane; // Скрол для второго параметра
     private JButton saveButton;
     private JButton backButton;
+    private int editingElementId = -1;
 
     protected JPanel getMainPanel(){ return mainPanel; }
 
@@ -55,6 +56,13 @@ public class EditFrame extends JFrame {
         this.add(mainPanel);
 
         update();
+    }
+
+    public int getEditingElementId() {
+        return editingElementId;
+    }
+    public void setEditingElementId(int editingElementId) {
+        this.editingElementId = editingElementId;
     }
 
     public JButton getSaveButton(){ return saveButton; }

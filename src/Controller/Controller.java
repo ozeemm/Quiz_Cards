@@ -23,7 +23,25 @@ public class Controller {
         editThemeFrame.setTitle("Изменение темы");
         editThemeFrame.setParam1Text("Название");
         editThemeFrame.setParam2Text("Описание");
+        editThemeFrame.getSaveButton().addActionListener(e -> { editThemeFrame.setVisible(false); });
         editThemeFrame.getBackButton().addActionListener(e -> { editThemeFrame.setVisible(false); });
+        editThemeFrame.getSaveButton().addActionListener(e -> {
+            // Проверка на пустые строки
+            if(editThemeFrame.getParam1Value().isEmpty() || editThemeFrame.getParam1Value().isEmpty())
+                return;
+
+            if(editThemeFrame.getEditingElementId() == -1){
+                // Создание
+            }
+            else {
+                // Изменение
+                repository.updateTheme(editThemeFrame.getEditingElementId(),
+                                        editThemeFrame.getParam1Value(),
+                                        editThemeFrame.getParam2Value());
+                mainFrame.getThemesPanel().setElements(repository.getThemeNames());
+                updateThemeButtons();
+            }
+        });
 
         // Окно изменения пакета
         editPacketFrame = new EditFrame();
@@ -31,7 +49,25 @@ public class Controller {
         editPacketFrame.setTitle("Изменение пакета");
         editPacketFrame.setParam1Text("Название");
         editPacketFrame.setParam2Text("Описание");
+        editPacketFrame.getSaveButton().addActionListener(e -> { editPacketFrame.setVisible(false); });
         editPacketFrame.getBackButton().addActionListener(e -> { editPacketFrame.setVisible(false); });
+        editPacketFrame.getSaveButton().addActionListener(e ->{
+            // Проверка на пустые строки
+            if(editPacketFrame.getParam1Value().isEmpty() || editPacketFrame.getParam1Value().isEmpty())
+                return;
+
+            if(editPacketFrame.getEditingElementId() == -1){
+                // Создание
+            }
+            else {
+                // Изменение
+                repository.updatePacket(editPacketFrame.getEditingElementId(),
+                                        editPacketFrame.getParam1Value(),
+                                        editPacketFrame.getParam2Value());
+                mainFrame.getPacketsPanel().setElements(repository.getPacketNames());
+                updatePacketButtons();
+            }
+        });
 
         // Окно изменения карточки
         editCardFrame = new EditFrame();
@@ -39,7 +75,25 @@ public class Controller {
         editCardFrame.setTitle("Изменение карточки");
         editCardFrame.setParam1Text("Термин");
         editCardFrame.setParam2Text("Определение");
+        editCardFrame.getSaveButton().addActionListener(e -> { editCardFrame.setVisible(false); });
         editCardFrame.getBackButton().addActionListener(e -> { editCardFrame.setVisible(false); });
+        editCardFrame.getSaveButton().addActionListener(e -> {
+            // Проверка на пустые строки
+            if(editCardFrame.getParam1Value().isEmpty() || editCardFrame.getParam1Value().isEmpty())
+                return;
+
+            if(editCardFrame.getEditingElementId() == -1){
+                // Создание
+            }
+            else {
+                // Изменение
+                repository.updateCard(editCardFrame.getEditingElementId(),
+                        editCardFrame.getParam1Value(),
+                        editCardFrame.getParam2Value());
+                mainFrame.getCardsPanel().setElements(repository.getCardNames());
+                updateCardButtons();
+            }
+        });
 
         // Стартовое окно
         mainFrame.getThemesPanel().setElements(repository.getThemeNames());
@@ -78,6 +132,7 @@ public class Controller {
 
                 editThemeFrame.setParam1Value(repository.getTheme(index).getName());
                 editThemeFrame.setParam2Value(repository.getTheme(index).getDescription());
+                editThemeFrame.setEditingElementId(index);
                 editThemeFrame.Show();
             });
         }
@@ -104,6 +159,7 @@ public class Controller {
 
                 editPacketFrame.setParam1Value(repository.getPacket(index).getName());
                 editPacketFrame.setParam2Value(repository.getPacket(index).getDescription());
+                editPacketFrame.setEditingElementId(index);
                 editPacketFrame.Show();
             });
         }
@@ -119,6 +175,7 @@ public class Controller {
 
                 editCardFrame.setParam1Value(repository.getCard(index).getFrontText());
                 editCardFrame.setParam2Value(repository.getCard(index).getBackText());
+                editCardFrame.setEditingElementId(index);
                 editCardFrame.Show();
             });
         }
