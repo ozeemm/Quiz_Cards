@@ -1,5 +1,7 @@
 package View;
 
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,47 +17,75 @@ public class EditFrame extends JFrame {
     private JButton backButton;
     private int editingElementId = -1;
 
+    private final Color backgroundColor = new Color(238, 238, 238);
+    private final Color inputBackgroundColor = Color.WHITE;
+    private final Color textColor = Color.BLACK;
+    private final Color buttonColor = Color.LIGHT_GRAY;
+    private final Color buttonTextColor = Color.BLACK;
+    private final Font headerFont = new Font("Arial", Font.BOLD, 18);
+    private final Font textFont = new Font("Arial", Font.PLAIN, 14);
+    private final Font inputFont = new Font("Arial", Font.PLAIN, 13);
+
     protected JPanel getMainPanel(){ return mainPanel; }
 
     public EditFrame(){
         super();
-        setSize(250, 250);
+        setSize(300, 255);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setVisible(false);
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel = new JPanel(new MigLayout("insets 10"));
+        mainPanel.setBackground(backgroundColor);
 
         header = new JLabel("Изменение");
+        header.setFont(headerFont);
+        header.setForeground(textColor);
+        header.setHorizontalAlignment(JLabel.CENTER);;
 
-        paramLabel1 = new JLabel("param1");
+        paramLabel1 = new JLabel();
+        paramLabel1.setFont(textFont);
+        paramLabel1.setForeground(textColor);
+        mainPanel.add(paramLabel1);
 
-        paramInput1 = new JTextField();
-        paramInput1.setMaximumSize(new Dimension(300, 50));
+        paramInput1 = new JTextField(30);
+        paramInput1.setBackground(inputBackgroundColor);
+        paramInput1.setFont(inputFont);
+        paramInput1.setForeground(textColor);
 
-        paramLabel2 = new JLabel("param2");
+        paramLabel2 = new JLabel();
+        paramLabel2.setFont(textFont);
+        paramLabel2.setForeground(textColor);
 
-        paramInput2 = new JTextArea();
+        paramInput2 = new JTextArea(4, 0);
+        paramInput2.setBackground(inputBackgroundColor);
+        paramInput2.setFont(inputFont);
+        paramInput2.setForeground(textColor);
         paramInput2.setLineWrap(true);
         paramInput2.setWrapStyleWord(true);
 
         scrollPane = new JScrollPane(paramInput2);
 
         saveButton = new JButton("Сохранить");
+        saveButton.setFont(textFont);
+        saveButton.setBackground(buttonColor);
+        saveButton.setForeground(buttonTextColor);
         saveButton.addActionListener(e -> { this.setVisible(false); });
 
         backButton = new JButton("Назад");
+        backButton.setFont(textFont);
+        backButton.setBackground(buttonColor);
+        backButton.setForeground(buttonTextColor);
         backButton.addActionListener(e -> { this.setVisible(false); });
 
-        mainPanel.add(header);
-        mainPanel.add(paramLabel1);
-        mainPanel.add(paramInput1);
-        mainPanel.add(paramLabel2);
-        mainPanel.add(scrollPane);
-        mainPanel.add(saveButton);
+        mainPanel.add(header, "span, grow, gapy 0 5");
+        mainPanel.add(paramLabel1, "wrap");
+        mainPanel.add(paramInput1, "span, grow");
+        mainPanel.add(paramLabel2, "wrap");
+        mainPanel.add(scrollPane, "span, grow, gapy 0 5");
         mainPanel.add(backButton);
+        mainPanel.add(saveButton, "gapleft push");
         this.add(mainPanel);
 
         update();
