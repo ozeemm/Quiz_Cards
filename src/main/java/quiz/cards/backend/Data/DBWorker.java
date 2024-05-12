@@ -58,13 +58,13 @@ public class DBWorker {
         } catch (SQLException e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<CardsPacket> getPackets(int theme_id){
+    public ArrayList<CardsPacket> getPackets(int themeId){
         try{
             ArrayList<CardsPacket> packets = new ArrayList<CardsPacket>();
 
             String query = "SELECT * FROM card_packets WHERE theme_id=? ORDER BY name";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, theme_id);
+            statement.setInt(1, themeId);
 
             ResultSet table = statement.executeQuery();
 
@@ -83,13 +83,13 @@ public class DBWorker {
         } catch (SQLException e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<Card> getCards(int card_id){
+    public ArrayList<Card> getCards(int packetId){
         try{
             ArrayList<Card> cards = new ArrayList<Card>();
 
             String query = "SELECT * FROM cards WHERE packet_id=? ORDER BY front_text";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, card_id);
+            statement.setInt(1, packetId);
 
             ResultSet table = statement.executeQuery();
 
@@ -107,6 +107,39 @@ public class DBWorker {
             return cards;
         } catch (SQLException e){ e.printStackTrace(); }
         return null;
+    }
+
+    public int getThemesCount(){
+        try{
+            Statement statement = connection.createStatement();
+            String query = "SELECT COUNT(*) FROM themes";
+            ResultSet table = statement.executeQuery(query);
+            table.next();
+            return table.getInt("count");
+        } catch (SQLException e){ e.printStackTrace(); }
+        return -1;
+    }
+    public int getPacketsCount(int themeId){
+        try{
+            String query = "SELECT COUNT(*) FROM card_packets WHERE theme_id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, themeId);
+            ResultSet table = statement.executeQuery();
+            table.next();
+            return table.getInt("count");
+        } catch (SQLException e){ e.printStackTrace(); }
+        return -1;
+    }
+    public int getCardsCount(int packetId){
+        try{
+            String query = "SELECT COUNT(*) FROM cards WHERE packet_id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, packetId);
+            ResultSet table = statement.executeQuery();
+            table.next();
+            return table.getInt("count");
+        } catch (SQLException e){ e.printStackTrace(); }
+        return -1;
     }
 
     public void createTheme(Theme theme){
