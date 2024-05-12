@@ -27,6 +27,7 @@ public class GroupPanel extends JPanel {
         update();
     }
 
+    public ArrayList<GroupElement> getElements(){ return elements; }
     public ArrayList<JButton> getElementButtons(){
         return new ArrayList<>(elements.stream().map(e -> e.getElementButton()).toList());
     }
@@ -49,12 +50,13 @@ public class GroupPanel extends JPanel {
             elements.add(element);
             elementsPanel.add(element);
         }
+        System.out.println(elementsPanel.getComponentCount() + " " + elements.size());
 
         update();
     }
     private void clearElements(){
         for(GroupElement element : elements){
-            this.remove(element);
+            elementsPanel.remove(element);
         }
         elements.clear();
     }

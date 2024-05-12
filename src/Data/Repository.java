@@ -48,6 +48,10 @@ public class Repository {
         return cards;
     }
 
+    public int getThemesCount(){ return serverDataWorker.getThemesCount(); }
+    public int getPacketsCount(int themeIndex){ return serverDataWorker.getPacketsCount(themes.get(themeIndex).getId()); }
+    public int getCardsCount(int packetIndex){ return serverDataWorker.getCardsCount(packets.get(packetIndex).getId()); }
+
     public String[] getThemeNames(){
         return getThemes().stream().map(t -> t.getName()).toArray(String[]::new);
     }

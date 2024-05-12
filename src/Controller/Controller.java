@@ -4,6 +4,8 @@ import Data.Repository;
 import View.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.function.Function;
 
 public class Controller {
     private Repository repository;
@@ -103,10 +105,12 @@ public class Controller {
             // Пакеты
             else if(mainFrame.getCurrentPanel() == mainFrame.getPacketsPanel()){
                 mainFrame.OpenPanel(mainFrame.getThemesPanel());
+                updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount, "Пакетов");
             }
             // Карточки
             else if(mainFrame.getCurrentPanel() == mainFrame.getCardsPanel()){
                 mainFrame.OpenPanel(mainFrame.getPacketsPanel());
+                updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
             }
         });
 
@@ -135,8 +139,8 @@ public class Controller {
             }
         });
     }
-
     private void updateThemeButtons(){
+        updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount,"Пакетов");
         // Кнопки открытия тем
         for(JButton button : mainFrame.getThemesPanel().getElementButtons()){
             button.addActionListener(e -> {
@@ -167,7 +171,6 @@ public class Controller {
             button.addActionListener(e ->{
                 JButton b = (JButton) e.getSource();
                 int index = mainFrame.getThemesPanel().getDeleteButtons().indexOf(b);
-
                 repository.deleteTheme(index);
                 mainFrame.getThemesPanel().setElements(repository.getThemeNames());
                 updateThemeButtons();
@@ -175,6 +178,7 @@ public class Controller {
         }
     }
     private void updatePacketButtons(){
+        updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
         // Кнопки открытия пакетов
         for(JButton button : mainFrame.getPacketsPanel().getElementButtons()){
             button.addActionListener(e -> {
@@ -237,6 +241,12 @@ public class Controller {
                 mainFrame.getCardsPanel().setElements(repository.getCardNames());
                 updateCardButtons();
             });
+        }
+    }
+    private void updateElementsCount(GroupPanel groupPanel,  Function<Integer, Integer> getCount, String paramName){
+        ArrayList<GroupElement> elements = groupPanel.getElements();
+        for(int i = 0; i < elements.size(); i++) {
+            elements.get(i).setElementsCountText(paramName + ": " + getCount.apply(i));
         }
     }
 }

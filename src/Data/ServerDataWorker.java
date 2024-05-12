@@ -26,10 +26,22 @@ public class ServerDataWorker extends ServerWorker{
         } catch (Exception e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<CardsPacket> getPackets(int theme_id){
+    public int getThemesCount(){
+        try{
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(dataUrl+"/themes/count"))
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            return new Gson().fromJson(response.body(), Integer.class);
+        } catch(Exception e){ e.printStackTrace(); }
+        return -1;
+    }
+
+    public ArrayList<CardsPacket> getPackets(int themeId){
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(dataUrl+"/packets?theme="+theme_id))
+                    .uri(URI.create(dataUrl+"/packets?theme="+themeId))
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
             CardsPacket[] packetList = new Gson().fromJson(httpResponse.body(), CardsPacket[].class);
@@ -37,10 +49,21 @@ public class ServerDataWorker extends ServerWorker{
         } catch (Exception e){ e.printStackTrace(); }
         return null;
     }
-    public ArrayList<Card> getCards(int packet_id){
+    public int getPacketsCount(int themeId){
+        try{
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(dataUrl+"/packets/count?theme="+themeId))
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return new Gson().fromJson(response.body(), Integer.class);
+        } catch(Exception e){ e.printStackTrace(); }
+        return -1;
+    }
+
+    public ArrayList<Card> getCards(int packetId){
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(dataUrl+"/cards?packet="+packet_id))
+                    .uri(URI.create(dataUrl+"/cards?packet="+packetId))
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -48,5 +71,15 @@ public class ServerDataWorker extends ServerWorker{
             return new ArrayList<Card>(Arrays.asList(cardsList));
         } catch (Exception e){ e.printStackTrace(); }
         return null;
+    }
+    public int getCardsCount(int packetId){
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(dataUrl+"/cards/count?packet="+packetId))
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return new Gson().fromJson(response.body(), Integer.class);
+        } catch (Exception e){ e.printStackTrace(); }
+        return -1;
     }
 }
