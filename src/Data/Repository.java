@@ -58,10 +58,10 @@ public class Repository {
         return getPackets(currentTheme).stream().map(p -> p.getName()).toArray(String[]::new);
     }
     public String[] getCardNames(int packetArrInd){
-        return getCards(packetArrInd).stream().map(c -> c.getFrontText() + " : " + c.getBackText()).toArray(String[]::new);
+        return getCards(packetArrInd).stream().map(c -> c.getFrontText()).toArray(String[]::new);
     }
     public String[] getCardNames(){
-        return getCards(currentPacket).stream().map(c -> c.getFrontText() + " : " + c.getBackText()).toArray(String[]::new);
+        return getCards(currentPacket).stream().map(c -> c.getFrontText()).toArray(String[]::new);
     }
 
     public Theme getTheme(int index){ return themes.get(index); }

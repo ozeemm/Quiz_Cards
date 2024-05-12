@@ -94,35 +94,45 @@ public class Controller {
         mainFrame.OpenPanel(mainFrame.getThemesPanel());
         updateThemeButtons();
 
-        // Кнопки "Назад"
-        mainFrame.getThemesPanel().getBackButton().addActionListener(e -> {
-            System.exit(0);
-        });
-        mainFrame.getPacketsPanel().getBackButton().addActionListener(e -> {
-            mainFrame.OpenPanel(mainFrame.getThemesPanel());
-        });
-        mainFrame.getCardsPanel().getBackButton().addActionListener(e -> {
-            mainFrame.OpenPanel(mainFrame.getPacketsPanel());
+        // Кнопка "Назад"
+        mainFrame.getHeaderPanel().getBackButton().addActionListener(e ->{
+            // Темы
+            if(mainFrame.getCurrentPanel() == mainFrame.getThemesPanel()){
+                System.exit(0);
+            }
+            // Пакеты
+            else if(mainFrame.getCurrentPanel() == mainFrame.getPacketsPanel()){
+                mainFrame.OpenPanel(mainFrame.getThemesPanel());
+            }
+            // Карточки
+            else if(mainFrame.getCurrentPanel() == mainFrame.getCardsPanel()){
+                mainFrame.OpenPanel(mainFrame.getPacketsPanel());
+            }
         });
 
-        // Кнопки "Создать"
-        mainFrame.getThemesPanel().getAddButton().addActionListener(e ->{
-            editThemeFrame.createThemeTitles();
-            editThemeFrame.setEditingElementId(-1);
-            editThemeFrame.clearInputs();
-            editThemeFrame.Show();
-        });
-        mainFrame.getPacketsPanel().getAddButton().addActionListener(e -> {
-            editPacketFrame.createPacketTitles();
-            editPacketFrame.setEditingElementId(-1);
-            editPacketFrame.clearInputs();
-            editPacketFrame.Show();
-        });
-        mainFrame.getCardsPanel().getAddButton().addActionListener(e ->{
-            editCardFrame.createCardTitles();
-            editCardFrame.setEditingElementId(-1);
-            editCardFrame.clearInputs();
-            editCardFrame.Show();
+        // Кнопка "Создать"
+        mainFrame.getHeaderPanel().getAddButton().addActionListener(e ->{
+            // Темы
+            if(mainFrame.getCurrentPanel() == mainFrame.getThemesPanel()){
+                editThemeFrame.createThemeTitles();
+                editThemeFrame.setEditingElementId(-1);
+                editThemeFrame.clearInputs();
+                editThemeFrame.Show();
+            }
+            // Пакеты
+            else if(mainFrame.getCurrentPanel() == mainFrame.getPacketsPanel()){
+                editPacketFrame.createPacketTitles();
+                editPacketFrame.setEditingElementId(-1);
+                editPacketFrame.clearInputs();
+                editPacketFrame.Show();
+            }
+            // Карточки
+            else if(mainFrame.getCurrentPanel() == mainFrame.getCardsPanel()){
+                editCardFrame.createCardTitles();
+                editCardFrame.setEditingElementId(-1);
+                editCardFrame.clearInputs();
+                editCardFrame.Show();
+            }
         });
     }
 

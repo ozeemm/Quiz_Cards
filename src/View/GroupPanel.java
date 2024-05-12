@@ -1,81 +1,66 @@
 package View;
 
+import com.google.gson.internal.bind.util.ISO8601Utils;
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GroupPanel extends JPanel {
-    private final ArrayList<JButton> elementButtons = new ArrayList<JButton>();
-    private final ArrayList<JButton> editButtons = new ArrayList<JButton>();
-    private final ArrayList<JButton> deleteButtons = new ArrayList<JButton>();
-    private JLabel header;
-    private JButton addButton;
-    private JButton backButton;
+    private final ArrayList<GroupElement> elements = new ArrayList<GroupElement>();
+    private JPanel elementsPanel;
+    private JScrollPane scroll;
+
+    private final Color backgroundColor = Color.lightGray;
+
     public GroupPanel(){
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        super(new GridLayout()); // т.к. растягивается
 
-        header = new JLabel();
-        addButton = new JButton("Создать");
-        backButton = new JButton("Назад");
+        elementsPanel = new JPanel(new MigLayout("wrap, insets 5", "[]10[]10[]", "[]10"));
+        elementsPanel.setBackground(backgroundColor);
 
-        this.add(header);
-        this.add(addButton);
-        this.add(backButton);
-    }
+        scroll = new JScrollPane(elementsPanel);
 
-    public ArrayList<JButton> getElementButtons() {
-        return elementButtons;
-    }
-    public ArrayList<JButton> getEditButtons() {
-        return editButtons;
-    }
-    public ArrayList<JButton> getDeleteButtons() {
-        return deleteButtons;
-    }
-    public JButton getAddButton(){ return addButton; }
-    public JButton getBackButton(){ return backButton; }
+        this.add(scroll);
 
-    public void setHeaderText(String text){
-        header.setText(text);
-        header.setFont(new Font("Arial", Font.BOLD, 36));
         update();
     }
+
+    public ArrayList<JButton> getElementButtons(){
+        return new ArrayList<>(elements.stream().map(e -> e.getElementButton()).toList());
+    }
+    public ArrayList<JButton> getEditButtons(){
+        return new ArrayList<>(elements.stream().map(e -> e.getEditButton()).toList());
+    }
+    public ArrayList<JButton> getDeleteButtons(){
+        return new ArrayList<>(elements.stream().map(e -> e.getDeleteButton()).toList());
+    }
+
     public void setElements(String[] names){
-        clearAllButtons();
+        clearElements();
 
+        int i = 0;
         for(String name : names){
-            //this.add(Box.createVerticalStrut(20));
-            JButton button = new JButton(name);
-            elementButtons.add(button);
-            this.add(button);
+            GroupElement element = new GroupElement();
+            element.setElementName(name);
+            element.setElementId(i);
 
-            button = new JButton("Изменить");
-            editButtons.add(button);
-            this.add(button);
-
-            button = new JButton("Удалить");
-            deleteButtons.add(button);
-            this.add(button);
+            elements.add(element);
+            elementsPanel.add(element);
         }
 
         update();
+    }
+    private void clearElements(){
+        for(GroupElement element : elements){
+            this.remove(element);
+        }
+        elements.clear();
     }
 
     private void update(){
         this.revalidate();
         this.repaint();
-    }
-
-    private void clearAllButtons(){
-        clearButtons(elementButtons);
-        clearButtons(editButtons);
-        clearButtons(deleteButtons);
-    }
-    private void clearButtons(ArrayList<JButton> buttons){
-        for(JButton button : buttons){
-            this.remove(button);
-        }
-        buttons.clear();
     }
 }
