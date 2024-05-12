@@ -29,7 +29,7 @@ public class DataController {
         return dbWorker.getPackets(themeId);
     }
     @GetMapping("packets/count")
-    public int getPacketsCount(int themeId){
+    public int getPacketsCount(@RequestParam(value = "theme") int themeId){
         System.out.println("Got packets count from theme " + themeId);
         return dbWorker.getPacketsCount(themeId);
     }
@@ -39,7 +39,7 @@ public class DataController {
         return dbWorker.getCards(themeId);
     }
     @GetMapping("cards/count")
-    public int getCardsCount(int packetId){
+    public int getCardsCount(@RequestParam(value = "packet")int packetId){
         System.out.println("Got cards count from packet " + packetId);
         return dbWorker.getCardsCount(packetId);
     }
