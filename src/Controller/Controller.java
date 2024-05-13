@@ -1,10 +1,12 @@
 package Controller;
 
 import Data.Repository;
+import Interfaces.*;
 import View.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -26,23 +28,12 @@ public class Controller {
         editThemeFrame.setCreateTitlesFunction(editThemeFrame::createThemeTitles);
         editThemeFrame.setEditTitlesFunction(editThemeFrame::editThemeTitles);
         editThemeFrame.getSaveButton().addActionListener(e -> {
-            // Проверка на пустые строки
-            if(editThemeFrame.getParam1Value().isEmpty() || editThemeFrame.getParam1Value().isEmpty())
-                return;
-
-            if(editThemeFrame.getEditingElementId() == -1){
-                // Создание
-                repository.createTheme(editThemeFrame.getParam1Value(),
-                                        editThemeFrame.getParam2Value());
-            }
-            else {
-                // Изменение
-                repository.updateTheme(editThemeFrame.getEditingElementId(),
-                                        editThemeFrame.getParam1Value(),
-                                        editThemeFrame.getParam2Value());
-            }
-            mainFrame.getThemesPanel().setElements(repository.getThemeNames());
-            updateThemeButtons();
+            editFrameSaveButtonFunction(editThemeFrame,
+                                        repository::createTheme,
+                                        repository::updateTheme,
+                                        mainFrame.getThemesPanel(),
+                                        repository::getThemeNames,
+                                        this::updateThemeButtons);
         });
 
         // Окно изменения пакета
@@ -50,23 +41,12 @@ public class Controller {
         editPacketFrame.setCreateTitlesFunction(editPacketFrame::createPacketTitles);
         editPacketFrame.setEditTitlesFunction(editPacketFrame::editPacketTitles);
         editPacketFrame.getSaveButton().addActionListener(e ->{
-            // Проверка на пустые строки
-            if(editPacketFrame.getParam1Value().isEmpty() || editPacketFrame.getParam1Value().isEmpty())
-                return;
-
-            if(editPacketFrame.getEditingElementId() == -1){
-                // Создание
-                repository.createPacket(editPacketFrame.getParam1Value(),
-                        editPacketFrame.getParam2Value());
-            }
-            else {
-                // Изменение
-                repository.updatePacket(editPacketFrame.getEditingElementId(),
-                                        editPacketFrame.getParam1Value(),
-                                        editPacketFrame.getParam2Value());
-            }
-            mainFrame.getPacketsPanel().setElements(repository.getPacketNames());
-            updatePacketButtons();
+            editFrameSaveButtonFunction(editPacketFrame,
+                    repository::createPacket,
+                    repository::updatePacket,
+                    mainFrame.getPacketsPanel(),
+                    repository::getPacketNames,
+                    this::updatePacketButtons);
         });
 
         // Окно изменения карточки
@@ -74,23 +54,12 @@ public class Controller {
         editCardFrame.setCreateTitlesFunction(editCardFrame::createCardTitles);
         editCardFrame.setEditTitlesFunction(editCardFrame::editCardTitles);
         editCardFrame.getSaveButton().addActionListener(e -> {
-            // Проверка на пустые строки
-            if(editCardFrame.getParam1Value().isEmpty() || editCardFrame.getParam1Value().isEmpty())
-                return;
-
-            if(editCardFrame.getEditingElementId() == -1){
-                // Создание
-                repository.createCard(editCardFrame.getParam1Value(),
-                                        editCardFrame.getParam2Value());
-            }
-            else {
-                // Изменение
-                repository.updateCard(editCardFrame.getEditingElementId(),
-                        editCardFrame.getParam1Value(),
-                        editCardFrame.getParam2Value());
-            }
-            mainFrame.getCardsPanel().setElements(repository.getCardNames());
-            updateCardButtons();
+            editFrameSaveButtonFunction(editCardFrame,
+                    repository::createCard,
+                    repository::updateCard,
+                    mainFrame.getCardsPanel(),
+                    repository::getCardNames,
+                    this::updateCardButtons);
         });
 
         // Стартовое окно
@@ -228,5 +197,21 @@ public class Controller {
         for(int i = 0; i < elements.size(); i++) {
             elements.get(i).setElementsCountText(paramName + ": " + getCount.apply(i));
         }
+    }
+    private void editFrameSaveButtonFunction(EditFrame editFrame, BiConsumer<String, String> createMethod, TriConsumer<Integer, String, String> updateMethod, GroupPanel currentPanel, Supplier<String[]> getNames, Runnable updateButtonsMethod){
+        if(editFrame.getParam1Value().isEmpty() || editFrame.getParam1Value().isEmpty())
+            return;
+
+        if(editFrame.getEditingElementId() == -1){
+            createMethod.accept(editFrame.getParam1Value(),
+                                editFrame.getParam2Value());
+        }
+        else {
+            updateMethod.accept(editFrame.getEditingElementId(),
+                                editFrame.getParam1Value(),
+                                editFrame.getParam2Value());
+        }
+        currentPanel.setElements(getNames.get());
+        updateButtonsMethod.run();
     }
 }

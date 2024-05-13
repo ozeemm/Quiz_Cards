@@ -4,7 +4,6 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class GroupElement extends JPanel {
     private JButton elementButton;

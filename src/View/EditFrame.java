@@ -4,7 +4,6 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.Function;
 
 public class EditFrame extends JFrame {
     private JPanel mainPanel;
