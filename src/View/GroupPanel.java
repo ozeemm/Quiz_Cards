@@ -50,7 +50,6 @@ public class GroupPanel extends JPanel {
             elements.add(element);
             elementsPanel.add(element);
         }
-        System.out.println(elementsPanel.getComponentCount() + " " + elements.size());
 
         update();
     }
