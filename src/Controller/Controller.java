@@ -154,7 +154,10 @@ public class Controller {
 
     }
 
-    private void updateElementButtons(GroupPanel groupPanel, GroupPanel openingPanel, Function<Integer, String[]> getNames, Runnable updateOpeningPanelButtons){
+    private void updateElementButtons(GroupPanel groupPanel,
+                                      GroupPanel openingPanel,
+                                      Function<Integer, String[]> getNames,
+                                      Runnable updateOpeningPanelButtons){
         for(JButton button : groupPanel.getElementButtons()){
             button.addActionListener(e -> {
                 JButton b = (JButton) e.getSource();
@@ -166,7 +169,10 @@ public class Controller {
             });
         }
     }
-    private void updateEditButtons(GroupPanel groupPanel, EditFrame editFrame, Function<Integer, String> param1GetDefault, Function<Integer, String> param2GetDefault){
+    private void updateEditButtons(GroupPanel groupPanel,
+                                   EditFrame editFrame,
+                                   Function<Integer, String> param1GetDefault,
+                                   Function<Integer, String> param2GetDefault){
         for(JButton button : groupPanel.getEditButtons()){
             button.addActionListener(e -> {
                 JButton b = (JButton) e.getSource();
@@ -180,7 +186,10 @@ public class Controller {
             });
         }
     }
-    private void updateDeleteButtons(GroupPanel groupPanel, Consumer<Integer> deleteMethod, Supplier<String[]> getNames, Runnable updateMethod){
+    private void updateDeleteButtons(GroupPanel groupPanel,
+                                     Consumer<Integer> deleteMethod,
+                                     Supplier<String[]> getNames,
+                                     Runnable updateMethod){
         for(JButton button : groupPanel.getDeleteButtons()){
             button.addActionListener(e ->{
                 JButton b = (JButton) e.getSource();
@@ -192,13 +201,20 @@ public class Controller {
             });
         }
     }
-    private void updateElementsCount(GroupPanel groupPanel,  Function<Integer, Integer> getCount, String paramName){
+    private void updateElementsCount(GroupPanel groupPanel,
+                                     Function<Integer, Integer> getCount,
+                                     String paramName){
         ArrayList<GroupElement> elements = groupPanel.getElements();
         for(int i = 0; i < elements.size(); i++) {
             elements.get(i).setElementsCountText(paramName + ": " + getCount.apply(i));
         }
     }
-    private void editFrameSaveButtonFunction(EditFrame editFrame, BiConsumer<String, String> createMethod, TriConsumer<Integer, String, String> updateMethod, GroupPanel currentPanel, Supplier<String[]> getNames, Runnable updateButtonsMethod){
+    private void editFrameSaveButtonFunction(EditFrame editFrame,
+                                             BiConsumer<String, String> createMethod,
+                                             TriConsumer<Integer, String, String> updateMethod,
+                                             GroupPanel currentPanel,
+                                             Supplier<String[]> getNames,
+                                             Runnable updateButtonsMethod){
         if(editFrame.getParam1Value().isEmpty() || editFrame.getParam1Value().isEmpty())
             return;
 
