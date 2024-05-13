@@ -4,6 +4,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Function;
 
 public class EditFrame extends JFrame {
     private JPanel mainPanel;
@@ -16,6 +17,8 @@ public class EditFrame extends JFrame {
     private JButton saveButton;
     private JButton backButton;
     private int editingElementId = -1;
+    private Runnable createTitlesFunction;
+    private Runnable editTitlesFunction;
 
     private final Color backgroundColor = new Color(238, 238, 238);
     private final Color inputBackgroundColor = Color.WHITE;
@@ -25,8 +28,6 @@ public class EditFrame extends JFrame {
     private final Font headerFont = new Font("Arial", Font.BOLD, 18);
     private final Font textFont = new Font("Arial", Font.PLAIN, 14);
     private final Font inputFont = new Font("Arial", Font.PLAIN, 13);
-
-    protected JPanel getMainPanel(){ return mainPanel; }
 
     public EditFrame(){
         super();
@@ -97,6 +98,14 @@ public class EditFrame extends JFrame {
     public void setEditingElementId(int editingElementId) {
         this.editingElementId = editingElementId;
     }
+    public void setCreateTitlesFunction(Runnable createTitlesFunction) {
+        this.createTitlesFunction = createTitlesFunction;
+    }
+    public void setEditTitlesFunction(Runnable editTitlesFunction) {
+        this.editTitlesFunction = editTitlesFunction;
+    }
+    public void createTitlesRun(){ createTitlesFunction.run(); }
+    public void editTitlesRun(){ editTitlesFunction.run(); }
 
     public JButton getSaveButton(){ return saveButton; }
     public JButton getBackButton(){ return backButton; }

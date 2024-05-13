@@ -23,6 +23,8 @@ public class Controller {
 
         // Окно изменения темы
         editThemeFrame = new EditFrame();
+        editThemeFrame.setCreateTitlesFunction(editThemeFrame::createThemeTitles);
+        editThemeFrame.setEditTitlesFunction(editThemeFrame::editThemeTitles);
         editThemeFrame.getSaveButton().addActionListener(e -> {
             // Проверка на пустые строки
             if(editThemeFrame.getParam1Value().isEmpty() || editThemeFrame.getParam1Value().isEmpty())
@@ -45,6 +47,8 @@ public class Controller {
 
         // Окно изменения пакета
         editPacketFrame = new EditFrame();
+        editPacketFrame.setCreateTitlesFunction(editPacketFrame::createPacketTitles);
+        editPacketFrame.setEditTitlesFunction(editPacketFrame::editPacketTitles);
         editPacketFrame.getSaveButton().addActionListener(e ->{
             // Проверка на пустые строки
             if(editPacketFrame.getParam1Value().isEmpty() || editPacketFrame.getParam1Value().isEmpty())
@@ -67,6 +71,8 @@ public class Controller {
 
         // Окно изменения карточки
         editCardFrame = new EditFrame();
+        editCardFrame.setCreateTitlesFunction(editCardFrame::createCardTitles);
+        editCardFrame.setEditTitlesFunction(editCardFrame::editCardTitles);
         editCardFrame.getSaveButton().addActionListener(e -> {
             // Проверка на пустые строки
             if(editCardFrame.getParam1Value().isEmpty() || editCardFrame.getParam1Value().isEmpty())
@@ -112,28 +118,71 @@ public class Controller {
 
         // Кнопка "Создать"
         mainFrame.getHeaderPanel().getAddButton().addActionListener(e ->{
-            // Темы
+            EditFrame editFrame = new EditFrame();
             if(mainFrame.getCurrentPanel() == mainFrame.getThemesPanel()){
-                editThemeFrame.createThemeTitles();
-                editThemeFrame.setEditingElementId(-1);
-                editThemeFrame.clearInputs();
-                editThemeFrame.Show();
+                editFrame = editThemeFrame;
             }
-            // Пакеты
             else if(mainFrame.getCurrentPanel() == mainFrame.getPacketsPanel()){
-                editPacketFrame.createPacketTitles();
-                editPacketFrame.setEditingElementId(-1);
-                editPacketFrame.clearInputs();
-                editPacketFrame.Show();
+                editFrame = editPacketFrame;
             }
-            // Карточки
             else if(mainFrame.getCurrentPanel() == mainFrame.getCardsPanel()){
-                editCardFrame.createCardTitles();
-                editCardFrame.setEditingElementId(-1);
-                editCardFrame.clearInputs();
-                editCardFrame.Show();
+                editFrame = editCardFrame;
             }
+
+            editFrame.createTitlesRun();
+            editFrame.setEditingElementId(-1);
+            editFrame.clearInputs();
+            editFrame.Show();
         });
+    }
+
+    private void updateThemeButtons(){
+        updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount,"Пакетов");
+
+        updateElementButtons(mainFrame.getThemesPanel(),
+                mainFrame.getPacketsPanel(),
+                repository::getPacketNames,
+                this::updatePacketButtons);
+
+        updateEditButtons(mainFrame.getThemesPanel(),
+                editThemeFrame,
+                (index) -> repository.getTheme(index).getName(),
+                (index) -> repository.getTheme(index).getDescription());
+
+        updateDeleteButtons(mainFrame.getThemesPanel(),
+                repository::deleteTheme,
+                repository::getThemeNames,
+                this::updateThemeButtons);
+    }
+    private void updatePacketButtons(){
+        updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
+
+        updateElementButtons(mainFrame.getPacketsPanel(),
+                mainFrame.getCardsPanel(),
+                repository::getCardNames,
+                this::updateCardButtons);
+
+        updateEditButtons(mainFrame.getPacketsPanel(),
+                editPacketFrame,
+                (index) -> repository.getPacket(index).getName(),
+                (index) -> repository.getPacket(index).getDescription());
+
+        updateDeleteButtons(mainFrame.getPacketsPanel(),
+                repository::deletePacket,
+                repository::getPacketNames,
+                this::updatePacketButtons);
+    }
+    private void updateCardButtons(){
+        updateEditButtons(mainFrame.getCardsPanel(),
+                editCardFrame,
+                (index) -> repository.getCard(index).getFrontText(),
+                (index) -> repository.getCard(index).getBackText());
+
+        updateDeleteButtons(mainFrame.getCardsPanel(),
+                repository::deleteCard,
+                repository::getCardNames,
+                this::updateCardButtons);
+
     }
 
     private void updateElementButtons(GroupPanel groupPanel, GroupPanel openingPanel, Function<Integer, String[]> getNames, Runnable updateOpeningPanelButtons){
@@ -148,13 +197,13 @@ public class Controller {
             });
         }
     }
-    private void updateEditButtons(GroupPanel groupPanel, EditFrame editFrame, Runnable setEditFrameTitles, Function<Integer, String> param1GetDefault, Function<Integer, String> param2GetDefault){
+    private void updateEditButtons(GroupPanel groupPanel, EditFrame editFrame, Function<Integer, String> param1GetDefault, Function<Integer, String> param2GetDefault){
         for(JButton button : groupPanel.getEditButtons()){
             button.addActionListener(e -> {
                 JButton b = (JButton) e.getSource();
                 int index = groupPanel.getEditButtons().indexOf(b);
 
-                setEditFrameTitles.run();
+                editFrame.editTitlesRun();
                 editFrame.setParam1Value(param1GetDefault.apply(index));
                 editFrame.setParam2Value(param2GetDefault.apply(index));
                 editFrame.setEditingElementId(index);
@@ -173,58 +222,6 @@ public class Controller {
                 updateMethod.run();
             });
         }
-    }
-
-    private void updateThemeButtons(){
-        updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount,"Пакетов");
-
-        updateElementButtons(mainFrame.getThemesPanel(),
-                                mainFrame.getPacketsPanel(),
-                                repository::getPacketNames,
-                                this::updatePacketButtons);
-
-        updateEditButtons(mainFrame.getThemesPanel(),
-                            editThemeFrame,
-                            editThemeFrame::editPacketTitles,
-                (index) -> repository.getTheme(index).getName(),
-                (index) -> repository.getTheme(index).getDescription());
-
-        updateDeleteButtons(mainFrame.getThemesPanel(),
-                            repository::deleteTheme,
-                            repository::getThemeNames,
-                            this::updateThemeButtons);
-    }
-    private void updatePacketButtons(){
-        updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
-
-        updateElementButtons(mainFrame.getPacketsPanel(),
-                                mainFrame.getCardsPanel(),
-                                repository::getCardNames,
-                                this::updateCardButtons);
-
-        updateEditButtons(mainFrame.getPacketsPanel(),
-                            editPacketFrame,
-                            editPacketFrame::editPacketTitles,
-                (index) -> repository.getPacket(index).getName(),
-                (index) -> repository.getPacket(index).getDescription());
-
-        updateDeleteButtons(mainFrame.getPacketsPanel(),
-                            repository::deletePacket,
-                            repository::getPacketNames,
-                            this::updatePacketButtons);
-    }
-    private void updateCardButtons(){
-        updateEditButtons(mainFrame.getCardsPanel(),
-                            editCardFrame,
-                            editCardFrame::editCardTitles,
-                (index) -> repository.getCard(index).getFrontText(),
-                (index) -> repository.getCard(index).getBackText());
-
-        updateDeleteButtons(mainFrame.getCardsPanel(),
-                            repository::deleteCard,
-                            repository::getCardNames,
-                            this::updateCardButtons);
-
     }
     private void updateElementsCount(GroupPanel groupPanel,  Function<Integer, Integer> getCount, String paramName){
         ArrayList<GroupElement> elements = groupPanel.getElements();

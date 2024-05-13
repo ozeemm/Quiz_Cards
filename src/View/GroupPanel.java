@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GroupPanel extends JPanel {
-    private final ArrayList<GroupElement> elements = new ArrayList<GroupElement>();
+    private final ArrayList<GroupElement> elements = new ArrayList<>();
     private JPanel elementsPanel;
     private JScrollPane scroll;
 
