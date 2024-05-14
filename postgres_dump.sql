@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-11 04:37:27
+-- Started on 2024-05-14 18:09:49
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,8 +18,9 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+DROP DATABASE quiz_cards;
 --
--- TOC entry 4863 (class 1262 OID 16498)
+-- TOC entry 4873 (class 1262 OID 16612)
 -- Name: quiz_cards; Type: DATABASE; Schema: -; Owner: -
 --
 
@@ -48,7 +49,7 @@ CREATE SCHEMA public;
 
 
 --
--- TOC entry 4864 (class 0 OID 0)
+-- TOC entry 4874 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
@@ -61,7 +62,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 216 (class 1259 OID 16501)
+-- TOC entry 215 (class 1259 OID 16613)
 -- Name: cards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -74,7 +75,7 @@ CREATE TABLE public.cards (
 
 
 --
--- TOC entry 215 (class 1259 OID 16500)
+-- TOC entry 216 (class 1259 OID 16618)
 -- Name: Cards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -88,8 +89,8 @@ CREATE SEQUENCE public."Cards_id_seq"
 
 
 --
--- TOC entry 4865 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 4875 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: Cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -97,7 +98,7 @@ ALTER SEQUENCE public."Cards_id_seq" OWNED BY public.cards.id;
 
 
 --
--- TOC entry 218 (class 1259 OID 16510)
+-- TOC entry 217 (class 1259 OID 16619)
 -- Name: card_packets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -110,7 +111,7 @@ CREATE TABLE public.card_packets (
 
 
 --
--- TOC entry 217 (class 1259 OID 16509)
+-- TOC entry 218 (class 1259 OID 16624)
 -- Name: card_packets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -124,8 +125,8 @@ CREATE SEQUENCE public.card_packets_id_seq
 
 
 --
--- TOC entry 4866 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 4876 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: card_packets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -133,7 +134,25 @@ ALTER SEQUENCE public.card_packets_id_seq OWNED BY public.card_packets.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 16519)
+-- TOC entry 222 (class 1259 OID 16654)
+-- Name: card_packets_view; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.card_packets_view AS
+ SELECT card_packets.id,
+    card_packets.name,
+    card_packets.description,
+    card_packets.theme_id,
+    unnamed_subquery.count AS cards_count
+   FROM (public.card_packets
+     JOIN ( SELECT cards.packet_id,
+            count(cards.packet_id) AS count
+           FROM public.cards
+          GROUP BY cards.packet_id) unnamed_subquery ON ((card_packets.id = unnamed_subquery.packet_id)));
+
+
+--
+-- TOC entry 219 (class 1259 OID 16625)
 -- Name: themes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -145,7 +164,7 @@ CREATE TABLE public.themes (
 
 
 --
--- TOC entry 219 (class 1259 OID 16518)
+-- TOC entry 220 (class 1259 OID 16630)
 -- Name: themes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -159,8 +178,8 @@ CREATE SEQUENCE public.themes_id_seq
 
 
 --
--- TOC entry 4867 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 4877 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: themes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -168,7 +187,24 @@ ALTER SEQUENCE public.themes_id_seq OWNED BY public.themes.id;
 
 
 --
--- TOC entry 4699 (class 2604 OID 16513)
+-- TOC entry 221 (class 1259 OID 16650)
+-- Name: themes_view; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.themes_view AS
+ SELECT themes.id,
+    themes.name,
+    themes.description,
+    unnamed_subquery.count AS packets_count
+   FROM (public.themes
+     JOIN ( SELECT card_packets.theme_id,
+            count(*) AS count
+           FROM public.card_packets
+          GROUP BY card_packets.theme_id) unnamed_subquery ON ((themes.id = unnamed_subquery.theme_id)));
+
+
+--
+-- TOC entry 4707 (class 2604 OID 16631)
 -- Name: card_packets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -176,7 +212,7 @@ ALTER TABLE ONLY public.card_packets ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4698 (class 2604 OID 16504)
+-- TOC entry 4706 (class 2604 OID 16632)
 -- Name: cards id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -184,7 +220,7 @@ ALTER TABLE ONLY public.cards ALTER COLUMN id SET DEFAULT nextval('public."Cards
 
 
 --
--- TOC entry 4700 (class 2604 OID 16522)
+-- TOC entry 4708 (class 2604 OID 16633)
 -- Name: themes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -192,8 +228,8 @@ ALTER TABLE ONLY public.themes ALTER COLUMN id SET DEFAULT nextval('public.theme
 
 
 --
--- TOC entry 4855 (class 0 OID 16510)
--- Dependencies: 218
+-- TOC entry 4864 (class 0 OID 16619)
+-- Dependencies: 217
 -- Data for Name: card_packets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -203,8 +239,8 @@ INSERT INTO public.card_packets VALUES (2, 'Профессии', 'Набор к�
 
 
 --
--- TOC entry 4853 (class 0 OID 16501)
--- Dependencies: 216
+-- TOC entry 4862 (class 0 OID 16613)
+-- Dependencies: 215
 -- Data for Name: cards; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -220,8 +256,8 @@ INSERT INTO public.cards VALUES (4, 'Teacher', 'Учитель', 2);
 
 
 --
--- TOC entry 4857 (class 0 OID 16519)
--- Dependencies: 220
+-- TOC entry 4866 (class 0 OID 16625)
+-- Dependencies: 219
 -- Data for Name: themes; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -230,8 +266,8 @@ INSERT INTO public.themes VALUES (2, 'Английский', 'Наборы пр�
 
 
 --
--- TOC entry 4868 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 4878 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: Cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -239,17 +275,17 @@ SELECT pg_catalog.setval('public."Cards_id_seq"', 24, true);
 
 
 --
--- TOC entry 4869 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 4879 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: card_packets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.card_packets_id_seq', 15, true);
+SELECT pg_catalog.setval('public.card_packets_id_seq', 16, true);
 
 
 --
--- TOC entry 4870 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 4880 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: themes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -257,7 +293,7 @@ SELECT pg_catalog.setval('public.themes_id_seq', 8, true);
 
 
 --
--- TOC entry 4702 (class 2606 OID 16508)
+-- TOC entry 4710 (class 2606 OID 16635)
 -- Name: cards Cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -266,7 +302,7 @@ ALTER TABLE ONLY public.cards
 
 
 --
--- TOC entry 4704 (class 2606 OID 16517)
+-- TOC entry 4712 (class 2606 OID 16637)
 -- Name: card_packets card_packets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -275,7 +311,7 @@ ALTER TABLE ONLY public.card_packets
 
 
 --
--- TOC entry 4706 (class 2606 OID 16526)
+-- TOC entry 4714 (class 2606 OID 16639)
 -- Name: themes themes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -284,7 +320,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 4708 (class 2606 OID 16596)
+-- TOC entry 4716 (class 2606 OID 16640)
 -- Name: card_packets card_packets_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -293,7 +329,7 @@ ALTER TABLE ONLY public.card_packets
 
 
 --
--- TOC entry 4707 (class 2606 OID 16601)
+-- TOC entry 4715 (class 2606 OID 16645)
 -- Name: cards cards_packet_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -301,7 +337,7 @@ ALTER TABLE ONLY public.cards
     ADD CONSTRAINT cards_packet_id_fkey FOREIGN KEY (packet_id) REFERENCES public.card_packets(id) ON DELETE CASCADE NOT VALID;
 
 
--- Completed on 2024-05-11 04:37:28
+-- Completed on 2024-05-14 18:09:50
 
 --
 -- PostgreSQL database dump complete
