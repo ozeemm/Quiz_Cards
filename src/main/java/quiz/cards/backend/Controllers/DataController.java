@@ -18,29 +18,14 @@ public class DataController {
         System.out.println("Got all themes");
         return dbWorker.getThemes();
     }
-    @GetMapping("themes/count")
-    public int getThemesCount(){
-        System.out.println("Got themes count");
-        return dbWorker.getThemesCount();
-    }
     @GetMapping("packets")
     public ArrayList<CardsPacket> getPackets(@RequestParam(value = "theme") int themeId) {
         System.out.println("Got packets from theme " + themeId);
         return dbWorker.getPackets(themeId);
     }
-    @GetMapping("packets/count")
-    public int getPacketsCount(@RequestParam(value = "theme") int themeId){
-        System.out.println("Got packets count from theme " + themeId);
-        return dbWorker.getPacketsCount(themeId);
-    }
     @GetMapping("cards")
     public ArrayList<Card> getCards(@RequestParam(value = "packet") int themeId){
         System.out.println("Got cards from packet " + themeId);
         return dbWorker.getCards(themeId);
-    }
-    @GetMapping("cards/count")
-    public int getCardsCount(@RequestParam(value = "packet")int packetId){
-        System.out.println("Got cards count from packet " + packetId);
-        return dbWorker.getCardsCount(packetId);
     }
 }
