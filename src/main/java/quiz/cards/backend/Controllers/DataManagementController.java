@@ -1,5 +1,9 @@
 package quiz.cards.backend.Controllers;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
+import quiz.cards.backend.Data.JSONReader;
 import quiz.cards.backend.Model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
@@ -9,94 +13,49 @@ import org.springframework.web.bind.annotation.*;
 public class DataManagementController extends AbstractDataController {
     @PostMapping("theme")
     public void createTheme(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(json, Theme.class);
-
-            getDbWorker().createTheme(theme);
-            System.out.println("Created theme " + theme.getName());
-        } catch(Exception e) { e.printStackTrace(); }
+        getDbWorker().createTheme(JSONReader.fromJson(json, Theme.class));
+        System.out.println("Created theme " + JSONReader.fromJson(json, Theme.class).getName());
     }
     @PutMapping("theme")
     public void updateTheme(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(json, Theme.class);
-
-            getDbWorker().updateTheme(theme);
-            System.out.println("Updated theme " + theme.getName());
-        } catch(Exception e) { e.printStackTrace(); }
+        getDbWorker().updateTheme(JSONReader.fromJson(json, Theme.class));
+        System.out.println("Updated theme " + JSONReader.fromJson(json, Theme.class).getName());
     }
     @DeleteMapping("theme")
     public void deleteTheme(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Theme theme = objectMapper.readValue(json, Theme.class);
-
-            getDbWorker().deleteTheme(theme);
-            System.out.println("Deleted theme " + theme.getName());
-        } catch(Exception e) { e.printStackTrace(); }
+        getDbWorker().deleteTheme(JSONReader.fromJson(json, Theme.class));
+        System.out.println("Deleted theme " + JSONReader.fromJson(json, Theme.class).getName());
     }
 
     @PostMapping("packet")
     public void createPacket(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
-
-            getDbWorker().createPacket(packet);
-            System.out.println("Created packet " + packet.getName() + " in theme " + packet.getThemeId());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().createPacket(JSONReader.fromJson(json, CardsPacket.class));
+        System.out.println("Created packet " + JSONReader.fromJson(json, CardsPacket.class).getName() + " in theme " + JSONReader.fromJson(json, CardsPacket.class).getThemeId());
     }
     @PutMapping("packet")
     public void updatePacket(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
-
-            getDbWorker().updatePacket(packet);
-            System.out.println("Updated packet " + packet.getName());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().updatePacket(JSONReader.fromJson(json, CardsPacket.class));
+        System.out.println("Updated packet " + JSONReader.fromJson(json, CardsPacket.class).getName());
     }
     @DeleteMapping("packet")
     public void deletePacket(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
-
-            getDbWorker().deletePacket(packet);
-            System.out.println("Deleted packet " + packet.getName());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().deletePacket(JSONReader.fromJson(json, CardsPacket.class));
+        System.out.println("Deleted packet " + JSONReader.fromJson(json, CardsPacket.class).getName());
     }
 
     @PostMapping("card")
     public void createCard(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Card card = objectMapper.readValue(json, Card.class);
-
-            getDbWorker().createCard(card);
-            System.out.println("Created card " + card.getFrontText() + " in packet " + card.getPacketId());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().createCard(JSONReader.fromJson(json, Card.class));
+        System.out.println("Created card " + JSONReader.fromJson(json, Card.class).getFrontText() + " in packet " + JSONReader.fromJson(json, Card.class).getPacketId());
     }
     @PutMapping("card")
     public void updateCard(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Card card = objectMapper.readValue(json, Card.class);
-
-            getDbWorker().updateCard(card);
-            System.out.println("Updated card " + card.getFrontText());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().updateCard(JSONReader.fromJson(json, Card.class));
+        System.out.println("Updated card " + JSONReader.fromJson(json, Card.class).getFrontText());
     }
     @DeleteMapping("card")
     public void deleteCard(@RequestBody String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Card card = objectMapper.readValue(json, Card.class);
-
-            getDbWorker().deleteCard(card);
-            System.out.println("Deleted card " + card.getFrontText());
-        } catch(Exception e){ e.printStackTrace(); }
+        getDbWorker().deleteCard(JSONReader.fromJson(json, Card.class));
+        System.out.println("Deleted card " + JSONReader.fromJson(json, Card.class).getFrontText());
     }
 }
