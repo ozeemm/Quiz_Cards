@@ -24,8 +24,8 @@ public class DataController {
         return dbWorker.getPackets(themeId);
     }
     @GetMapping("cards")
-    public ArrayList<Card> getCards(@RequestParam(value = "packet") int themeId){
-        System.out.println("Got cards from packet " + themeId);
-        return dbWorker.getCards(themeId);
+    public ArrayList<Card> getCards(@RequestParam(value = "packet") int packetId){
+        System.out.println("Got cards from packet " + packetId);
+        return dbWorker.getCards(packetId);
     }
 }
