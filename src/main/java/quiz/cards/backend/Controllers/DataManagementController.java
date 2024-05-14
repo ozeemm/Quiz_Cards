@@ -1,24 +1,19 @@
 package quiz.cards.backend.Controllers;
 
-import quiz.cards.backend.Model.Card;
-import quiz.cards.backend.Model.CardsPacket;
-import quiz.cards.backend.Model.Theme;
+import quiz.cards.backend.Model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import quiz.cards.backend.Data.DBWorker;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/data-management")
-public class DataManagementController {
-    DBWorker dbWorker = new DBWorker();
-
+public class DataManagementController extends AbstractDataController {
     @PostMapping("theme")
     public void createTheme(@RequestBody String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Theme theme = objectMapper.readValue(json, Theme.class);
 
-            dbWorker.createTheme(theme);
+            getDbWorker().createTheme(theme);
             System.out.println("Created theme " + theme.getName());
         } catch(Exception e) { e.printStackTrace(); }
     }
@@ -28,7 +23,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             Theme theme = objectMapper.readValue(json, Theme.class);
 
-            dbWorker.updateTheme(theme);
+            getDbWorker().updateTheme(theme);
             System.out.println("Updated theme " + theme.getName());
         } catch(Exception e) { e.printStackTrace(); }
     }
@@ -38,7 +33,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             Theme theme = objectMapper.readValue(json, Theme.class);
 
-            dbWorker.deleteTheme(theme);
+            getDbWorker().deleteTheme(theme);
             System.out.println("Deleted theme " + theme.getName());
         } catch(Exception e) { e.printStackTrace(); }
     }
@@ -49,7 +44,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
 
-            dbWorker.createPacket(packet);
+            getDbWorker().createPacket(packet);
             System.out.println("Created packet " + packet.getName() + " in theme " + packet.getThemeId());
         } catch(Exception e){ e.printStackTrace(); }
     }
@@ -59,7 +54,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
 
-            dbWorker.updatePacket(packet);
+            getDbWorker().updatePacket(packet);
             System.out.println("Updated packet " + packet.getName());
         } catch(Exception e){ e.printStackTrace(); }
     }
@@ -69,7 +64,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             CardsPacket packet = objectMapper.readValue(json, CardsPacket.class);
 
-            dbWorker.deletePacket(packet);
+            getDbWorker().deletePacket(packet);
             System.out.println("Deleted packet " + packet.getName());
         } catch(Exception e){ e.printStackTrace(); }
     }
@@ -80,7 +75,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             Card card = objectMapper.readValue(json, Card.class);
 
-            dbWorker.createCard(card);
+            getDbWorker().createCard(card);
             System.out.println("Created card " + card.getFrontText() + " in packet " + card.getPacketId());
         } catch(Exception e){ e.printStackTrace(); }
     }
@@ -90,7 +85,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             Card card = objectMapper.readValue(json, Card.class);
 
-            dbWorker.updateCard(card);
+            getDbWorker().updateCard(card);
             System.out.println("Updated card " + card.getFrontText());
         } catch(Exception e){ e.printStackTrace(); }
     }
@@ -100,7 +95,7 @@ public class DataManagementController {
             ObjectMapper objectMapper = new ObjectMapper();
             Card card = objectMapper.readValue(json, Card.class);
 
-            dbWorker.deleteCard(card);
+            getDbWorker().deleteCard(card);
             System.out.println("Deleted card " + card.getFrontText());
         } catch(Exception e){ e.printStackTrace(); }
     }
