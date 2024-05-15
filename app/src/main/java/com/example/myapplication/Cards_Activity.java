@@ -29,15 +29,7 @@ public class Cards_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
 
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new         Intent(getApplicationContext(), ThemesActivity.class));
-            }
-        });*/
 
         Card card1 = new Card();
         card1.setFrontText("cat");
