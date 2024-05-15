@@ -48,9 +48,8 @@ public class Repository {
         return cards;
     }
 
-    public int getThemesCount(){ return serverDataWorker.getThemesCount(); }
-    public int getPacketsCount(int themeIndex){ return serverDataWorker.getPacketsCount(themes.get(themeIndex).getId()); }
-    public int getCardsCount(int packetIndex){ return serverDataWorker.getCardsCount(packets.get(packetIndex).getId()); }
+    public int getPacketsCount(int themeIndex){ return themes.get(themeIndex).getPacketsCount(); }
+    public int getCardsCount(int packetIndex){ return packets.get(packetIndex).getCardsCount(); }
 
     public String[] getThemeNames(){
         return getThemes().stream().map(t -> t.getName()).toArray(String[]::new);
@@ -85,6 +84,7 @@ public class Repository {
         packet.setDescription(description);
         packet.setThemeId(currentTheme.getId());
         serverDataManagementWorker.createPacket(packet);
+        currentTheme.setPacketsCount(currentTheme.getPacketsCount()+1);
     }
     public void createCard(String frontText, String backText){
         Card card = new Card();
@@ -92,6 +92,7 @@ public class Repository {
         card.setBackText(backText);
         card.setPacketId(currentPacket.getId());
         serverDataManagementWorker.createCard(card);
+        currentPacket.setCardsCount(currentPacket.getCardsCount()+1);
     }
 
     public void updateTheme(int arrIndex, String name, String description){
@@ -122,9 +123,11 @@ public class Repository {
     public void deletePacket(int arrIndex){
         CardsPacket packet = packets.get(arrIndex);
         serverDataManagementWorker.deletePacket(packet);
+        currentTheme.setPacketsCount(currentTheme.getPacketsCount()-1);
     }
     public void deleteCard(int arrIndex){
         Card card = cards.get(arrIndex);
         serverDataManagementWorker.deleteCard(card);
+        currentPacket.setCardsCount(currentPacket.getCardsCount()-1);
     }
 }

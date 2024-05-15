@@ -76,11 +76,13 @@ public class Controller {
             // Пакеты
             else if(mainFrame.getCurrentPanel() == mainFrame.getPacketsPanel()){
                 mainFrame.OpenPanel(mainFrame.getThemesPanel());
+                updatePacketButtons();
                 updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount, "Пакетов");
             }
             // Карточки
             else if(mainFrame.getCurrentPanel() == mainFrame.getCardsPanel()){
                 mainFrame.OpenPanel(mainFrame.getPacketsPanel());
+                updateCardButtons();
                 updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
             }
         });
@@ -106,8 +108,6 @@ public class Controller {
     }
 
     private void updateThemeButtons(){
-        updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount,"Пакетов");
-
         updateElementButtons(mainFrame.getThemesPanel(),
                 mainFrame.getPacketsPanel(),
                 repository::getPacketNames,
@@ -122,10 +122,9 @@ public class Controller {
                 repository::deleteTheme,
                 repository::getThemeNames,
                 this::updateThemeButtons);
+        updateElementsCount(mainFrame.getThemesPanel(), repository::getPacketsCount,"Пакетов");
     }
     private void updatePacketButtons(){
-        updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
-
         updateElementButtons(mainFrame.getPacketsPanel(),
                 mainFrame.getCardsPanel(),
                 repository::getCardNames,
@@ -140,6 +139,7 @@ public class Controller {
                 repository::deletePacket,
                 repository::getPacketNames,
                 this::updatePacketButtons);
+        updateElementsCount(mainFrame.getPacketsPanel(), repository::getCardsCount, "Карточек");
     }
     private void updateCardButtons(){
         updateEditButtons(mainFrame.getCardsPanel(),

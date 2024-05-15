@@ -4,6 +4,7 @@ public class Theme {
     private int id;
     private String name;
     private String description;
+    private int packetsCount;
 
     public int getId() {
         return id;
@@ -17,12 +18,16 @@ public class Theme {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+    public int getPacketsCount() {
+        return packetsCount;
+    }
+    public void setPacketsCount(int packetsCount) {
+        this.packetsCount = packetsCount;
     }
 }

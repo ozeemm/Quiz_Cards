@@ -20,24 +20,12 @@ public class ServerDataWorker extends ServerWorker{
                     .uri(URI.create(dataUrl+"/themes"))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
             Theme[] themesList = new Gson().fromJson(response.body(), Theme[].class);
+            System.out.println(response.body());
             return new ArrayList<Theme>(Arrays.asList(themesList));
         } catch (Exception e){ e.printStackTrace(); }
         return null;
     }
-    public int getThemesCount(){
-        try{
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(dataUrl+"/themes/count"))
-                    .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
-            return new Gson().fromJson(response.body(), Integer.class);
-        } catch(Exception e){ e.printStackTrace(); }
-        return -1;
-    }
-
     public ArrayList<CardsPacket> getPackets(int themeId){
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -49,17 +37,6 @@ public class ServerDataWorker extends ServerWorker{
         } catch (Exception e){ e.printStackTrace(); }
         return null;
     }
-    public int getPacketsCount(int themeId){
-        try{
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(dataUrl+"/packets/count?theme="+themeId))
-                    .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return new Gson().fromJson(response.body(), Integer.class);
-        } catch(Exception e){ e.printStackTrace(); }
-        return -1;
-    }
-
     public ArrayList<Card> getCards(int packetId){
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -71,15 +48,5 @@ public class ServerDataWorker extends ServerWorker{
             return new ArrayList<Card>(Arrays.asList(cardsList));
         } catch (Exception e){ e.printStackTrace(); }
         return null;
-    }
-    public int getCardsCount(int packetId){
-        try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(dataUrl+"/cards/count?packet="+packetId))
-                    .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return new Gson().fromJson(response.body(), Integer.class);
-        } catch (Exception e){ e.printStackTrace(); }
-        return -1;
     }
 }
