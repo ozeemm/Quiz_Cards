@@ -1,16 +1,19 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.ViewingCards;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class MainActivity extends AppCompatActivity {
+public class Cards_Activity extends AppCompatActivity {
 
     ViewingCards viewingCards = new ViewingCards();
     Card currCard = new Card();
@@ -18,14 +21,23 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewCount;
     TextView textViewStudy;
     TextView textViewKnow;
-
     Button buttonKnow;
     Button buttonStudy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cards);
+
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new         Intent(getApplicationContext(), ThemesActivity.class));
+            }
+        });*/
 
         Card card1 = new Card();
         card1.setFrontText("cat");
@@ -33,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         Card card2 = new Card();
         card2.setFrontText("dog");
-        card2.setBackText("собака");
+        card2.setBackText("собака ngnfyuj hfyujgyi jufgjyg hjfgjy nhvjh");
 
         Card card3 = new Card();
         card3.setFrontText("rabbit");
