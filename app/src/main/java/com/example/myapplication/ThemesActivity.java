@@ -45,7 +45,7 @@ public class ThemesActivity extends AppCompatActivity {
         themes.add(theme2);
 
         listView = findViewById(R.id.listView);
-        ListViewAdapter listViewAdapter = new ListViewAdapter(getApplicationContext(),themes);
+        ListViewAdapter listViewAdapter = new ListViewAdapter(this,themes);
         listView.setAdapter(listViewAdapter);
 
     }
