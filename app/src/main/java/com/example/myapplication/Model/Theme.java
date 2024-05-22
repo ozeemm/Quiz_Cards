@@ -3,6 +3,7 @@ package com.example.myapplication.Model;
 public class Theme {
     private int id;
     private String name;
+    private int packetsCount;
     private String description;
 
     public int getId() {
@@ -24,5 +25,13 @@ public class Theme {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPacketsCount() {
+        return packetsCount;
+    }
+
+    public void setPacketsCount(int packetsCount) {
+        this.packetsCount = packetsCount;
     }
 }

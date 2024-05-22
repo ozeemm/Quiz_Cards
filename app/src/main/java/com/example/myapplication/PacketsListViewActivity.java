@@ -1,13 +1,13 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class ListViewActivity extends AppCompatActivity {
+public class PacketsListViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.themes_activity_list_view);
+        setContentView(R.layout.packets_activity_list_view);
     }
 }

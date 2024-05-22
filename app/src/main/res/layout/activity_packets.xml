@@ -8,13 +8,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ThemesActivity" android:id="@+id/liLayout">
+            tools:context=".PacketsActivity" android:id="@+id/liLayout">
 
 
         <ListView
                 android:layout_width="395dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/themesListView"
+                android:id="@+id/packetsListView"
                 android:layout_height="720dp" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="50dp"/>
 

@@ -13,15 +13,25 @@
             android:theme="@style/Theme.MyApplication"
             tools:targetApi="31">
         <activity
-                android:name=".ListViewActivity"
-                android:exported="false"/>
-        <activity
-                android:name=".ListView_Activity"
+                android:name=".PacketsListViewActivity"
                 android:exported="false"
-                android:label="@string/title_activity_list_view"
+                android:theme="@style/Theme.MyApplication"/>
+        />
+        <activity
+                android:name=".ThemesListViewActivity"
+                android:exported="false"
                 android:theme="@style/Theme.MyApplication"/>
         <activity
                 android:name=".ThemesActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".PacketsActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

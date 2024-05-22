@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class Cards_Activity extends AppCompatActivity {
 
     ViewingCards viewingCards = new ViewingCards();
+    ArrayList<Card> cards;
+    int packetId;
     Card currCard = new Card();
     TextView textView;
     TextView textViewCount;
@@ -29,24 +31,9 @@ public class Cards_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
 
-
-
-        Card card1 = new Card();
-        card1.setFrontText("cat");
-        card1.setBackText("кошка");
-
-        Card card2 = new Card();
-        card2.setFrontText("dog");
-        card2.setBackText("собака ngnfyuj hfyujgyi jufgjyg hjfgjy nhvjh");
-
-        Card card3 = new Card();
-        card3.setFrontText("rabbit");
-        card3.setBackText("кролик");
-
-        ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
+        Bundle extras = getIntent().getExtras();
+        packetId = extras.getInt("packetId");
+        cards = Repository.getCards(packetId);
 
         viewingCards.setCards(cards);
         currCard = viewingCards.getNextCard();

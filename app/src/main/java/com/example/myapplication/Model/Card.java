@@ -6,6 +6,12 @@ public class Card {
     private String backText;
     private int packetId;
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getFrontText() {
         return frontText;
     }
@@ -17,12 +23,6 @@ public class Card {
     }
     public void setBackText(String backText) {
         this.backText = backText;
-    }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
     public int getPacketId() {
         return packetId;

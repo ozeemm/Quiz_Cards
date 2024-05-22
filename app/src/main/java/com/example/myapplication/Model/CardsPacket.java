@@ -4,6 +4,7 @@ public class CardsPacket {
     private int id;
     private String name;
     private String description;
+    private int cardsCount;
     private int themeId;
 
     public int getId() {
@@ -29,5 +30,13 @@ public class CardsPacket {
     }
     public void setThemeId(int themeId) {
         this.themeId = themeId;
+    }
+
+    public int getCardsCount() {
+        return cardsCount;
+    }
+
+    public void setCardsCount(int cardsCount) {
+        this.cardsCount = cardsCount;
     }
 }
