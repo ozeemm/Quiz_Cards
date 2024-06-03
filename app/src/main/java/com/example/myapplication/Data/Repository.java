@@ -1,5 +1,7 @@
 package com.example.myapplication.Data;
 
+import com.example.myapplication.Interfaces.IGetCards;
+import com.example.myapplication.Interfaces.IGetPackets;
 import com.example.myapplication.Interfaces.IGetThemes;
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.CardsPacket;
@@ -112,22 +114,19 @@ public class  Repository {
     public static void getThemes(IGetThemes iGetThemes){
         httpWorker.getThemes(iGetThemes);
     }
-    public static ArrayList<CardsPacket> getPackets(int themeId){
-        ArrayList<CardsPacket> neededPackets = new ArrayList<>();
-        for(CardsPacket p: packets){
-            if (p.getThemeId() == themeId)
-                neededPackets.add(p);
-        }
-        return neededPackets;
+    public static void getPackets(int themeId, IGetPackets iGetPackets){
+        httpWorker.getPackets(themeId, iGetPackets);
     }
-    public static ArrayList<Card> getCards(int packetId){
-        ArrayList<Card> neededCards = new ArrayList<>();
+    public static void getCards(int packetId, IGetCards iGetCards){
+        httpWorker.getCards(packetId, iGetCards);
+        /*ArrayList<Card> neededCards = new ArrayList<>();
         ArrayList<Integer> knownCards = userData.getKnownCards(packetId);
         cards.stream().filter(c->c.getPacketId()==packetId).filter(c-> !knownCards.contains(c.getId())).forEach(c->neededCards.add(c));
         if (neededCards.isEmpty()){
             cards.stream().filter(c->c.getPacketId()==packetId).forEach(c->neededCards.add(c));
         }
         return neededCards;
+        */
     }
 
     public static void setKnownCards(int packetId, ArrayList<Integer> cards){

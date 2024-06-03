@@ -1,6 +1,10 @@
 package com.example.myapplication.Data;
 
+import com.example.myapplication.Interfaces.IGetCards;
+import com.example.myapplication.Interfaces.IGetPackets;
 import com.example.myapplication.Interfaces.IGetThemes;
+import com.example.myapplication.Model.Card;
+import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
 import com.google.gson.Gson;
 import okhttp3.*;
@@ -27,6 +31,38 @@ public class HTTPWorker {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 Theme[] themes = new Gson().fromJson(response.body().string(), Theme[].class);
                 iGetThemes.onSuccess(new ArrayList<Theme>(Arrays.asList(themes)));
+            }
+        });
+    }
+
+    public void getPackets(int themeId, IGetPackets iGetPackets) {
+        Request request = new Request.Builder().url(url + "/packets?theme=" + themeId).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                CardsPacket[] packets = new Gson().fromJson(response.body().string(), CardsPacket[].class);
+                iGetPackets.onSuccess(new ArrayList<CardsPacket>(Arrays.asList(packets)));
+            }
+        });
+    }
+
+    public void getCards(int packetId, IGetCards iGetCards) {
+        Request request = new Request.Builder().url(url + "/cards?packet=" + packetId).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Card[] cards = new Gson().fromJson(response.body().string(), Card[].class);
+                iGetCards.onSuccess(new ArrayList<Card>(Arrays.asList(cards)));
             }
         });
     }

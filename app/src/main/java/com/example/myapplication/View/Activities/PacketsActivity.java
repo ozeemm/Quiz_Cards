@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Data.Repository;
 import com.example.myapplication.View.Adapters.PacketsListViewAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.View.Adapters.ThemesListViewAdapter;
 
 public class PacketsActivity extends AppCompatActivity {
 
@@ -17,9 +18,12 @@ public class PacketsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         int themeId = extras.getInt("themeId");
 
-        ListView listView = findViewById(R.id.packetsListView);
-        PacketsListViewAdapter packetsListViewAdapter = new PacketsListViewAdapter(this, Repository.getPackets(themeId));
-        listView.setAdapter(packetsListViewAdapter);
+        Repository.getPackets(themeId, packets -> runOnUiThread(() -> {
+            ListView listView = findViewById(R.id.packetsListView);
+            PacketsListViewAdapter packetsListViewAdapter = new PacketsListViewAdapter(this, packets);
+            listView.setAdapter(packetsListViewAdapter);
+        }));
+
 
     }
 

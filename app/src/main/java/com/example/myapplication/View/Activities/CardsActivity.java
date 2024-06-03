@@ -34,14 +34,15 @@ public class CardsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         packetId = extras.getInt("packetId");
 
-        viewingCards.setCards(Repository.getCards(packetId));
-        viewingCards.getNextCard();
-
         iniComponents();
 
-        textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
+        Repository.getCards(packetId, cards -> runOnUiThread(() -> {
+            viewingCards.setCards(cards);
+            viewingCards.getNextCard();
 
-        textView.setText(viewingCards.getCardText());
+            textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
+            textView.setText(viewingCards.getCardText());
+        }));
 
         textView.setOnClickListener(v -> {
             textView.startAnimation(animTo);
@@ -80,7 +81,6 @@ public class CardsActivity extends AppCompatActivity {
                 textView.setText(viewingCards.getCardText());
 
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
 
