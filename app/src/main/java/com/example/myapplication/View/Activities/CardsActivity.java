@@ -1,20 +1,19 @@
 package com.example.myapplication.View.Activities;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.myapplication.Data.Repository;
-import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.ViewingCards;
 import com.example.myapplication.R;
-
-import java.util.ArrayList;
 
 public class CardsActivity extends AppCompatActivity {
 
     private ViewingCards viewingCards = new ViewingCards();
-    private Card currCard = new Card();
+    //private Card currCard = new Card();
     private TextView textView;
     private TextView textViewCount;
     private TextView textViewStudy;
@@ -22,8 +21,10 @@ public class CardsActivity extends AppCompatActivity {
     private Button buttonKnow;
     private Button buttonStudy;
 
+    Animation animTo;
+
+    Animation animFrom;
     int packetId;
-    private ArrayList<Integer> studiedCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +35,17 @@ public class CardsActivity extends AppCompatActivity {
         packetId = extras.getInt("packetId");
 
         viewingCards.setCards(Repository.getCards(packetId));
-        currCard = viewingCards.getNextCard();
+        viewingCards.getNextCard();
 
         iniComponents();
 
         textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
 
-        textView.setText(currCard.getFrontText());
+        textView.setText(viewingCards.getCardText());
 
         textView.setOnClickListener(v -> {
-            if (textView.getText().equals(currCard.getFrontText()))
-                textView.setText(currCard.getBackText());
-            else
-                textView.setText(currCard.getFrontText());
-
+            textView.startAnimation(animTo);
+            viewingCards.rotateCard();
         });
 
         buttonKnow.setOnClickListener(v -> {
@@ -69,6 +67,41 @@ public class CardsActivity extends AppCompatActivity {
     }
 
     private void iniComponents(){
+        animTo = AnimationUtils.loadAnimation(this,R.anim.card_rotate_to_middle);
+        animFrom = AnimationUtils.loadAnimation(this,R.anim.card_rotate_from_middle);
+        animTo.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.startAnimation(animFrom);
+                textView.setText(viewingCards.getCardText());
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animFrom.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+
         textView= findViewById(R.id.textView);
         textViewCount  = findViewById(R.id.textViewCount);
         textViewStudy = findViewById(R.id.textViewStudy);
@@ -80,7 +113,7 @@ public class CardsActivity extends AppCompatActivity {
     private void addKnowOrNot(boolean know){
         if (know){
             viewingCards.addKnowCardsCount();
-            studiedCards.add(currCard.getId());
+            viewingCards.addStudiedCard();
             textViewKnow.setText(""+viewingCards.getKnowCardsCount());
         }
         else {
@@ -90,10 +123,10 @@ public class CardsActivity extends AppCompatActivity {
     }
 
     private void showNextCard(){
-        currCard = viewingCards.getNextCard();
+        boolean isCard = viewingCards.getNextCard();
         textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
-        if (currCard != null){
-            textView.setText(currCard.getFrontText());
+        if (isCard){
+            textView.setText(viewingCards.getCardText());
         }
         else{
             viewingFinished();
@@ -102,7 +135,7 @@ public class CardsActivity extends AppCompatActivity {
     }
 
     private void sendStudiedCards(){
-        Repository.setKnownCards(packetId, studiedCards);
+        Repository.setKnownCards(packetId, viewingCards.getStudiedCards());
     }
 
 
