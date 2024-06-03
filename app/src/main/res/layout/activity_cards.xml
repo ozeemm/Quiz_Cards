@@ -14,7 +14,8 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="132dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="49dp" android:clickable="true"
             android:textSize="34sp" android:gravity="center" android:background="#E8E8E8"
-            app:layout_constraintHorizontal_bias="0.513" android:rotationY="0" android:rotation="0"/>
+            app:layout_constraintHorizontal_bias="0.513" android:rotationY="0" android:rotation="0"
+    />
     <Button
             android:text="Знаю"
             android:layout_width="144dp"

@@ -1,5 +1,6 @@
 package com.example.myapplication.Data;
 
+import com.example.myapplication.Interfaces.IGetThemes;
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
@@ -8,11 +9,13 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class  Repository {
-    private static ArrayList<Theme> themes = new ArrayList<>();
+
+    private static HTTPWorker httpWorker = new HTTPWorker();
+    //private static ArrayList<Theme> themes = new ArrayList<>();
     private static ArrayList<CardsPacket> packets = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
     private static UserData userData = new UserData();
-    public static void initTestData(){
+    /*public static void initTestData(){
         // Это всё тестовое
         Theme theme1 = new Theme();
         theme1.setId(1);
@@ -104,9 +107,10 @@ public class  Repository {
         cards.add(card7);
         cards.add(card8);
         cards.add(card9);
-    }
-    public static ArrayList<Theme> getThemes(){
-        return themes;
+    }*/
+
+    public static void getThemes(IGetThemes iGetThemes){
+        httpWorker.getThemes(iGetThemes);
     }
     public static ArrayList<CardsPacket> getPackets(int themeId){
         ArrayList<CardsPacket> neededPackets = new ArrayList<>();
