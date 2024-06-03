@@ -3,7 +3,7 @@ package com.example.myapplication.Model;
 public class CardsPacket {
     private int id;
     private String name;
-    private String description;
+    private String description="Тут описание пакета";
     private int cardsCount;
     private int themeId;
 

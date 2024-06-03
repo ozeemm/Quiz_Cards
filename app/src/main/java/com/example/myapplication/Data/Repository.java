@@ -1,16 +1,17 @@
-package com.example.myapplication;
+package com.example.myapplication.Data;
 
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class  Repository {
     private static ArrayList<Theme> themes = new ArrayList<>();
     private static ArrayList<CardsPacket> packets = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
-
+    private static UserData userData = new UserData();
     public static void initTestData(){
         // Это всё тестовое
         Theme theme1 = new Theme();
@@ -104,7 +105,6 @@ public class  Repository {
         cards.add(card8);
         cards.add(card9);
     }
-
     public static ArrayList<Theme> getThemes(){
         return themes;
     }
@@ -118,12 +118,17 @@ public class  Repository {
     }
     public static ArrayList<Card> getCards(int packetId){
         ArrayList<Card> neededCards = new ArrayList<>();
-        for(Card c: cards){
-            if (c.getPacketId() == packetId)
-                neededCards.add(c);
+        ArrayList<Integer> knownCards = userData.getKnownCards(packetId);
+        cards.stream().filter(c->c.getPacketId()==packetId).filter(c-> !knownCards.contains(c.getId())).forEach(c->neededCards.add(c));
+        if (neededCards.isEmpty()){
+            cards.stream().filter(c->c.getPacketId()==packetId).forEach(c->neededCards.add(c));
         }
         return neededCards;
     }
 
-  
+    public static void setKnownCards(int packetId, ArrayList<Integer> cards){
+        userData.addCards(packetId,cards);
+    }
+
+
 }

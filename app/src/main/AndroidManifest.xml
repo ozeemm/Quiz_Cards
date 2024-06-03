@@ -13,16 +13,16 @@
             android:theme="@style/Theme.MyApplication"
             tools:targetApi="31">
         <activity
-                android:name=".PacketsListViewActivity"
+                android:name=".View.Activities.PacketsListViewActivity"
                 android:exported="false"
                 android:theme="@style/Theme.MyApplication"/>
         />
         <activity
-                android:name=".ThemesListViewActivity"
+                android:name=".View.Activities.ThemesListViewActivity"
                 android:exported="false"
                 android:theme="@style/Theme.MyApplication"/>
         <activity
-                android:name=".ThemesActivity"
+                android:name=".View.Activities.ThemesActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".PacketsActivity"
+                android:name=".View.Activities.PacketsActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Cards_Activity"
+                android:name=".View.Activities.CardsActivity"
                 android:exported="true">
         </activity>
     </application>

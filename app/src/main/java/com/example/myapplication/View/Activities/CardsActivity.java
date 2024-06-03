@@ -1,30 +1,29 @@
-package com.example.myapplication;
+package com.example.myapplication.View.Activities;
 
-import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.myapplication.Data.Repository;
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.ViewingCards;
+import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class Cards_Activity extends AppCompatActivity {
+public class CardsActivity extends AppCompatActivity {
 
-    ViewingCards viewingCards = new ViewingCards();
-    ArrayList<Card> cards;
+    private ViewingCards viewingCards = new ViewingCards();
+    private Card currCard = new Card();
+    private TextView textView;
+    private TextView textViewCount;
+    private TextView textViewStudy;
+    private TextView textViewKnow;
+    private Button buttonKnow;
+    private Button buttonStudy;
+
     int packetId;
-    Card currCard = new Card();
-    TextView textView;
-    TextView textViewCount;
-    TextView textViewStudy;
-    TextView textViewKnow;
-    Button buttonKnow;
-    Button buttonStudy;
+    private ArrayList<Integer> studiedCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,8 @@ public class Cards_Activity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         packetId = extras.getInt("packetId");
-        cards = Repository.getCards(packetId);
 
-        viewingCards.setCards(cards);
+        viewingCards.setCards(Repository.getCards(packetId));
         currCard = viewingCards.getNextCard();
 
         iniComponents();
@@ -82,6 +80,7 @@ public class Cards_Activity extends AppCompatActivity {
     private void addKnowOrNot(boolean know){
         if (know){
             viewingCards.addKnowCardsCount();
+            studiedCards.add(currCard.getId());
             textViewKnow.setText(""+viewingCards.getKnowCardsCount());
         }
         else {
@@ -90,7 +89,7 @@ public class Cards_Activity extends AppCompatActivity {
         }
     }
 
-    public void showNextCard(){
+    private void showNextCard(){
         currCard = viewingCards.getNextCard();
         textViewCount.setText(viewingCards.getShownCardsCount()+"/"+viewingCards.getCardsCount());
         if (currCard != null){
@@ -98,7 +97,12 @@ public class Cards_Activity extends AppCompatActivity {
         }
         else{
             viewingFinished();
+            sendStudiedCards();
         }
+    }
+
+    private void sendStudiedCards(){
+        Repository.setKnownCards(packetId, studiedCards);
     }
 
 

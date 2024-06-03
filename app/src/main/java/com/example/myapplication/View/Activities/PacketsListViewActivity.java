@@ -1,7 +1,8 @@
-package com.example.myapplication;
+package com.example.myapplication.View.Activities;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.myapplication.R;
 
 public class PacketsListViewActivity extends AppCompatActivity {
 

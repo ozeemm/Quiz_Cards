@@ -4,7 +4,7 @@ public class Theme {
     private int id;
     private String name;
     private int packetsCount;
-    private String description;
+    private String description = "Тут описание темы";
 
     public int getId() {
         return id;

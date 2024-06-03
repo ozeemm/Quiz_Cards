@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.View.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,27 +9,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import com.example.myapplication.Model.CardsPacket;
+import com.example.myapplication.Model.Theme;
+import com.example.myapplication.R;
+import com.example.myapplication.View.Activities.PacketsActivity;
 
 import java.util.ArrayList;
 
-public class PacketsListViewAdapter extends BaseAdapter {
+public class ThemesListViewAdapter extends BaseAdapter {
 
-    Context context;
-    ArrayList<CardsPacket> packets;
-    LayoutInflater inflater;
+    private Context context;
+    private ArrayList<Theme> themes;
+    private LayoutInflater inflater;
 
-
-    public PacketsListViewAdapter(Context ctx, ArrayList<CardsPacket> packets){
+    public ThemesListViewAdapter(Context ctx, ArrayList<Theme> themes){
         this.context = ctx;
-        this.packets = packets;
+        this.themes = themes;
         inflater = LayoutInflater.from(ctx);
 
     }
 
     @Override
     public int getCount() {
-        return packets.size();
+        return themes.size();
     }
 
     @Override
@@ -47,14 +48,14 @@ public class PacketsListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.themes_activity_list_view, null);
         TextView txtViewName =  convertView.findViewById(R.id.txtViewName);
-        txtViewName.setText(packets.get(position).getName());
+        txtViewName.setText(themes.get(position).getName());
         TextView txtViewDescription = convertView.findViewById(R.id.txtViewDescription);
-        txtViewDescription.setText(packets.get(position).getDescription());
+        txtViewDescription.setText(themes.get(position).getDescription());
         Button button = convertView.findViewById(R.id.button);
         button.setOnClickListener(v->{
-            Intent intent = new Intent(context, Cards_Activity.class);
+            Intent intent = new Intent(context, PacketsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            intent.putExtra("packetId", packets.get(position).getId());
+            intent.putExtra("themeId",themes.get(position).getId());
             context.startActivity(intent);
         });
         return convertView;
