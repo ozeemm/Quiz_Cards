@@ -5,28 +5,47 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             xmlns:android="http://schemas.android.com/apk/res/android" >
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:context=".View.Activities.PacketsActivity" android:id="@+id/liLayout">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="match_parent">
 
-
-        <ListView
+        <androidx.appcompat.widget.Toolbar
                 android:layout_width="395dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/packetsListView"
-                android:layout_height="720dp" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="55dp"
-                app:layout_constraintStart_toStartOf="parent"/>
-        <TextView
-                android:text="Тема: "
-                android:layout_width="395dp"
-                android:layout_height="55dp" android:id="@+id/textViewThemeName"
+                android:layout_height="55dp"
+                android:background="?attr/colorPrimary"
+                android:theme="?attr/actionBarTheme"
+                android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:textColor="#FFFFFF" android:textSize="24sp"
-                android:textStyle="normal" android:background="#673AB7" android:gravity="center_vertical"
-                android:paddingStart="10dp"/>
+                app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                        android:text="Тема: "
+                        android:layout_width="395dp"
+                        android:layout_height="55dp" android:id="@+id/textViewThemeName"
+                        android:textColor="#FFFFFF" android:textSize="24sp"
+                        android:textStyle="normal"  android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:context=".View.Activities.PacketsActivity" android:id="@+id/liLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            <ListView
+                    android:layout_width="395dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/packetsListView"
+                    android:layout_height="720dp" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="55dp"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="1.0"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

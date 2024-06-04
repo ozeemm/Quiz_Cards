@@ -68,7 +68,7 @@ public class PacketsListViewAdapter extends BaseAdapter {
             buttonRestart.setEnabled(true);
         if (know.equals(all))
             buttonOpen.setEnabled(false);
-        textViewProgress.setText((int) (Math.round(know*(100./all)))+"%");
+        textViewProgress.setText((int)(Math.round(know*(100./all)))+"%");
         progressBar.setProgress((100/all)*know);
         buttonOpen.setOnClickListener(v->{
             Intent intent = new Intent(context, CardsActivity.class);

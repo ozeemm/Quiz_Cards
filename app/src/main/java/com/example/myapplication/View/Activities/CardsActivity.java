@@ -137,7 +137,6 @@ public class CardsActivity extends AppCompatActivity {
         }
         else{
             viewingFinished();
-            sendStudiedCards();
         }
     }
 
