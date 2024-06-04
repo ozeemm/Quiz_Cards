@@ -1,11 +1,7 @@
 package quiz.cards.backend.Controllers;
 
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.media.Schema;
 import quiz.cards.backend.Data.JSONReader;
 import quiz.cards.backend.Model.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

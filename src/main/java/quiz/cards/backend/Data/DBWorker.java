@@ -3,6 +3,7 @@ package quiz.cards.backend.Data;
 import quiz.cards.backend.Model.Card;
 import quiz.cards.backend.Model.CardsPacket;
 import quiz.cards.backend.Model.Theme;
+import quiz.cards.backend.Model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -204,5 +205,78 @@ public class DBWorker {
             statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
+    }
+
+    public void createUser(User user){
+        try{
+            String query = "INSERT INTO users(email, password, userdata) values(?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, "");
+            statement.execute();
+            statement.close();
+        } catch(SQLException e){ e.printStackTrace(); }
+    }
+    public User getUserById(int userId){
+        try{
+            String query = "SELECT * FROM users WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, userId);
+
+            ResultSet table = statement.executeQuery();
+            table.next();
+
+            User user = new User();
+            user.setId(table.getInt("id"));
+            user.setEmail(table.getString("email"));
+            user.setPassword(table.getString("password"));
+            user.setUserdata(table.getString("userdata"));
+
+            table.close();
+            statement.close();
+
+            return user;
+        } catch (SQLException e){ e.printStackTrace(); }
+        return null;
+    }
+    public User getUserByEmail(String email){
+        try{
+            String query = "SELECT * FROM users WHERE email=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            ResultSet table = statement.executeQuery();
+            table.next();
+
+            User user = new User();
+            user.setId(table.getInt("id"));
+            user.setEmail(table.getString("email"));
+            user.setPassword(table.getString("password"));
+            user.setUserdata(table.getString("userdata"));
+
+            table.close();
+            statement.close();
+
+            return user;
+        } catch (Exception e){ }
+        return null;
+    }
+    public boolean isUserExists(String email){
+        try{
+            String query = "SELECT COUNT(*) as count FROM users WHERE email=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            ResultSet table = statement.executeQuery();
+            table.next();
+            int userCount = table.getInt("count");
+
+            table.close();
+            statement.close();
+
+            return userCount != 0;
+        } catch (SQLException e){ e.printStackTrace(); }
+        return true;
     }
 }
