@@ -123,13 +123,13 @@ public class  Repository {
             ArrayList<Integer> knownCards = userData.getKnownCards(packetId);
             ArrayList<Card> neededCards = new ArrayList<>();
             cards.stream().filter(c->c.getPacketId()==packetId).filter(c-> !knownCards.contains(c.getId())).forEach(c->neededCards.add(c));
-            if (neededCards.isEmpty()){
-                knownCards.clear();
-                cards.stream().filter(c->c.getPacketId()==packetId).forEach(c->neededCards.add(c));
-            }
             iGetCards.onSuccess(neededCards);
         });
     }
+    public static void restartCards(int packetId){
+        userData.getKnownCards().clear();
+    }
+
     public static void setKnownCards(int packetId, ArrayList<Integer> cards){
         userData.addCards(packetId,cards);
     }

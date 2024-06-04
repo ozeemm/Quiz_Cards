@@ -43,7 +43,7 @@ public class ThemesListViewAdapter extends BaseAdapter {
         return 0;
     }
 
-    @SuppressLint({"InflateParams", "ViewHolder", "SetTextI18n"})
+    @SuppressLint({"InflateParams", "ViewHolder"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.themes_activity_list_view, null);
@@ -51,13 +51,14 @@ public class ThemesListViewAdapter extends BaseAdapter {
         txtViewName.setText(themes.get(position).getName());
         TextView txtViewDescription = convertView.findViewById(R.id.txtViewDescription);
         txtViewDescription.setText(themes.get(position).getDescription());
-        Button button = convertView.findViewById(R.id.button);
+        Button button = convertView.findViewById(R.id.buttonOpen);
         TextView textViewPacketsCol = convertView.findViewById(R.id.textViewPackCol);
         textViewPacketsCol.setText(textViewPacketsCol.getText()+""+themes.get(position).getPacketsCount());
         button.setOnClickListener(v->{
             Intent intent = new Intent(context, PacketsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             intent.putExtra("themeId",themes.get(position).getId());
+            intent.putExtra("themeName",themes.get(position).getName());
             context.startActivity(intent);
         });
         return convertView;

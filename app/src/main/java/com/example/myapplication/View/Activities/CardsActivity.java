@@ -61,6 +61,12 @@ public class CardsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sendStudiedCards();
+    }
+
     private void viewingFinished(){
         textView.setText("Карточки закончены");
         textView.setEnabled(false);

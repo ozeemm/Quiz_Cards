@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Data.Repository;
 import com.example.myapplication.View.Adapters.PacketsListViewAdapter;
@@ -22,6 +23,10 @@ public class PacketsActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         themeId = extras.getInt("themeId");
+        String themeName = extras.getString("themeName");
+
+        TextView textViewThemeName = findViewById(R.id.textViewThemeName);
+        textViewThemeName.setText(textViewThemeName.getText()+" "+themeName);
 
         Repository.getPackets(themeId, packets -> runOnUiThread(() -> {
             listView = findViewById(R.id.packetsListView);
