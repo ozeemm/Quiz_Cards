@@ -1,18 +1,14 @@
 package Data;
 
-import Model.Theme;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ServerAuthWorker extends ServerWorker {
     private final String authUrl = url + "/api/user";
-    public boolean Authenticate(String email, String password){
+    public boolean authenticate(String email, String password){
         try{
             JsonObject json = new JsonObject();
             json.addProperty("email", email);

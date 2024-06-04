@@ -18,8 +18,12 @@ public class Controller {
     private EditFrame editPacketFrame;
     private EditFrame editCardFrame;
 
+    public Controller(Repository repo){
+        repository = repo;
+        start();
+    }
     public void start(){
-        repository = new Repository();
+        //repository = new Repository();
 
         mainFrame = new MainFrame();
 

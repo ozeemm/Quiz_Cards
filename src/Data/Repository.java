@@ -20,8 +20,9 @@ public class Repository {
         serverDataWorker = new ServerDataWorker();
         serverDataManagementWorker = new ServerDataManagementWorker();
         serverAuthWorker = new ServerAuthWorker();
-
-        serverAuthWorker.Authenticate("admin", "admin");
+    }
+    public boolean authenticate(String email, String password){
+        return serverAuthWorker.authenticate(email, password);
     }
 
     public ArrayList<Theme> getThemes(){
