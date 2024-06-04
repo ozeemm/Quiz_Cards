@@ -1,4 +1,4 @@
-package quiz.cards.backend.Configurations;
+package quiz.cards.backend.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

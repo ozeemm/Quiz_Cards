@@ -1,4 +1,4 @@
-package quiz.cards.backend.Configurations;
+package quiz.cards.backend.Config;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

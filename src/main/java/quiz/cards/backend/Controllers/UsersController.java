@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import quiz.cards.backend.Model.JwtCore;
 import quiz.cards.backend.Requests.LoginRequest;
-//import quiz.cards.backend.Configurations.TokenFilter;
 import quiz.cards.backend.Model.User;
 
 @RestController
@@ -27,6 +26,7 @@ public class UsersController extends AbstractDataController {
 
         if(passwordEncoder.matches(loginRequest.getPassword() ,user.getPassword())){
             String jwt = jwtCore.generateToken(user);
+            System.out.println(user.getEmail() + " logged in");
             return ResponseEntity.ok(jwt);
         }
         else{
@@ -45,6 +45,7 @@ public class UsersController extends AbstractDataController {
         user.setPassword(hashedPassword);
 
         getDbWorker().createUser(user);
+        System.out.println("New user registered: " + user.getEmail());
         return ResponseEntity.ok("User created");
     }
 
@@ -52,6 +53,16 @@ public class UsersController extends AbstractDataController {
     @SecurityRequirement(name="bearerAuth")
     public String getUserData(){
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("Got UserData for " + user.getEmail());
         return user.getUserdata();
+    }
+
+    @PostMapping("/data")
+    @SecurityRequirement(name="bearerAuth")
+    public void updateUserData(@RequestBody String userData){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        user.setUserdata(userData);
+        getDbWorker().updateUserData(user);
+        System.out.println("Updated UserData for " + user.getEmail());
     }
 }

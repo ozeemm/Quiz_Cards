@@ -3,14 +3,13 @@ package quiz.cards.backend.Model;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
-import quiz.cards.backend.Model.User;
 
 import java.util.Date;
 
 @Component
 public class JwtCore {
     private String secret = "mysupersecretkey2315";
-    private int lifeTime = 5 * 60 * 1000; // Время жизни токена в миллисекундах
+    private int lifeTime = 24 * 60 * 60 * 1000; // Время жизни токена в миллисекундах
 
     public String generateToken(User user){
         Date date = new Date();

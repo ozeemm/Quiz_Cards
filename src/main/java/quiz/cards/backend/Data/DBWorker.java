@@ -218,6 +218,16 @@ public class DBWorker {
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
     }
+    public void updateUserData(User user){
+        try{
+            String query = "UPDATE users SET userdata=? WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getUserdata());
+            statement.setInt(2, user.getId());
+            statement.execute();
+            statement.close();
+        } catch(SQLException e){ e.printStackTrace(); }
+    }
     public User getUserById(int userId){
         try{
             String query = "SELECT * FROM users WHERE id=?";
