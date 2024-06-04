@@ -52,6 +52,8 @@ public class ThemesListViewAdapter extends BaseAdapter {
         TextView txtViewDescription = convertView.findViewById(R.id.txtViewDescription);
         txtViewDescription.setText(themes.get(position).getDescription());
         Button button = convertView.findViewById(R.id.button);
+        TextView textViewPacketsCol = convertView.findViewById(R.id.textViewPackCol);
+        textViewPacketsCol.setText(textViewPacketsCol.getText()+""+themes.get(position).getPacketsCount());
         button.setOnClickListener(v->{
             Intent intent = new Intent(context, PacketsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -60,6 +62,8 @@ public class ThemesListViewAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.myapplication.View.Activities;
 
+import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;

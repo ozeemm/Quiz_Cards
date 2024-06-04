@@ -8,6 +8,7 @@ import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class  Repository {
@@ -118,20 +119,25 @@ public class  Repository {
         httpWorker.getPackets(themeId, iGetPackets);
     }
     public static void getCards(int packetId, IGetCards iGetCards){
-        httpWorker.getCards(packetId, iGetCards);
-        /*ArrayList<Card> neededCards = new ArrayList<>();
-        ArrayList<Integer> knownCards = userData.getKnownCards(packetId);
-        cards.stream().filter(c->c.getPacketId()==packetId).filter(c-> !knownCards.contains(c.getId())).forEach(c->neededCards.add(c));
-        if (neededCards.isEmpty()){
-            cards.stream().filter(c->c.getPacketId()==packetId).forEach(c->neededCards.add(c));
-        }
-        return neededCards;
-        */
+        httpWorker.getCards(packetId, (cards) ->{
+            ArrayList<Integer> knownCards = userData.getKnownCards(packetId);
+            ArrayList<Card> neededCards = new ArrayList<>();
+            cards.stream().filter(c->c.getPacketId()==packetId).filter(c-> !knownCards.contains(c.getId())).forEach(c->neededCards.add(c));
+            if (neededCards.isEmpty()){
+                knownCards.clear();
+                cards.stream().filter(c->c.getPacketId()==packetId).forEach(c->neededCards.add(c));
+            }
+            iGetCards.onSuccess(neededCards);
+        });
     }
-
     public static void setKnownCards(int packetId, ArrayList<Integer> cards){
         userData.addCards(packetId,cards);
     }
+
+    public static HashMap<Integer, ArrayList<Integer>> getKnownCards(){
+        return userData.getKnownCards();
+    }
+
 
 
 }

@@ -3,29 +3,34 @@ package com.example.myapplication.View.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.R;
 import com.example.myapplication.View.Activities.CardsActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class PacketsListViewAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<CardsPacket> packets;
     private LayoutInflater inflater;
+    private HashMap<Integer, ArrayList<Integer>> knownCardsCount;
 
-    public PacketsListViewAdapter(Context ctx, ArrayList<CardsPacket> packets){
+    public PacketsListViewAdapter(Context ctx, ArrayList<CardsPacket> packets, HashMap<Integer, ArrayList<Integer>> knownCardsCount){
         this.context = ctx;
         this.packets = packets;
         inflater = LayoutInflater.from(ctx);
-
+        this.knownCardsCount = knownCardsCount;
     }
 
     @Override
@@ -52,6 +57,15 @@ public class PacketsListViewAdapter extends BaseAdapter {
         TextView txtViewDescription = convertView.findViewById(R.id.txtViewDescription);
         txtViewDescription.setText(packets.get(position).getDescription());
         Button button = convertView.findViewById(R.id.button);
+        TextView textViewProgress = convertView.findViewById(R.id.textViewProgress);
+        ProgressBar progressBar = convertView.findViewById(R.id.progressBar);
+        Integer know = 0;
+        Integer all = packets.get(position).getCardsCount();
+        if (knownCardsCount.containsKey(packets.get(position).getId())){
+            know = knownCardsCount.get(packets.get(position).getId()).size();
+        }
+        textViewProgress.setText((int) (Math.ceil(know*(100./all)))+"%");
+        progressBar.setProgress((100/all)*know);
         button.setOnClickListener(v->{
             Intent intent = new Intent(context, CardsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -60,6 +74,7 @@ public class PacketsListViewAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
 
 
 
