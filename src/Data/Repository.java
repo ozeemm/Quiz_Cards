@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Repository {
     private ServerDataWorker serverDataWorker;
     private ServerDataManagementWorker serverDataManagementWorker;
+    private ServerAuthWorker serverAuthWorker;
 
     private ArrayList<Theme> themes;
     private ArrayList<CardsPacket> packets;
@@ -18,6 +19,9 @@ public class Repository {
     public Repository(){
         serverDataWorker = new ServerDataWorker();
         serverDataManagementWorker = new ServerDataManagementWorker();
+        serverAuthWorker = new ServerAuthWorker();
+
+        serverAuthWorker.Authenticate("admin", "admin");
     }
 
     public ArrayList<Theme> getThemes(){

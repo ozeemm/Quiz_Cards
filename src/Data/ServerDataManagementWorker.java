@@ -19,6 +19,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/theme"))
                     .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch(Exception e){ e.printStackTrace(); }
@@ -29,6 +30,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/theme"))
                     .method("PUT", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }
@@ -39,6 +41,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/theme"))
                     .method("DELETE", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }
@@ -51,6 +54,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/packet"))
                     .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch(Exception e){ e.printStackTrace(); }
@@ -61,6 +65,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/packet"))
                     .method("PUT", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }
@@ -71,6 +76,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/packet"))
                     .method("DELETE", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }
@@ -83,6 +89,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/card"))
                     .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch(Exception e){ e.printStackTrace(); }
@@ -93,6 +100,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/card"))
                     .method("PUT", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }
@@ -103,6 +111,7 @@ public class ServerDataManagementWorker extends ServerWorker {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataManagementUrl+"/card"))
                     .method("DELETE", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e){ e.printStackTrace(); }

@@ -18,10 +18,10 @@ public class ServerDataWorker extends ServerWorker{
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataUrl+"/themes"))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             Theme[] themesList = new Gson().fromJson(response.body(), Theme[].class);
-            System.out.println(response.body());
             return new ArrayList<Theme>(Arrays.asList(themesList));
         } catch (Exception e){ e.printStackTrace(); }
         return null;
@@ -30,6 +30,7 @@ public class ServerDataWorker extends ServerWorker{
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataUrl+"/packets?theme="+themeId))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
             CardsPacket[] packetList = new Gson().fromJson(httpResponse.body(), CardsPacket[].class);
@@ -41,6 +42,7 @@ public class ServerDataWorker extends ServerWorker{
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(dataUrl+"/cards?packet="+packetId))
+                    .header("Authorization", getAuthHeader())
                     .build();
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 
