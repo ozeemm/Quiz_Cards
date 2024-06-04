@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-06-05 04:31:13
+-- Started on 2024-06-05 05:56:10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -190,7 +190,8 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    userdata text NOT NULL
+    userdata text NOT NULL,
+    role text NOT NULL
 );
 
 
@@ -293,7 +294,8 @@ INSERT INTO public.themes VALUES (2, 'Английский', 'Наборы пр�
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'admin', '$2a$10$28RK8DktE5GfMTO4/RQUJ.DCZ/OMPxhroJXEjJ4MHoqD5DQtbma9y', 'I''m data :)');
+INSERT INTO public.users VALUES (1, 'admin', '$2a$10$28RK8DktE5GfMTO4/RQUJ.DCZ/OMPxhroJXEjJ4MHoqD5DQtbma9y', 'I''m data :)', 'ROLE_ADMIN');
+INSERT INTO public.users VALUES (2, 'notadmin', '$2a$10$3SALAe89nrmQhNdGwGda2uV5uNCAH2rOxZPI1fLOwu1dTmRE8lm/S', '', 'ROLE_USER');
 
 
 --
@@ -329,7 +331,7 @@ SELECT pg_catalog.setval('public.themes_id_seq', 12, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
@@ -386,7 +388,7 @@ ALTER TABLE ONLY public.cards
     ADD CONSTRAINT cards_packet_id_fkey FOREIGN KEY (packet_id) REFERENCES public.card_packets(id) ON DELETE CASCADE NOT VALID;
 
 
--- Completed on 2024-06-05 04:31:13
+-- Completed on 2024-06-05 05:56:11
 
 --
 -- PostgreSQL database dump complete

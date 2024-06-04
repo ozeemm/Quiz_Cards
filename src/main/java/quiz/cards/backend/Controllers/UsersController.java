@@ -11,6 +11,8 @@ import quiz.cards.backend.Model.JwtCore;
 import quiz.cards.backend.Requests.LoginRequest;
 import quiz.cards.backend.Model.User;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/user")
 public class UsersController extends AbstractDataController {

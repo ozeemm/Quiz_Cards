@@ -30,7 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/user/login", "/api/user/register").permitAll()
                         .requestMatchers("/api/user/**").fullyAuthenticated()
-                        .anyRequest().permitAll())
+                        .requestMatchers("/api/data").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/data-management").hasAnyRole("ADMIN"))
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

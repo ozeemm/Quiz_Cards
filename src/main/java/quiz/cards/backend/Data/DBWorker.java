@@ -1,5 +1,6 @@
 package quiz.cards.backend.Data;
 
+import quiz.cards.backend.Enums.Role;
 import quiz.cards.backend.Model.Card;
 import quiz.cards.backend.Model.CardsPacket;
 import quiz.cards.backend.Model.Theme;
@@ -209,11 +210,12 @@ public class DBWorker {
 
     public void createUser(User user){
         try{
-            String query = "INSERT INTO users(email, password, userdata) values(?, ?, ?)";
+            String query = "INSERT INTO users(email, password, userdata, role) values(?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, "");
+            statement.setString(4, Role.ROLE_USER.name());
             statement.execute();
             statement.close();
         } catch(SQLException e){ e.printStackTrace(); }
@@ -242,6 +244,7 @@ public class DBWorker {
             user.setEmail(table.getString("email"));
             user.setPassword(table.getString("password"));
             user.setUserdata(table.getString("userdata"));
+            user.setRole(Role.valueOf(table.getString("role")));
 
             table.close();
             statement.close();
@@ -264,6 +267,7 @@ public class DBWorker {
             user.setEmail(table.getString("email"));
             user.setPassword(table.getString("password"));
             user.setUserdata(table.getString("userdata"));
+            user.setRole(Role.valueOf(table.getString("role")));
 
             table.close();
             statement.close();
