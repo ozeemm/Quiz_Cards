@@ -11,19 +11,26 @@
         <androidx.appcompat.widget.Toolbar
                 android:layout_width="395dp"
                 android:layout_height="55dp"
-                android:background="?attr/colorPrimary"
+                android:background="@color/theme"
                 android:theme="?attr/actionBarTheme"
                 android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
-                <TextView
-                        android:text="Тема: "
-                        android:layout_width="395dp"
-                        android:layout_height="55dp" android:id="@+id/textViewThemeName"
-                        android:textColor="#FFFFFF" android:textSize="24sp"
-                        android:textStyle="normal"  android:gravity="center_vertical"
-                        android:paddingStart="10dp"
-                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" app:srcCompat="@drawable/arrow_back_24dp"
+                    android:id="@+id/imageViewBack"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="9dp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                    android:text="Тема: "
+                    android:layout_width="315dp"
+                    android:layout_height="55dp" android:id="@+id/textViewPacketName"
+                    android:textColor="#FFFFFF" android:textSize="20sp"
+                    android:textStyle="normal" android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.appcompat.widget.Toolbar>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,9 +47,8 @@
                     android:id="@+id/packetsListView"
                     android:layout_height="720dp" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="55dp"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="1.0"/>
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.0"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

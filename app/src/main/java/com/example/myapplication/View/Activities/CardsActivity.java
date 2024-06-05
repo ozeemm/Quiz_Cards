@@ -1,9 +1,9 @@
 package com.example.myapplication.View.Activities;
 
-import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,11 +21,15 @@ public class CardsActivity extends AppCompatActivity {
     private TextView textViewKnow;
     private Button buttonKnow;
     private Button buttonStudy;
+    private TextView textViewPacketName;
+    private ImageView imageView;
 
-    Animation animTo;
+    private Animation animTo;
+    private Animation animFrom;
+    private int packetId;
 
-    Animation animFrom;
-    int packetId;
+    private String packetName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,15 @@ public class CardsActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         packetId = extras.getInt("packetId");
+        packetName= extras.getString("packetName");
 
         iniComponents();
+
+        textViewPacketName.setText(textViewPacketName.getText()+" "+packetName);
+
+        imageView.setOnClickListener(v->{
+            onBackPressed();
+        });
 
         Repository.getCards(packetId, cards -> runOnUiThread(() -> {
             viewingCards.setCards(cards);
@@ -113,6 +124,8 @@ public class CardsActivity extends AppCompatActivity {
         textViewCount  = findViewById(R.id.textViewCount);
         textViewStudy = findViewById(R.id.textViewStudy);
         textViewKnow = findViewById(R.id.textViewKnow);
+        textViewPacketName = findViewById(R.id.textViewPacketName);
+        imageView = findViewById(R.id.imageViewBack);
         buttonKnow = findViewById(R.id.buttonKnow);
         buttonStudy = findViewById(R.id.buttonStudy);
     }

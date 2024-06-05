@@ -1,10 +1,10 @@
 package com.example.myapplication.Data;
 
-import com.example.myapplication.Model.Card;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class UserData {
     private HashMap<Integer, ArrayList<Integer>> knownCards  = new HashMap<>();
@@ -24,5 +24,7 @@ public class UserData {
         knownCards.get(packetId).addAll(cards);
     }
 
-
+    public void setFromJson(String json){
+        knownCards = new Gson().fromJson(json, new TypeToken<HashMap<Integer, ArrayList<Integer>>>(){}.getType());
+    }
 }

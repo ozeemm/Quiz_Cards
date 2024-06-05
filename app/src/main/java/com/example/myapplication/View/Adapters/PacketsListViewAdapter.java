@@ -74,6 +74,7 @@ public class PacketsListViewAdapter extends BaseAdapter {
             Intent intent = new Intent(context, CardsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             intent.putExtra("packetId", packets.get(position).getId());
+            intent.putExtra("packetName", packets.get(position).getName());
             context.startActivity(intent);
         });
         buttonRestart.setOnClickListener(v->{
@@ -81,6 +82,7 @@ public class PacketsListViewAdapter extends BaseAdapter {
             Intent intent = new Intent(context, CardsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             intent.putExtra("packetId", packets.get(position).getId());
+            intent.putExtra("packetName", packets.get(position).getName());
             context.startActivity(intent);
         });
         return convertView;

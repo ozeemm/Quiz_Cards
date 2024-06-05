@@ -1,21 +1,21 @@
 package com.example.myapplication.View.Activities;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Data.Repository;
 import com.example.myapplication.View.Adapters.PacketsListViewAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.View.Adapters.ThemesListViewAdapter;
 
 public class PacketsActivity extends AppCompatActivity {
 
     int themeId;
     PacketsListViewAdapter packetsListViewAdapter;
     ListView listView;
+
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +25,15 @@ public class PacketsActivity extends AppCompatActivity {
         themeId = extras.getInt("themeId");
         String themeName = extras.getString("themeName");
 
-        TextView textViewThemeName = findViewById(R.id.textViewThemeName);
+        TextView textViewThemeName = findViewById(R.id.textViewPacketName);
         textViewThemeName.setText(textViewThemeName.getText()+" "+themeName);
+
+        imageView = findViewById(R.id.imageViewBack);
+
+        imageView.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
 
         Repository.getPackets(themeId, packets -> runOnUiThread(() -> {
             listView = findViewById(R.id.packetsListView);
@@ -37,6 +44,10 @@ public class PacketsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
