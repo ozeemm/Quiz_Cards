@@ -1,5 +1,6 @@
 package View;
 
+import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -9,29 +10,24 @@ public class HeaderPanel extends JPanel {
     private JLabel header;
     private JButton backButton;
     private JButton addButton;
-    private final Color backgroundColor = Color.lightGray;
-    private final Color buttonColor = Color.gray;
-    private final Color buttonTextColor = Color.white;
-    private final Font headerFont = new Font("Arial", Font.BOLD, 24);
-    private final Font buttonFont = new Font("Arial", Font.PLAIN, 14);
 
     public HeaderPanel() {
         super(new MigLayout("", "[]push[]push[]"));
-        this.setBackground(backgroundColor);
+        this.setBackground(Style.getPanelBackgroundColor());
 
         header = new JLabel();
         header.setHorizontalAlignment(JLabel.CENTER);
-        header.setFont(headerFont);
+        header.setFont(Style.getHeaderFont());
 
         backButton = new JButton("Назад");
-        backButton.setBackground(buttonColor);
-        backButton.setForeground(buttonTextColor);
-        backButton.setFont(buttonFont);
+        backButton.setBackground(Style.getButtonBackgroundColor());
+        backButton.setForeground(Style.getButtonTextColor());
+        backButton.setFont(Style.getButtonFont());
 
         addButton = new JButton("Создать");
-        addButton.setBackground(buttonColor);
-        addButton.setForeground(buttonTextColor);
-        addButton.setFont(buttonFont);
+        addButton.setBackground(Style.getButtonBackgroundColor());
+        addButton.setForeground(Style.getButtonTextColor());
+        addButton.setFont(Style.getButtonFont());
 
         this.add(backButton);
         this.add(header);

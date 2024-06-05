@@ -1,5 +1,6 @@
 package View;
 
+import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -12,35 +13,28 @@ public class GroupElement extends JPanel {
     private JLabel elementsCountLabel;
     private int elementId;
 
-    private final Color borderColor = Color.white;
-    private final Color backgroundColor = Color.lightGray;
-    private final Color buttonColor = Color.gray;
-    private final Color buttonTextColor = Color.white;
-    private final Font buttonFont = new Font("Arial", Font.PLAIN, 16);
-    private final Font labelFont = new Font("Arial", Font.ITALIC, 14);
-
     public GroupElement(){
         super(new MigLayout("insets 10"));
-        this.setBorder(BorderFactory.createLineBorder(borderColor, 2));
-        this.setBackground(backgroundColor);
+        this.setBorder(BorderFactory.createLineBorder(Style.getBorderColor(), 2));
+        this.setBackground(Style.getPanelBackgroundColor());
 
         elementButton = new JButton();
-        elementButton.setBackground(buttonColor);
-        elementButton.setForeground(buttonTextColor);
-        elementButton.setFont(buttonFont);
+        elementButton.setBackground(Style.getButtonBackgroundColor());
+        elementButton.setForeground(Style.getButtonTextColor());
+        elementButton.setFont(Style.getButtonFont());
 
         editButton = new JButton("Изменить");
-        editButton.setBackground(buttonColor);
-        editButton.setForeground(buttonTextColor);
-        editButton.setFont(buttonFont);
+        editButton.setBackground(Style.getButtonBackgroundColor());
+        editButton.setForeground(Style.getButtonTextColor());
+        editButton.setFont(Style.getButtonFont());
 
         deleteButton = new JButton("Удалить");
-        deleteButton.setBackground(buttonColor);
-        deleteButton.setForeground(buttonTextColor);
-        deleteButton.setFont(buttonFont);
+        deleteButton.setBackground(Style.getButtonBackgroundColor());
+        deleteButton.setForeground(Style.getButtonTextColor());
+        deleteButton.setFont(Style.getButtonFont());
 
         elementsCountLabel = new JLabel();
-        elementsCountLabel.setFont(labelFont);
+        elementsCountLabel.setFont(Style.getElementInfoFont());
         elementsCountLabel.setHorizontalAlignment(JLabel.CENTER);
 
         this.add(elementButton, "span, grow");

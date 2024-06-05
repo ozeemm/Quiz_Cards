@@ -1,5 +1,6 @@
 package View;
 
+import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -19,15 +20,6 @@ public class EditFrame extends JFrame {
     private Runnable createTitlesFunction;
     private Runnable editTitlesFunction;
 
-    private final Color backgroundColor = new Color(238, 238, 238);
-    private final Color inputBackgroundColor = Color.WHITE;
-    private final Color textColor = Color.BLACK;
-    private final Color buttonColor = Color.LIGHT_GRAY;
-    private final Color buttonTextColor = Color.BLACK;
-    private final Font headerFont = new Font("Arial", Font.BOLD, 18);
-    private final Font textFont = new Font("Arial", Font.PLAIN, 14);
-    private final Font inputFont = new Font("Arial", Font.PLAIN, 13);
-
     public EditFrame(){
         super();
         setSize(300, 255);
@@ -37,46 +29,46 @@ public class EditFrame extends JFrame {
         setVisible(false);
 
         mainPanel = new JPanel(new MigLayout("insets 10"));
-        mainPanel.setBackground(backgroundColor);
+        mainPanel.setBackground(Style.getPanelBackgroundColor());
 
         header = new JLabel("Изменение");
-        header.setFont(headerFont);
-        header.setForeground(textColor);
+        header.setFont(Style.getSmallHeaderFont());
+        header.setForeground(Style.getTextColor());
         header.setHorizontalAlignment(JLabel.CENTER);;
 
         paramLabel1 = new JLabel();
-        paramLabel1.setFont(textFont);
-        paramLabel1.setForeground(textColor);
-        mainPanel.add(paramLabel1);
+        paramLabel1.setFont(Style.getInputLabelFont());
+        paramLabel1.setForeground(Style.getTextColor());
+        //mainPanel.add(paramLabel1);
 
         paramInput1 = new JTextField(30);
-        paramInput1.setBackground(inputBackgroundColor);
-        paramInput1.setFont(inputFont);
-        paramInput1.setForeground(textColor);
+        paramInput1.setBackground(Style.getInputBackgroundColor());
+        paramInput1.setFont(Style.getInputFont());
+        paramInput1.setForeground(Style.getTextColor());
 
         paramLabel2 = new JLabel();
-        paramLabel2.setFont(textFont);
-        paramLabel2.setForeground(textColor);
+        paramLabel2.setFont(Style.getInputLabelFont());
+        paramLabel2.setForeground(Style.getTextColor());
 
         paramInput2 = new JTextArea(4, 0);
-        paramInput2.setBackground(inputBackgroundColor);
-        paramInput2.setFont(inputFont);
-        paramInput2.setForeground(textColor);
+        paramInput2.setBackground(Style.getInputBackgroundColor());
+        paramInput2.setFont(Style.getInputFont());
+        paramInput2.setForeground(Style.getTextColor());
         paramInput2.setLineWrap(true);
         paramInput2.setWrapStyleWord(true);
 
         scrollPane = new JScrollPane(paramInput2);
 
         saveButton = new JButton("Сохранить");
-        saveButton.setFont(textFont);
-        saveButton.setBackground(buttonColor);
-        saveButton.setForeground(buttonTextColor);
+        saveButton.setFont(Style.getSmallButtonFont());
+        saveButton.setBackground(Style.getButtonBackgroundColor());
+        saveButton.setForeground(Style.getButtonTextColor());
         saveButton.addActionListener(e -> { this.setVisible(false); });
 
         backButton = new JButton("Назад");
-        backButton.setFont(textFont);
-        backButton.setBackground(buttonColor);
-        backButton.setForeground(buttonTextColor);
+        backButton.setFont(Style.getSmallButtonFont());
+        backButton.setBackground(Style.getButtonBackgroundColor());
+        backButton.setForeground(Style.getButtonTextColor());
         backButton.addActionListener(e -> { this.setVisible(false); });
 
         mainPanel.add(header, "span, grow, gapy 0 5");

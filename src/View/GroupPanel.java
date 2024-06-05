@@ -1,5 +1,6 @@
 package View;
 
+import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -11,13 +12,11 @@ public class GroupPanel extends JPanel {
     private JPanel elementsPanel;
     private JScrollPane scroll;
 
-    private final Color backgroundColor = Color.lightGray;
-
     public GroupPanel(){
         super(new GridLayout()); // т.к. растягивается
 
         elementsPanel = new JPanel(new MigLayout("wrap, insets 5", "[]10[]10[]", "[]10"));
-        elementsPanel.setBackground(backgroundColor);
+        elementsPanel.setBackground(Style.getPanelBackgroundColor());
 
         scroll = new JScrollPane(elementsPanel);
 
