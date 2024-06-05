@@ -1,11 +1,8 @@
 package View;
 
-import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
 
 public class AuthFrame extends JFrame {
     private JPanel mainPanel;

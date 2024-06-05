@@ -1,10 +1,8 @@
 package View;
 
-import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class EditFrame extends JFrame {
     private JPanel mainPanel;
@@ -39,7 +37,6 @@ public class EditFrame extends JFrame {
         paramLabel1 = new JLabel();
         paramLabel1.setFont(Style.getInputLabelFont());
         paramLabel1.setForeground(Style.getTextColor());
-        //mainPanel.add(paramLabel1);
 
         paramInput1 = new JTextField(30);
         paramInput1.setBackground(Style.getInputBackgroundColor());

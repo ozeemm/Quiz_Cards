@@ -1,10 +1,8 @@
 package View;
 
-import Model.Style;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class HeaderPanel extends JPanel {
     private JLabel header;
