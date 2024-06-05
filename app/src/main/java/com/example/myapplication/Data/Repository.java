@@ -1,11 +1,11 @@
 package com.example.myapplication.Data;
 
+import android.util.Log;
 import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class  Repository {
@@ -20,8 +20,24 @@ public class  Repository {
         httpWorker.getThemes(consumer);
     }
     public static void getPackets(int themeId, Consumer<ArrayList<CardsPacket>> consumer){
-        httpWorker.getPackets(themeId, consumer);
+        httpWorker.getPackets(themeId, (packets) ->{
+            packets.sort((o1, o2) -> {
+                Integer o1Progress =  Math.round((float)userData.getKnownCards(o1.getId()).size()/o1.getCardsCount()*100);
+                Integer o2Progress =  Math.round((float)userData.getKnownCards(o2.getId()).size()/o2.getCardsCount()*100);
+                if (o1Progress==100)
+                    o1Progress=-1;
+                if  (o2Progress==100)
+                    o2Progress=-1;
+                return o1Progress.compareTo(o2Progress);
+            });
+            Collections.reverse(packets);
+            consumer.accept(packets);
+
+
+        } );
     }
+
+
     public static void getCards(int packetId, Consumer<ArrayList<Card>> consumer){
         httpWorker.getCards(packetId, (cards) ->{
             ArrayList<Integer> knownCards = userData.getKnownCards(packetId);

@@ -48,12 +48,16 @@ public class PacketsActivity extends AppCompatActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
+
     }
 
     @Override
     public void onRestart(){
         super.onRestart();
-        packetsListViewAdapter.notifyDataSetChanged();
+        Repository.getPackets(themeId, packets -> runOnUiThread(() -> {
+            packetsListViewAdapter = new PacketsListViewAdapter(this, packets, Repository.getKnownCards());
+            listView.setAdapter(packetsListViewAdapter);
+        }));
     }
 
 

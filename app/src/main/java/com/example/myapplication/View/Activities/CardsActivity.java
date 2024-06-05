@@ -76,6 +76,7 @@ public class CardsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         sendStudiedCards();
+
     }
 
     private void viewingFinished(){
