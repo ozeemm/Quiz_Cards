@@ -25,6 +25,9 @@ public class UserData {
     }
 
     public void setFromJson(String json){
-        knownCards = new Gson().fromJson(json, new TypeToken<HashMap<Integer, ArrayList<Integer>>>(){}.getType());
+        if (!json.isEmpty())
+            knownCards = new Gson().fromJson(json, new TypeToken<HashMap<Integer, ArrayList<Integer>>>(){}.getType());
+        else
+            knownCards = new HashMap<>();
     }
 }

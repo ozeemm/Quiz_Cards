@@ -24,9 +24,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Repository.delJwt();
+
         Repository.signIn((isSignedIn)-> {
             sign(isSignedIn, false);
         });
+
 
         buttonSignIn = findViewById(R.id.buttonSignIn);
         buttonSignUp = findViewById(R.id.buttonSignUp);

@@ -26,7 +26,7 @@ public class HTTPWorker {
     private MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     
     public void getThemes(Consumer<ArrayList<Theme>> consumer){
-        Request request = new Request.Builder().url(dataUrl+"/themes").build();
+        Request request = new Request.Builder().url(dataUrl+"/themes").header("Authorization", "Bearer "+jwtToken).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -35,14 +35,15 @@ public class HTTPWorker {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                Theme[] themes = new Gson().fromJson(response.body().string(), Theme[].class);
+                String body = response.body().string();
+                Theme[] themes = new Gson().fromJson(body, Theme[].class);
                 consumer.accept(new ArrayList<Theme>(Arrays.asList(themes)));
             }
         });
     }
 
     public void getPackets(int themeId, Consumer<ArrayList<CardsPacket>> consumer) {
-        Request request = new Request.Builder().url(dataUrl + "/packets?theme=" + themeId).build();
+        Request request = new Request.Builder().url(dataUrl + "/packets?theme=" + themeId).header("Authorization", "Bearer "+jwtToken).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -58,7 +59,7 @@ public class HTTPWorker {
     }
 
     public void getCards(int packetId, Consumer<ArrayList<Card>> consumer) {
-        Request request = new Request.Builder().url(dataUrl + "/cards?packet=" + packetId).build();
+        Request request = new Request.Builder().url(dataUrl + "/cards?packet=" + packetId).header("Authorization", "Bearer "+jwtToken).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {

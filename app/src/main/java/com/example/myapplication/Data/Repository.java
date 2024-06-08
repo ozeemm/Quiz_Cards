@@ -88,9 +88,7 @@ public class  Repository {
         httpWorker.getUserData((response) -> {
             try {
                 String body = response.body().string();
-                if(!body.isEmpty()){
-                    userData.setFromJson(body);
-                }
+                userData.setFromJson(body);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
