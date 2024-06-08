@@ -2,7 +2,6 @@ package quiz.cards.backend.Controllers;
 
 import quiz.cards.backend.Model.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
 @RestController

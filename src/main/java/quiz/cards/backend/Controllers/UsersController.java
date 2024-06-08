@@ -11,8 +11,6 @@ import quiz.cards.backend.Model.JwtCore;
 import quiz.cards.backend.Requests.LoginRequest;
 import quiz.cards.backend.Model.User;
 
-import java.security.Principal;
-
 @RestController
 @RequestMapping("/api/user")
 public class UsersController extends AbstractDataController {
@@ -51,6 +49,11 @@ public class UsersController extends AbstractDataController {
         return ResponseEntity.ok("User created");
     }
 
+    @PostMapping("/login/check")
+    @SecurityRequirement(name="bearerAuth")
+    public ResponseEntity<?> checkAuth(){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @GetMapping("/data")
     @SecurityRequirement(name="bearerAuth")
     public String getUserData(){
