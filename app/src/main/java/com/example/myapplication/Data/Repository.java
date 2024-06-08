@@ -5,12 +5,13 @@ import com.example.myapplication.Model.Card;
 import com.example.myapplication.Model.CardsPacket;
 import com.example.myapplication.Model.Theme;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
 
 public class  Repository {
 
-    private static HTTPWorker httpWorker = new HTTPWorker();
+    private static HTTPWorker httpWorker = new HTTPWorker( );
     //private static ArrayList<Theme> themes = new ArrayList<>();
     private static ArrayList<CardsPacket> packets = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
@@ -56,6 +57,9 @@ public class  Repository {
         });
     }
 
+    public static void delJwt(){
+        httpWorker.delJwt();
+    }
     public static void signIn(String email, String password, Consumer<Boolean> consumer){
         httpWorker.signIn(email, password, (response -> {
             if(response.code() == 200) {
@@ -67,11 +71,30 @@ public class  Repository {
             }
         }));
     }
-    public static void getUserData(){
-        httpWorker.getUserData((str) -> {
-            if(str != ""){
-                userData.setFromJson(str);
+
+    public static void signIn(Consumer<Boolean> consumer){
+        httpWorker.getUserData(response -> {
+            if(response.code() == 200) {
+                getUserData();
+                consumer.accept(true);
             }
+            else if(response.code()==401){
+                consumer.accept(false);
+            }
+        });
+    }
+
+    public static void getUserData(){
+        httpWorker.getUserData((response) -> {
+            try {
+                String body = response.body().string();
+                if(!body.isEmpty()){
+                    userData.setFromJson(body);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         });
     }
     public static void restartCards(int packetId){
@@ -82,6 +105,8 @@ public class  Repository {
         userData.addCards(packetId,cards);
         httpWorker.updateUserData(userData.getKnownCards());
     }
+
+
 
     public static HashMap<Integer, ArrayList<Integer>> getKnownCards(){
         return userData.getKnownCards();

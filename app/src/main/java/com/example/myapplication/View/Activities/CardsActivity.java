@@ -1,10 +1,12 @@
 package com.example.myapplication.View.Activities;
 
+import android.annotation.SuppressLint;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.myapplication.Data.Repository;
@@ -79,6 +81,7 @@ public class CardsActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ResourceAsColor")
     private void viewingFinished(){
         textView.setText("Карточки закончены");
         textView.setEnabled(false);

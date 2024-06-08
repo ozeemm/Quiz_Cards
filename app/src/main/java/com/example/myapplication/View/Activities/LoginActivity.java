@@ -2,32 +2,31 @@ package com.example.myapplication.View.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Data.Repository;
 import com.example.myapplication.R;
-import com.google.rpc.context.AttributeContext;
-import okhttp3.Response;
-
-import java.io.IOException;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button buttonSignIn;
-    Button buttonSignUp;
+    private Button buttonSignIn;
+    private Button buttonSignUp;
+    private EditText email;
+    private EditText password;
 
-    EditText email;
-    EditText password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Repository.signIn((isSignedIn)-> {
+            sign(isSignedIn, false);
+        });
 
         buttonSignIn = findViewById(R.id.buttonSignIn);
         buttonSignUp = findViewById(R.id.buttonSignUp);
@@ -42,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             else{
                 Repository.signIn(email.getText().toString(), password.getText().toString(), (isSignedIn)-> {
-                    sign(isSignedIn);
+                    sign(isSignedIn, true);
                 });
             }
         });
@@ -62,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else {
                         Repository.signIn(email.getText().toString(), password.getText().toString(), (isSignedIn -> {
-                            sign(isSignedIn);
+                            sign(isSignedIn, true);
                         }));
                     }
                 });
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void sign(boolean isSignedIn){
+    private void sign(boolean isSignedIn, boolean enableMessage){
         if(isSignedIn) {
             Intent intent = new Intent(this, ThemesActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -81,12 +80,16 @@ public class LoginActivity extends AppCompatActivity {
             this.finish();
         }
         else {
-            runOnUiThread(()->{
-                Toast toast = Toast.makeText(this, "Неверный логин или пароль", Toast.LENGTH_LONG);
-                toast.show();
-            });
+            if(enableMessage){
+                runOnUiThread(()->{
+                    Toast toast = Toast.makeText(this, "Неверный логин или пароль", Toast.LENGTH_LONG);
+                    toast.show();
+                });
+            }
         }
     }
+
+
 
 }
 

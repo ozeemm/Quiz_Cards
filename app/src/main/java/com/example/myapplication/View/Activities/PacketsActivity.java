@@ -11,11 +11,11 @@ import com.example.myapplication.R;
 
 public class PacketsActivity extends AppCompatActivity {
 
-    int themeId;
-    PacketsListViewAdapter packetsListViewAdapter;
-    ListView listView;
+    private int themeId;
+    private PacketsListViewAdapter packetsListViewAdapter;
+    private ListView listView;
+    private ImageView imageView;
 
-    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

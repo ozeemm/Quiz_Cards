@@ -59,7 +59,7 @@
                 android:layout_alignParentRight="true"
                 android:progress="20"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:progressTint="#673AB7" android:scrollbarSize="4dp"
+                android:progressTint="@color/theme" android:scrollbarSize="4dp"
                 android:backgroundTintMode="add"
                 android:nestedScrollingEnabled="false" android:minHeight="16dp" android:maxHeight="16dp"
                 android:progressBackgroundTintMode="src_in" android:outlineProvider="none"

@@ -29,7 +29,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="10dp" android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="11dp"
-                app:layout_constraintStart_toEndOf="@+id/txtViewName" app:layout_constraintHorizontal_bias="0.0"/>
+                app:layout_constraintStart_toEndOf="@+id/txtViewName" app:layout_constraintHorizontal_bias="0.0"
+                android:backgroundTint="@color/theme"/>
         <TextView
                 android:text="Пакетов: "
                 android:layout_width="wrap_content"

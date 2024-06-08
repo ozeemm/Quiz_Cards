@@ -17,14 +17,14 @@ import java.util.function.Consumer;
 
 public class HTTPWorker {
 
-    OkHttpClient client = new OkHttpClient();
-    String url = "http://192.168.1.8:8080/api";
-    String dataUrl = url + "/data";
-    String userUrl = url + "/user";
-
-    private String jwtToken;
+    private OkHttpClient client = new OkHttpClient();
+    private String url = "http://192.168.1.8:8080/api";
+    private String dataUrl = url + "/data";
+    private String userUrl = url + "/user";
+    public PreferenceWorker preferenceWorker =  new PreferenceWorker();
+    private String jwtToken = preferenceWorker.getJwt();
     private MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+    
     public void getThemes(Consumer<ArrayList<Theme>> consumer){
         Request request = new Request.Builder().url(dataUrl+"/themes").build();
         client.newCall(request).enqueue(new Callback() {
@@ -115,6 +115,7 @@ public class HTTPWorker {
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                     if(response.code() == 200) {
                         jwtToken = response.body().string();
+                        preferenceWorker.setJwt(jwtToken);
                     }
                     consumer.accept(response);
                 }
@@ -122,7 +123,7 @@ public class HTTPWorker {
         } catch (JSONException e) {}
     }
 
-    public void getUserData(Consumer<String> consumer){
+    public void getUserData(Consumer<Response> consumer){
         Request request = new Request.Builder()
                 .url(userUrl+"/data")
                 .header("Authorization", "Bearer "+jwtToken)
@@ -133,8 +134,7 @@ public class HTTPWorker {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                String userdata = response.body().string();
-                consumer.accept(userdata);
+                consumer.accept(response);
             }
         });
     }
@@ -159,5 +159,10 @@ public class HTTPWorker {
                 // Если авторизация слетит, ошибка будет тут
             }
         });
+    }
+
+    public void delJwt(){
+        preferenceWorker.delJwt();
+        jwtToken ="";
     }
 }

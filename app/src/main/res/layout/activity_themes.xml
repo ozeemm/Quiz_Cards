@@ -24,8 +24,17 @@
                 android:layout_width="395dp"
                 android:layout_height="55dp" android:id="@+id/textView3"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:background="#673AB7" android:textColor="#FFFFFF" android:textSize="20sp"
-                android:fontFamily="sans-serif" android:gravity="center_vertical" android:paddingStart="60dp"/>
+                android:textColor="#FFFFFF" android:textSize="20sp"
+                android:fontFamily="sans-serif" android:gravity="center_vertical" android:paddingStart="60dp"
+                android:background="@color/theme"
+
+        />
+        <ImageView
+                android:layout_width="37dp"
+                android:layout_height="49dp" app:srcCompat="@drawable/logout_24dp"
+                android:id="@+id/imageViewExit"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="4dp" android:layout_marginStart="5dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
