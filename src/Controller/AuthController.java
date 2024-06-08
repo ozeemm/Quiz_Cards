@@ -12,15 +12,22 @@ public class AuthController {
         repository = new Repository();
         authFrame = new AuthFrame();
 
+        if(repository.checkToken()){
+            openMainFrame();
+        }
+
         authFrame.getLoginButton().addActionListener(e->{
             String email = authFrame.getEmail();
             String password = authFrame.getPassword();
 
             if(repository.authenticate(email, password)){
-                authFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                new Controller(repository);
-                authFrame.dispose();
+                openMainFrame();
             }
         });
+    }
+    private void openMainFrame(){
+        authFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        new Controller(repository);
+        authFrame.dispose();
     }
 }

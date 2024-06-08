@@ -30,4 +30,25 @@ public class ServerAuthWorker extends ServerWorker {
         } catch(Exception e){ e.printStackTrace(); }
         return false;
     }
+
+    public boolean checkToken(String token){
+        if(token == null)
+            return false;
+
+        try{
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(authUrl+"/login/check"))
+                    .method("POST", HttpRequest.BodyPublishers.ofString(""))
+                    .header("Authorization", getAuthHeader(token))
+                    .build();
+            HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if(httpResponse.statusCode() == 200){
+                jwtToken = token;
+                return true;
+            }
+            else return false;
+
+        } catch(Exception e){ e.printStackTrace(); }
+        return false;
+    }
 }

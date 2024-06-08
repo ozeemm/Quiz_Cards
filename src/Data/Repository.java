@@ -8,6 +8,7 @@ public class Repository {
     private ServerDataWorker serverDataWorker;
     private ServerDataManagementWorker serverDataManagementWorker;
     private ServerAuthWorker serverAuthWorker;
+    private PropertiesWorker propertiesWorker;
 
     private ArrayList<Theme> themes;
     private ArrayList<CardsPacket> packets;
@@ -16,13 +17,22 @@ public class Repository {
     private Theme currentTheme;
     private CardsPacket currentPacket;
 
-    public Repository(){
+    public Repository() {
         serverDataWorker = new ServerDataWorker();
         serverDataManagementWorker = new ServerDataManagementWorker();
         serverAuthWorker = new ServerAuthWorker();
+        propertiesWorker = new PropertiesWorker();
+
     }
     public boolean authenticate(String email, String password){
-        return serverAuthWorker.authenticate(email, password);
+        boolean isAuth = serverAuthWorker.authenticate(email, password);
+        if(isAuth)
+            propertiesWorker.setJwtToken(ServerAuthWorker.getJwtToken());
+        return isAuth;
+    }
+    public boolean checkToken(){
+        String token = propertiesWorker.getJwtToken();
+        return serverAuthWorker.checkToken(token);
     }
 
     public ArrayList<Theme> getThemes(){

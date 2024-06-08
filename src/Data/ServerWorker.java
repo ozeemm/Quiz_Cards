@@ -10,4 +10,6 @@ public abstract class ServerWorker {
     protected String getAuthHeader(){
         return "Bearer " + jwtToken;
     }
+    protected String getAuthHeader(String token){ return "Bearer " + token; }
+    public static String getJwtToken(){ return jwtToken; }
 }
