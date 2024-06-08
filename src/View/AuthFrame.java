@@ -14,7 +14,7 @@ public class AuthFrame extends JFrame {
     private JButton loginButton;
 
     public AuthFrame(){
-        super();
+        super("Авторизация");
         setSize(250, 300);
         setResizable(false);
         setLocationRelativeTo(null);

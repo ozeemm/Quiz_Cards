@@ -1,13 +1,17 @@
 package View;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Style {
-    public static Color getPanelBackgroundColor(){ return Color.lightGray; }
-    public static Color getTextColor(){ return Color.black; }
-    public static Color getButtonBackgroundColor(){ return Color.gray; }
+    public static Image getAppIcon(){ return new ImageIcon("./img/icon.png").getImage(); }
+
+    public static Color getPanelBackgroundColor(){ return new Color(210, 210, 210); }
+    public static Color getElementBackgroundColor(){ return new Color(200, 200, 200); }
+    public static Color getTextColor(){ return new Color(103, 58, 183); }
+    public static Color getButtonBackgroundColor(){ return new Color(103, 58, 183); }
     public static Color getButtonTextColor(){ return Color.white; }
-    public static Color getBorderColor(){ return Color.white; }
+    public static Color getBorderColor(){ return Color.black; }
     public static Color getInputBackgroundColor(){ return Color.white; }
 
     public static Font getHeaderFont(){ return new Font("Arial", Font.BOLD, 24); }

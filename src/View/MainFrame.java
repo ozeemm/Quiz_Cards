@@ -22,8 +22,6 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null); // Чтобы окно открылось в центре экрана
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Завершение программы при закрытии окна
         setVisible(true); // Включаем окно
-        //ImageIcon icon = new ImageIcon("./img/icon2.png");
-        //this.setIconImage(icon.getImage()); // Иконка окна
 
         headerPanel = new HeaderPanel();
         themesPanel = new GroupPanel();

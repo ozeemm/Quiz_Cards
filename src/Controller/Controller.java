@@ -18,13 +18,11 @@ public class Controller {
     private EditFrame editPacketFrame;
     private EditFrame editCardFrame;
 
-    public Controller(Repository repo){
-        repository = repo;
+    public Controller(Repository repository){
+        this.repository = repository;
         start();
     }
     public void start(){
-        //repository = new Repository();
-
         mainFrame = new MainFrame();
 
         // Окно изменения темы

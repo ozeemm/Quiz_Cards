@@ -14,7 +14,7 @@ public class GroupElement extends JPanel {
     public GroupElement(){
         super(new MigLayout("insets 10"));
         this.setBorder(BorderFactory.createLineBorder(Style.getBorderColor(), 2));
-        this.setBackground(Style.getPanelBackgroundColor());
+        this.setBackground(Style.getElementBackgroundColor());
 
         elementButton = new JButton();
         elementButton.setBackground(Style.getButtonBackgroundColor());
