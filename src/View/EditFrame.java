@@ -2,6 +2,9 @@ package View;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class EditFrame extends JFrame {
     private final JPanel mainPanel;
@@ -75,6 +78,15 @@ public class EditFrame extends JFrame {
         mainPanel.add(backButton);
         mainPanel.add(saveButton, "gapleft push");
         this.add(mainPanel);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for(ActionListener listener : backButton.getActionListeners()){
+                    listener.actionPerformed(null);
+                }
+            }
+        });
 
         update();
     }

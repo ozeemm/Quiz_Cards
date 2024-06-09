@@ -36,6 +36,9 @@ public class Controller {
                                         repository::getThemeNames,
                                         this::updateThemeButtons);
         });
+        editThemeFrame.getBackButton().addActionListener(e -> {
+            mainFrame.setEnabled(true);
+        });
 
         // Окно изменения пакета
         editPacketFrame = new EditFrame();
@@ -49,6 +52,9 @@ public class Controller {
                     repository::getPacketNames,
                     this::updatePacketButtons);
         });
+        editPacketFrame.getBackButton().addActionListener(e -> {
+            mainFrame.setEnabled(true);
+        });
 
         // Окно изменения карточки
         editCardFrame = new EditFrame();
@@ -61,6 +67,9 @@ public class Controller {
                     mainFrame.getCardsPanel(),
                     repository::getCardNames,
                     this::updateCardButtons);
+        });
+        editCardFrame.getBackButton().addActionListener(e -> {
+            mainFrame.setEnabled(true);
         });
 
         // Стартовое окно
@@ -90,6 +99,7 @@ public class Controller {
 
         // Кнопка "Создать"
         mainFrame.getHeaderPanel().getAddButton().addActionListener(e ->{
+            mainFrame.setEnabled(false);
             EditFrame editFrame = new EditFrame();
             if(mainFrame.getCurrentPanel() == mainFrame.getThemesPanel()){
                 editFrame = editThemeFrame;
@@ -176,6 +186,7 @@ public class Controller {
                                    Function<Integer, String> param2GetDefault){
         for(JButton button : groupPanel.getEditButtons()){
             button.addActionListener(e -> {
+                mainFrame.setEnabled(false);
                 JButton b = (JButton) e.getSource();
                 int index = groupPanel.getEditButtons().indexOf(b);
 
