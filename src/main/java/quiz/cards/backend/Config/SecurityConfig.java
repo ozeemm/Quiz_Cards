@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/user/login/check").fullyAuthenticated()
                         .requestMatchers("/api/user/login", "/api/user/register").permitAll()
                         .requestMatchers("/api/user/**").fullyAuthenticated()
-                        .requestMatchers("/api/data/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/data/**").fullyAuthenticated()
                         .requestMatchers("/api/data-management/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
