@@ -1,11 +1,8 @@
 package View;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Style {
-    public static Image getAppIcon(){ return new ImageIcon("./img/icon.png").getImage(); }
-
     public static Color getPanelBackgroundColor(){ return new Color(210, 210, 210); }
     public static Color getElementBackgroundColor(){ return new Color(200, 200, 200); }
     public static Color getTextColor(){ return new Color(103, 58, 183); }

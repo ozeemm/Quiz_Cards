@@ -1,17 +1,16 @@
 package View;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
 
 public class AuthFrame extends JFrame {
-    private JPanel mainPanel;
-    private JLabel header;
-    private JLabel emailLabel;
-    private JLabel passwordLabel;
-    private JTextField emailInput;
-    private JPasswordField passwordInput;
-    private JButton loginButton;
+    private final JPanel mainPanel;
+    private final JLabel header;
+    private final JLabel emailLabel;
+    private final JLabel passwordLabel;
+    private final JTextField emailInput;
+    private final JPasswordField passwordInput;
+    private final JButton loginButton;
 
     public AuthFrame(){
         super("Авторизация");

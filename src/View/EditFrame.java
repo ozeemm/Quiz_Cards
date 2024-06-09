@@ -1,19 +1,18 @@
 package View;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
 
 public class EditFrame extends JFrame {
-    private JPanel mainPanel;
-    private JLabel header;
-    private JLabel paramLabel1;
-    private JLabel paramLabel2;
-    private JTextField paramInput1;
-    private JTextArea paramInput2;
-    private JScrollPane scrollPane; // Скрол для второго параметра
-    private JButton saveButton;
-    private JButton backButton;
+    private final JPanel mainPanel;
+    private final JLabel header;
+    private final JLabel paramLabel1;
+    private final JLabel paramLabel2;
+    private final JTextField paramInput1;
+    private final JTextArea paramInput2;
+    private final JScrollPane scrollPane; // Скрол для второго параметра
+    private final JButton saveButton;
+    private final JButton backButton;
     private int editingElementId = -1;
     private Runnable createTitlesFunction;
     private Runnable editTitlesFunction;

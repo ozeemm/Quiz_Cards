@@ -1,14 +1,13 @@
 package Data;
 
 import Model.*;
-
 import java.util.ArrayList;
 
 public class Repository {
-    private ServerDataWorker serverDataWorker;
-    private ServerDataManagementWorker serverDataManagementWorker;
-    private ServerAuthWorker serverAuthWorker;
-    private PropertiesWorker propertiesWorker;
+    private final ServerDataWorker serverDataWorker;
+    private final ServerDataManagementWorker serverDataManagementWorker;
+    private final ServerAuthWorker serverAuthWorker;
+    private final PropertiesWorker propertiesWorker;
 
     private ArrayList<Theme> themes;
     private ArrayList<CardsPacket> packets;

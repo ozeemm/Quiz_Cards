@@ -4,17 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private HeaderPanel headerPanel;
-    private GroupPanel themesPanel;
-    private GroupPanel packetsPanel;
-    private GroupPanel cardsPanel;
+    private final HeaderPanel headerPanel;
+    private final GroupPanel themesPanel;
+    private final GroupPanel packetsPanel;
+    private final GroupPanel cardsPanel;
     private GroupPanel currentPanel = null;
 
-    public HeaderPanel getHeaderPanel(){ return headerPanel; }
-    public GroupPanel getThemesPanel(){ return themesPanel; }
-    public GroupPanel getPacketsPanel(){ return packetsPanel; }
-    public GroupPanel getCardsPanel(){ return cardsPanel; }
-    public GroupPanel getCurrentPanel(){ return currentPanel; }
     public MainFrame(){
         super("Quiz Cards Admin"); // Окно с названием
         setSize(750, 600); // Размер окна
@@ -30,6 +25,12 @@ public class MainFrame extends JFrame {
 
         this.add(headerPanel, BorderLayout.NORTH);
     }
+    public HeaderPanel getHeaderPanel(){ return headerPanel; }
+    public GroupPanel getThemesPanel(){ return themesPanel; }
+    public GroupPanel getPacketsPanel(){ return packetsPanel; }
+    public GroupPanel getCardsPanel(){ return cardsPanel; }
+    public GroupPanel getCurrentPanel(){ return currentPanel; }
+
 
     public void OpenPanel(GroupPanel panel){
         if(currentPanel != null)

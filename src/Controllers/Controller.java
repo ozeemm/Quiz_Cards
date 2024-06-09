@@ -1,9 +1,8 @@
-package Controller;
+package Controllers;
 
 import Data.Repository;
 import Interfaces.*;
 import View.*;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.function.BiConsumer;

@@ -1,8 +1,7 @@
-package Controller;
+package Controllers;
 
 import Data.Repository;
 import View.AuthFrame;
-
 import javax.swing.*;
 
 public class AuthController {

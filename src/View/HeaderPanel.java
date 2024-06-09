@@ -5,9 +5,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 
 public class HeaderPanel extends JPanel {
-    private JLabel header;
-    private JButton backButton;
-    private JButton addButton;
+    private final JLabel header;
+    private final JButton backButton;
+    private final JButton addButton;
 
     public HeaderPanel() {
         super(new MigLayout("", "[]push[]push[]"));

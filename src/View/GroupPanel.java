@@ -1,15 +1,14 @@
 package View;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class GroupPanel extends JPanel {
     private final ArrayList<GroupElement> elements = new ArrayList<>();
-    private JPanel elementsPanel;
-    private JScrollPane scroll;
+    private final JPanel elementsPanel;
+    private final JScrollPane scroll;
 
     public GroupPanel(){
         super(new GridLayout()); // т.к. растягивается

@@ -1,7 +1,6 @@
 package Data;
 
 import com.google.gson.JsonObject;
-
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;

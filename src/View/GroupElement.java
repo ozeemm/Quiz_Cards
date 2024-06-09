@@ -1,14 +1,13 @@
 package View;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
 
 public class GroupElement extends JPanel {
-    private JButton elementButton;
-    private JButton editButton;
-    private JButton deleteButton;
-    private JLabel elementsCountLabel;
+    private final JButton elementButton;
+    private final JButton editButton;
+    private final JButton deleteButton;
+    private final JLabel elementsCountLabel;
     private int elementId;
 
     public GroupElement(){
