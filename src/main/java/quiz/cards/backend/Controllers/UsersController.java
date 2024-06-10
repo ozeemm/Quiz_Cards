@@ -1,7 +1,5 @@
 package quiz.cards.backend.Controllers;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +13,8 @@ import quiz.cards.backend.Model.User;
 @RestController
 @RequestMapping("/api/user")
 public class UsersController extends AbstractDataController {
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private JwtCore jwtCore = new JwtCore();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final JwtCore jwtCore = new JwtCore();
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
