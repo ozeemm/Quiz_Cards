@@ -1,6 +1,7 @@
 package quiz.cards.backend.Controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,12 +51,10 @@ public class UsersController extends AbstractDataController {
     }
 
     @PostMapping("/login/check")
-    @SecurityRequirement(name="bearerAuth")
     public ResponseEntity<?> checkAuth(){
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping("/data")
-    @SecurityRequirement(name="bearerAuth")
     public String getUserData(){
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("Got UserData for " + user.getEmail());
@@ -63,7 +62,6 @@ public class UsersController extends AbstractDataController {
     }
 
     @PostMapping("/data")
-    @SecurityRequirement(name="bearerAuth")
     public void updateUserData(@RequestBody String userData){
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setUserdata(userData);
