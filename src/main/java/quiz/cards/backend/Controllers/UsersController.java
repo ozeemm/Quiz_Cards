@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import quiz.cards.backend.Model.JwtCore;
+import quiz.cards.backend.Config.JwtCore;
 import quiz.cards.backend.Requests.LoginRequest;
 import quiz.cards.backend.Model.User;
 

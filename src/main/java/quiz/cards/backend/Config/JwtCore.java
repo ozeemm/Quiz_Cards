@@ -1,8 +1,9 @@
-package quiz.cards.backend.Model;
+package quiz.cards.backend.Config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
+import quiz.cards.backend.Model.User;
 
 import java.util.Date;
 
