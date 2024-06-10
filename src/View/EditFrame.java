@@ -34,7 +34,7 @@ public class EditFrame extends JFrame {
         header = new JLabel("Изменение");
         header.setFont(Style.getSmallHeaderFont());
         header.setForeground(Style.getTextColor());
-        header.setHorizontalAlignment(JLabel.CENTER);;
+        header.setHorizontalAlignment(JLabel.CENTER);
 
         paramLabel1 = new JLabel();
         paramLabel1.setFont(Style.getInputLabelFont());
@@ -62,7 +62,6 @@ public class EditFrame extends JFrame {
         saveButton.setFont(Style.getSmallButtonFont());
         saveButton.setBackground(Style.getButtonBackgroundColor());
         saveButton.setForeground(Style.getButtonTextColor());
-        saveButton.addActionListener(e -> { this.setVisible(false); });
 
         backButton = new JButton("Назад");
         backButton.setFont(Style.getSmallButtonFont());
@@ -85,6 +84,12 @@ public class EditFrame extends JFrame {
                 for(ActionListener listener : backButton.getActionListeners()){
                     listener.actionPerformed(null);
                 }
+            }
+        });
+
+        saveButton.addActionListener(e -> {
+            for(ActionListener listener : backButton.getActionListeners()){
+                listener.actionPerformed(null);
             }
         });
 
